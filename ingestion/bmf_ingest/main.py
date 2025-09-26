@@ -25,14 +25,15 @@ def main():
 
     settings = Settings.load()
     pipe = Pipeline(settings)
-    channel = args.channel or settings.youtube_channel_id
-    if args.cmd in {"backfill", "refresh"} and not channel:
-        raise SystemExit("Channel ID must be supplied via --channel or YOUTUBE_CHANNEL_ID")
 
-    if args.cmd == "backfill":
-        pipe.backfill(channel)
-    elif args.cmd == "refresh":
-        pipe.refresh(channel, since_days=args.since_days)
+    if args.cmd in {"backfill", "refresh"}:
+        channel = getattr(args, "channel", None) or settings.youtube_channel_id
+        if not channel:
+            raise SystemExit("Channel ID must be supplied via --channel or YOUTUBE_CHANNEL_ID")
+        if args.cmd == "backfill":
+            pipe.backfill(channel)
+        else:
+            pipe.refresh(channel, since_days=args.since_days)
     elif args.cmd == "publish":
         pipe.publish(args.out)
     else:
@@ -41,4 +42,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
