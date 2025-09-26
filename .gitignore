@@ -8,6 +8,10 @@ __pycache__/
 .env
 .venv/
 venv/
+env/
+Lib/
+Scripts/
+pyvenv.cfg
 
 # Editors/OS
 .idea/
@@ -27,4 +31,3 @@ public/data/
 
 # Logs
 *.log
-
