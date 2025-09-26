@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BMF Challenges – Preview</title>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" />
+    <link rel="stylesheet" href="../frontend/styles/tokens.css" />
+    <style>
+      body { margin: 0; background: var(--bmf-color-bg); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
+      .wrap { max-width: 1200px; margin: 0 auto; padding: var(--bmf-space-6); }
+      .panel { display: grid; gap: var(--bmf-space-4); grid-template-columns: 1fr; }
+      .card { background: var(--bmf-color-bg-alt); color: var(--bmf-color-text-alt); border-radius: var(--bmf-radius-lg); box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-4); }
+      #map { width: 100%; height: 520px; border-radius: var(--bmf-radius-lg); box-shadow: var(--bmf-shadow-3); }
+      .btn { background: var(--bmf-color-brand); color: var(--bmf-color-bg); border: 0; border-radius: var(--bmf-radius-md); padding: var(--bmf-space-2) var(--bmf-space-4); }
+      .muted { opacity: .8 }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: var(--bmf-space-2); border-bottom: 1px solid var(--bmf-color-border); }
+      .badge { display: inline-block; padding: 0 .5rem; border-radius: 999px; font-size: .75rem; }
+      .success { background: var(--bmf-color-success-bg); color: var(--bmf-color-success); }
+      .failure { background: var(--bmf-color-danger-bg); color: var(--bmf-color-danger); }
+      .toolbar { display: flex; gap: var(--bmf-space-3); align-items: center; }
+      input[type=text] { padding: .5rem .75rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border); background: var(--bmf-color-bg-alt); color: var(--bmf-color-text-alt); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1 style="font-family: var(--bmf-font-display); margin-top: 0">BMF Challenges – Preview</h1>
+      <div class="card toolbar">
+        <label>MapTiler Key <input id="key" type="text" placeholder="YOUR_MAPTILER_KEY" /></label>
+        <button id="load" class="btn">Load Map</button>
+        <span class="muted">Uses MapLibre + MapTiler; demo data only.</span>
+      </div>
+      <div class="panel">
+        <div id="map" class="card"></div>
+        <div class="card">
+          <h3 style="margin-top:0">Data Table (demo)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th><th>Restaurant</th><th>Country</th><th>Type</th><th>Collaborators</th><th>Result</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+    <script>
+      const demo = [
+        { id: 1, video_id: 'demo1', lat: 53.4808, lng: -2.2426, title: 'Massive Breakfast', restaurant: 'The Mancunian Diner', date_attempted: '2024-05-12', result: 'success', image_url: '', address: '123 High St, Manchester', opening_hours: '8am–9pm', country_code: 'GB', type: 'quantity', collaborators: ['@Randy'] },
+        { id: 2, video_id: 'demo2', lat: 34.0522, lng: -118.2437, title: 'Inferno Wings', restaurant: 'LA Hot Chicken', date_attempted: '2023-11-03', result: 'failure', image_url: '', address: '456 Sunset Blvd, Los Angeles', opening_hours: '11am–11pm', country_code: 'US', type: 'spicy', collaborators: [] },
+      ];
+
+      function renderTable(rows) {
+        const tbody = document.getElementById('rows');
+        tbody.innerHTML = rows.map(r => `
+          <tr>
+            <td>${r.date_attempted || ''}</td>
+            <td>${r.restaurant || ''}</td>
+            <td>${r.country_code || ''}</td>
+            <td>${r.type || ''}</td>
+            <td>${(r.collaborators||[]).join(', ')}</td>
+            <td>${r.result === 'success' ? '<span class="badge success">Success</span>' : r.result === 'failure' ? '<span class="badge failure">Failure</span>' : '—'}</td>
+          </tr>`).join('');
+      }
+
+      function initMap(key, points) {
+        const styleUrl = `https://api.maptiler.com/maps/streets/style.json?key=${encodeURIComponent(key)}`;
+        const map = new maplibregl.Map({ container: 'map', style: styleUrl, center: [0, 25], zoom: 1.8 });
+        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+        map.on('load', () => {
+          const features = points.map(p => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: p }));
+          map.addSource('challenges', { type: 'geojson', data: { type: 'FeatureCollection', features } });
+          map.addLayer({ id: 'points', type: 'circle', source: 'challenges', paint: {
+            'circle-radius': 6,
+            'circle-color': ['match', ['get', 'result'], 'success', '#00d084', 'failure', '#ff4d4f', '#aaaaaa'],
+            'circle-stroke-width': 1, 'circle-stroke-color': '#00000088'
+          }});
+          map.on('click', 'points', (e) => {
+            const f = e.features && e.features[0];
+            if (!f) return;
+            const p = f.properties;
+            const html = `
+              <div style="min-width:220px">
+                <div style="font-weight:600">${p.restaurant}</div>
+                <div class="muted">${p.address || ''}</div>
+                <div>${p.type || ''} • ${p.date_attempted || ''}</div>
+                <div>${p.result}</div>
+              </div>`;
+            new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(html).addTo(map);
+          });
+        });
+      }
+
+      async function tryLoadPublished() {
+        try {
+          const geoResp = await fetch('../public/data/challenges.geojson');
+          const tableResp = await fetch('../public/data/table.json');
+          const geo = geoResp.ok ? await geoResp.json() : null;
+          const table = tableResp.ok ? await tableResp.json() : null;
+          let points = [];
+          if (geo && Array.isArray(geo.features)) {
+            points = geo.features.map(f => ({ ...(f.properties || {}), lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0] }));
+          }
+          const rows = table ? (Array.isArray(table) ? table : (table.rows || [])) : [];
+          return { points, rows };
+        } catch (e) {
+          console.warn('Failed to load published data:', e);
+          return { points: [], rows: [] };
+        }
+      }
+
+      document.getElementById('load').addEventListener('click', async () => {
+        const key = document.getElementById('key').value.trim();
+        if (!key) { alert('Enter your MapTiler key'); return; }
+        const { points, rows } = await tryLoadPublished();
+        const pts = points.length ? points : demo;
+        initMap(key, pts);
+        renderTable(rows.length ? rows : demo);
+      });
+    </script>
+  </body>
+  </html>

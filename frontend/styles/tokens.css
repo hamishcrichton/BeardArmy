@@ -1,0 +1,67 @@
+:root {
+  /* Color aliases */
+  --bmf-color-bg: var(--background-color--background-primary, #1a1a1a);
+  --bmf-color-bg-alt: var(--background-color--background-alternate, #f8f8f8);
+  --bmf-color-surface: var(--background-color--background-tertiary, #aaa);
+  --bmf-color-text: var(--text-color--text-primary, #f8f8f8);
+  --bmf-color-text-alt: var(--text-color--text-alternate, #1a1a1a);
+  --bmf-color-link: var(--link-color--link-primary, #f8f8f8);
+  --bmf-color-border: var(--border-color--border-primary, #f8f8f8);
+
+  --bmf-color-brand: var(--base-color-brand--neon, #e0ff00);
+  --bmf-color-success: var(--base-color-system--success-green, #027a48);
+  --bmf-color-success-bg: var(--base-color-system--success-green-light, #ecfdf3);
+  --bmf-color-danger: var(--base-color-system--error-red, #b42318);
+  --bmf-color-danger-bg: var(--base-color-system--error-red-light, #fef3f2);
+
+  /* Typography */
+  --bmf-font-sans: Roboto, Arial, sans-serif;
+  --bmf-font-display: "Thunder", Impact, sans-serif;
+  --bmf-font-size-100: .875rem;
+  --bmf-font-size-200: 1rem;
+  --bmf-font-size-300: 1.25rem;
+  --bmf-font-size-400: 1.5rem;
+  --bmf-font-size-500: 1.88rem;
+  --bmf-font-size-700: 3.5rem;
+  --bmf-font-size-900: 5rem;
+
+  /* Spacing */
+  --bmf-space-1: .25rem; /* 4px */
+  --bmf-space-2: .5rem;  /* 8px */
+  --bmf-space-3: .75rem; /* 12px */
+  --bmf-space-4: 1rem;   /* 16px */
+  --bmf-space-6: 1.5rem; /* 24px */
+  --bmf-space-8: 2rem;   /* 32px */
+  --bmf-space-10: 2.5rem;/* 40px */
+  --bmf-space-12: 3rem;  /* 48px */
+
+  /* Radius */
+  --bmf-radius-sm: .25rem;
+  --bmf-radius-md: .5rem;
+  --bmf-radius-lg: .75rem;
+  --bmf-radius-pill: 100vw;
+  --bmf-radius-round: 50%;
+
+  /* Shadows */
+  --bmf-shadow-1: 0 1px 2px rgba(0,0,0,0.05);
+  --bmf-shadow-2: 0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
+  --bmf-shadow-3: 0 12px 16px -4px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+  --bmf-shadow-4: 0 24px 48px -12px rgba(0,0,0,0.18);
+}
+
+/* Example usage classes (handy for prototyping) */
+.bmf-card {
+  background: var(--bmf-color-bg-alt);
+  color: var(--bmf-color-text-alt);
+  border-radius: var(--bmf-radius-lg);
+  box-shadow: var(--bmf-shadow-2);
+  padding: var(--bmf-space-4);
+}
+
+.bmf-btn-primary {
+  background: var(--bmf-color-brand);
+  color: var(--bmf-color-bg);
+  border-radius: var(--bmf-radius-md);
+  padding: var(--bmf-space-2) var(--bmf-space-4);
+}
+

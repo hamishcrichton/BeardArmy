@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Environments
+.env
+.venv/
+venv/
+
+# Editors/OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+
+# Data (keep published JSON, ignore local DB and caches)
+data/
+!data/.keep
+public/data/
+!public/data/.keep
+
+# Logs
+*.log
+
