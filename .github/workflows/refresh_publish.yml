@@ -16,6 +16,10 @@ on:
         required: false
         default: '7'
         type: string
+      channel_id:
+        description: "Channel ID to ingest (overrides YOUTUBE_CHANNEL_ID)"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -34,6 +38,7 @@ jobs:
       YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
       GEOCODER_PROVIDER: ${{ vars.GEOCODER_PROVIDER }}
       GEOCODER_API_KEY: ${{ secrets.GEOCODER_API_KEY }}
+      PYTHONPATH: ingestion
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,15 +67,17 @@ jobs:
 
       - name: Ingest content (refresh or backfill)
         run: |
-          MODE="${{ github.event.inputs.mode }}"
-          MODE=${MODE:-refresh}
+          MODE="${{ github.event.inputs.mode }}"; MODE=${MODE:-refresh}
+          INPUT_CHANNEL="${{ github.event.inputs.channel_id }}"
+          CHANNEL="${INPUT_CHANNEL:-$YOUTUBE_CHANNEL_ID}"
+          if [ -z "$CHANNEL" ]; then echo "Missing channel_id (no input and YOUTUBE_CHANNEL_ID empty)" && exit 1; fi
           if [ "$MODE" = "backfill" ]; then
             echo "Running full backfill..."
-            python -m bmf_ingest.main backfill --channel "${YOUTUBE_CHANNEL_ID}"
+            python -m bmf_ingest.main backfill --channel "$CHANNEL"
           else
             SD="${{ github.event.inputs.since_days }}"; SD=${SD:-7}
             echo "Running refresh since ${SD} days..."
-            python -m bmf_ingest.main refresh --since-days ${SD} --channel "${YOUTUBE_CHANNEL_ID}"
+            python -m bmf_ingest.main refresh --since-days ${SD} --channel "$CHANNEL"
           fi
 
       - name: Publish artifacts
