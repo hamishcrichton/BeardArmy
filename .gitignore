@@ -23,15 +23,11 @@ Thumbs.db
 dist/
 build/
 
-# Data (ignore local DB/caches; keep published assets)
+# Data (ignore local DB/caches)
 data/
 !data/.keep
-public/data/*
-!public/data/*.json
-!public/data/*.geojson
-!public/data/*.csv
-!public/data/*.ndjson
-!public/data/.keep
+
+# Do NOT ignore published assets; commit everything under public/data
 
 # Logs
 *.log
