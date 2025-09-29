@@ -1,39 +1,4 @@
 {
   "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-2.2426, 53.4808] },
-      "properties": {
-        "id": 1,
-        "video_id": "demo1",
-        "title": "Massive Breakfast",
-        "restaurant": "The Mancunian Diner",
-        "address": "123 High St, Manchester",
-        "city": "Manchester",
-        "country_code": "GB",
-        "date_attempted": "2024-05-12",
-        "result": "success",
-        "type": "quantity",
-        "thumbnail_url": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [-118.2437, 34.0522] },
-      "properties": {
-        "id": 2,
-        "video_id": "demo2",
-        "title": "Inferno Wings",
-        "restaurant": "LA Hot Chicken",
-        "address": "456 Sunset Blvd, Los Angeles",
-        "city": "Los Angeles",
-        "country_code": "US",
-        "date_attempted": "2023-11-03",
-        "result": "failure",
-        "type": "spicy",
-        "thumbnail_url": ""
-      }
-    }
-  ]
+  "features": []
 }
