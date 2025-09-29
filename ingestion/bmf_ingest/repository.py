@@ -47,7 +47,7 @@ class DbRepository:
                 "video_id": v.video_id,
                 "title": v.title,
                 "description": v.description,
-                "published_at": v.published_at,
+                "published_at": v.published_at.isoformat() if hasattr(v.published_at, "isoformat") else str(v.published_at),
                 "duration_seconds": v.duration_seconds,
                 "captions_available": v.captions_available,
                 "playlist_ids": json.dumps(v.playlist_ids or []),
@@ -222,7 +222,7 @@ class DbRepository:
                     {
                         "video_id": c.video_id,
                         "restaurant_id": c.restaurant_id,
-                        "date_attempted": c.date_attempted,
+                        "date_attempted": (c.date_attempted.isoformat() if hasattr(c.date_attempted, "isoformat") else (str(c.date_attempted) if c.date_attempted is not None else None)),
                         "result": c.result,
                         "type_slug": c.challenge_type_slug,
                         "time_limit": seconds,
@@ -265,3 +265,9 @@ class DbRepository:
                     },
                 ).first()
                 return int(row[0])
+
+    def get_challenge_id_by_video(self, video_id: str) -> Optional[int]:
+        sql = text("SELECT id FROM challenges WHERE video_id = :video_id LIMIT 1")
+        with self.engine.connect() as conn:
+            row = conn.execute(sql, {"video_id": video_id}).first()
+            return int(row[0]) if row else None

@@ -23,9 +23,10 @@ Thumbs.db
 dist/
 build/
 
-# Data (ignore local DB/caches)
+# Data (ignore local DB/caches, but keep main SQLite)
 data/
 !data/.keep
+!data/app.db
 
 # Do NOT ignore published assets; commit everything under public/data
 

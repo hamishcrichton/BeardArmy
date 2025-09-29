@@ -53,10 +53,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ingestion/requirements.txt
 
-      - name: Initialize SQLite schema
+      - name: Prepare data directories
         run: |
           mkdir -p data public/data
-          sqlite3 data/app.db < db/sqlite_init.sql
+
+      - name: Initialize SQLite schema (if missing)
+        run: |
+          if [ ! -f data/app.db ]; then
+            echo "No existing SQLite DB found. Creating schema..."
+            sqlite3 data/app.db < db/sqlite_init.sql
+          else
+            echo "Reusing existing data/app.db"
+          fi
 
       - name: Check environment variables
         run: |
@@ -99,12 +107,12 @@ jobs:
 
       - name: Commit and push changes (if any)
         run: |
-          CHANGES=$(git status --porcelain public/data | wc -l)
+          CHANGES=$(git status --porcelain public/data data/app.db | wc -l)
           if [ "$CHANGES" -gt 0 ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A -f public/data
-            git commit -m "chore(data): refresh published artifacts"
+            git add -A -f public/data data/app.db
+            git commit -m "chore(data): refresh published artifacts and persist DB"
             git push
           else
             echo "No changes to publish."

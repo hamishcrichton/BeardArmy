@@ -137,7 +137,11 @@ class Pipeline:
                     confidence=ext.confidence,
                 )
                 if self.repo:
-                    self.repo.insert_challenge(challenge)
+                    existing_id = self.repo.get_challenge_id_by_video(v.video_id)
+                    if existing_id is None:
+                        self.repo.insert_challenge(challenge)
+                    else:
+                        logger.debug(f"Challenge already exists for {v.video_id} (id={existing_id}); skipping insert")
             except Exception as e:
                 logger.exception(f"Failed processing video {v.video_id}: {e}")
 
