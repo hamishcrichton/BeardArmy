@@ -172,7 +172,6 @@ class Pipeline:
             LEFT JOIN restaurants r ON r.id = c.restaurant_id
             LEFT JOIN videos v ON v.video_id = c.video_id
             LEFT JOIN challenge_types ct ON ct.id = c.challenge_type_id
-            WHERE r.lat IS NOT NULL AND r.lng IS NOT NULL
             ORDER BY COALESCE(c.date_attempted, v.published_at) DESC
             """
         )
