@@ -42,7 +42,7 @@ def extract_from_video(video: Video) -> Extracted:
     explicit_date = _find_date(text)
     date_attempted = explicit_date or video.published_at.date()
 
-    # Restaurant: heuristic patterns (e.g., The X Challenge at Y, Eating at Y)
+    # Restaurant + location hints
     restaurant = _find_restaurant_name(text)
     city, country = _find_city_country(text)
 
@@ -80,25 +80,47 @@ def _find_date(text: str) -> Optional[date]:
 
 
 def _find_restaurant_name(text: str) -> Optional[str]:
-    # Very rough heuristic: after "at" or "in" with capitalization
-    m = re.search(r"\b(?:at|in)\s+([A-Z][\w'&\- ]{2,})", text)
-    if m:
-        candidate = m.group(1).strip()
-        # Avoid capturing words like "my hometown" etc.
-        if len(candidate.split()) <= 6:
-            return candidate
+    # Heuristics focusing on "at ..." (avoid treating "in City" as a restaurant).
+    patterns = [
+        # at a place called Mama Bear's Diner
+        r"\bat\s+(?:a\s+place\s+called\s+)?['\"]?([A-Z][\w'&\- ]{2,})",
+        # at The Big Burger House
+        r"\bat\s+(?:the\s+|a\s+)?(['\"]?[A-Z][\w'&\- ]{2,})",
+        # called Mama Bear's Diner
+        r"\bcalled\s+['\"]?([A-Z][\w'&\- ]{2,})",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, re.I)
+        if m:
+            candidate = m.group(1).strip().strip('"\'')
+            # Trim trailing punctuation and overly long tails
+            candidate = re.split(r"[\,\.;\n]", candidate)[0].strip()
+            if 1 <= len(candidate.split()) <= 8:
+                return candidate
     return None
 
 
 def _find_city_country(text: str) -> Tuple[Optional[str], Optional[str]]:
-    # Simple hints based on common country names; extend with gazetteer later
+    # Capture patterns like "in Schuylerville, NY" → ("Schuylerville NY", "US")
+    m = re.search(r"\bin\s+([A-Z][A-Za-z'\- ]{2,})(?:,\s*([A-Z]{2}))?", text)
+    if m:
+        city = m.group(1).strip()
+        state = (m.group(2) or "").strip()
+        if state:
+            return (f"{city} {state}", "US")
+        return (city, None)
+    # Fallback: common country mentions (very rough)
     countries = [
-        "USA","United States","UK","United Kingdom","England","Scotland","Wales","Ireland",
-        "Canada","Australia","New Zealand","Germany","France","Spain","Italy","Japan","Mexico"
+        "USA","United States","US","UK","United Kingdom","England","Scotland","Wales","Ireland",
+        "Canada","Australia","New Zealand","Germany","France","Spain","Italy","Japan","Mexico","New York"
     ]
     for c in countries:
         if re.search(rf"\b{re.escape(c)}\b", text, re.I):
-            return (None, "UK" if c in {"UK","United Kingdom","England","Scotland","Wales"} else c)
+            if c in {"UK","United Kingdom","England","Scotland","Wales"}:
+                return (None, "UK")
+            if c in {"USA","United States","US","New York"}:
+                return (None, "US")
+            return (None, c)
     return (None, None)
 
 
@@ -122,4 +144,3 @@ def _find_collaborators(text: str) -> List[str]:
     collab_match = re.search(r"\bwith\s+([A-Z][\w\s&]{2,40})", text)
     names = [collab_match.group(1).strip()] if collab_match else []
     return list(dict.fromkeys([*handles, *names]))
-

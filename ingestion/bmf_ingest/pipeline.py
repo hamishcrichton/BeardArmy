@@ -11,6 +11,7 @@ from .models import Video, Restaurant, Challenge
 from .youtube_client import list_videos, fetch_videos, probe_captions_available, download_captions
 from .extractors import extract_from_video
 from .geocode import geocode
+from .featured_places import get_featured_place
 from .repository import DbRepository
 from .publish import publish_artifacts, write_json
 from sqlalchemy import text
@@ -45,11 +46,45 @@ class Pipeline:
 
                 ext = extract_from_video(v)
 
-                # Geocode restaurant if we have a candidate name (optionally include city/country)
+                # Prefer YouTube "Featured places" when available; then heuristics; then city-level fallback.
                 restaurant_id = None
-                if ext.restaurant_name:
-                    q = \
-                        f"{ext.restaurant_name} {ext.city or ''} {ext.country or ''}".strip()
+                featured = None
+                try:
+                    featured = get_featured_place(v.video_id)
+                except Exception as e:
+                    logger.warning(f"Featured place scrape failed for {v.video_id}: {e}")
+
+                if featured:
+                    fp_name, fp_lat, fp_lng = featured
+                    rest = Restaurant(
+                        id=None,
+                        name=fp_name,
+                        address=None,
+                        city=ext.city,
+                        region=None,
+                        country_code=ext.country,
+                        lat=fp_lat,
+                        lng=fp_lng,
+                        place_source="youtube_featured",
+                        place_ref=v.video_id,
+                    )
+                    if (fp_lat is None or fp_lng is None) and self.settings.geocoder_api_key:
+                        # try to geocode the featured name with hints to get coordinates
+                        q = " ".join([s for s in [fp_name, ext.city, ext.country] if s])
+                        g = geocode(self.settings.geocoder_provider, self.settings.geocoder_api_key, q)
+                        rest.address = g.address
+                        rest.city = g.city or rest.city
+                        rest.region = g.region or rest.region
+                        rest.country_code = g.country_code or rest.country_code
+                        rest.lat = g.lat or rest.lat
+                        rest.lng = g.lng or rest.lng
+                        rest.place_source = g.place_source or rest.place_source
+                        rest.place_ref = g.place_ref or rest.place_ref
+                    if self.repo:
+                        restaurant_id = self.repo.upsert_restaurant(rest)
+                elif ext.restaurant_name:
+                    q = f"{ext.restaurant_name} {ext.city or ''} {ext.country or ''}".strip()
+                    logger.info(f"Geocoding restaurant candidate for {v.video_id}: {q}")
                     geo = geocode(self.settings.geocoder_provider, self.settings.geocoder_api_key, q)
                     rest = Restaurant(
                         id=None,
@@ -65,7 +100,30 @@ class Pipeline:
                     )
                     if self.repo:
                         restaurant_id = self.repo.upsert_restaurant(rest)
-
+                elif ext.city or ext.country:
+                    q = \
+                        ", ".join([p for p in [ext.city, ext.country] if p])
+                    logger.info(f"Geocoding approximate city centroid for {v.video_id}: {q}")
+                    geo = geocode(self.settings.geocoder_provider, self.settings.geocoder_api_key, q)
+                    if geo.lat is not None and geo.lng is not None:
+                        approx_name = (ext.city or ext.country or "Unknown") + " (approx)"
+                        rest = Restaurant(
+                            id=None,
+                            name=approx_name,
+                            address=geo.address,
+                            city=geo.city or ext.city,
+                            region=geo.region,
+                            country_code=geo.country_code or (ext.country if ext.country else None),
+                            lat=geo.lat,
+                            lng=geo.lng,
+                            place_source="approx",
+                            place_ref=q,
+                        )
+                        if self.repo:
+                            restaurant_id = self.repo.upsert_restaurant(rest)
+                    else:
+                        logger.info(f"No geocode result for approximate query: {q}")
+                
                 challenge = Challenge(
                     id=None,
                     video_id=v.video_id,
@@ -105,6 +163,7 @@ class Pipeline:
                    r.country_code,
                    r.lat,
                    r.lng,
+                   r.place_source,
                    c.date_attempted,
                    c.result,
                    ct.slug AS type,
@@ -148,6 +207,9 @@ class Pipeline:
                     "result": r["result"],
                     "type": r["type"],
                     "thumbnail_url": r["thumbnail_url"],
+                    # Include minimal provenance so we can distinguish approx points in the UI later
+                    # (kept generic to avoid leaking provider details beyond a label)
+                    "place_source": r.get("place_source") if hasattr(r, "get") else None,
                 }
                 if r["lat"] is not None and r["lng"] is not None:
                     features.append({
@@ -158,5 +220,6 @@ class Pipeline:
                 rows.append(props)
 
         geojson = {"type": "FeatureCollection", "features": features}
+        logger.info(f"Publishing artifacts: {len(features)} features, {len(rows)} rows")
         write_json(os.path.join(out_dir, "challenges.geojson"), geojson)
         write_json(os.path.join(out_dir, "table.json"), {"rows": rows})
