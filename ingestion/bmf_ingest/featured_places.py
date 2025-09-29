@@ -8,7 +8,7 @@ from loguru import logger
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 
-_GOOGLE_MAPS_RE = re.compile(r"https?://www\.google\.(?:com|[a-z]{2})(?:\.[a-z]{2})?/maps/[^"]+", re.I)
+_GOOGLE_MAPS_RE = re.compile(r'https?://www\.google\.(?:com|[a-z]{2})(?:\.[a-z]{2})?/maps/[^"]+', re.I)
 _COORD_RE = re.compile(r"/@(?P<lat>-?\d+\.\d+),(?P<lng>-?\d+\.\d+),")
 _ANCHOR_RE = re.compile(r"<a[^>]+href=\"(?P<href>[^\"]+)\"[^>]*>(?P<text>[^<]+)</a>", re.I)
 
@@ -52,4 +52,3 @@ def get_featured_place(video_id: str) -> Optional[Tuple[str, Optional[float], Op
 
     logger.info(f"No featured place anchors found for {video_id}")
     return None
-
