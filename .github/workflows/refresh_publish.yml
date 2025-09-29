@@ -84,6 +84,13 @@ jobs:
         run: |
           python -m bmf_ingest.main publish --out ./public/data
 
+      - name: Inspect published outputs
+        run: |
+          echo "Listing public/data:" && ls -la public/data || true
+          echo "--- challenges.geojson (head) ---" && head -n 40 public/data/challenges.geojson || true
+          echo "--- table.json (head) ---" && head -n 40 public/data/table.json || true
+          echo "--- DB counts ---" && sqlite3 data/app.db "select 'videos', count(*) from videos; select 'restaurants', count(*) from restaurants; select 'challenges', count(*) from challenges; select 'geocoded_restaurants', count(*) from restaurants where lat is not null and lng is not null;" || true
+
       - name: Upload published data (artifact)
         uses: actions/upload-artifact@v4
         with:

@@ -34,7 +34,7 @@
       <div class="panel">
         <div id="map" class="card"></div>
         <div class="card">
-          <h3 style="margin-top:0">Data Table (demo)</h3>
+          <h3 style="margin-top:0">Data Table <span id="dataSource" class="muted" style="font-weight:400"></span></h3>
           <table>
             <thead>
               <tr>
@@ -99,27 +99,35 @@
         try {
           const geoResp = await fetch('../public/data/challenges.geojson');
           const tableResp = await fetch('../public/data/table.json');
-          const geo = geoResp.ok ? await geoResp.json() : null;
-          const table = tableResp.ok ? await tableResp.json() : null;
+          const geoOk = geoResp.ok;
+          const tableOk = tableResp.ok;
+          const geo = geoOk ? await geoResp.json() : null;
+          const table = tableOk ? await tableResp.json() : null;
           let points = [];
           if (geo && Array.isArray(geo.features)) {
             points = geo.features.map(f => ({ ...(f.properties || {}), lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0] }));
           }
           const rows = table ? (Array.isArray(table) ? table : (table.rows || [])) : [];
-          return { points, rows };
+          return { points, rows, geoOk, tableOk };
         } catch (e) {
           console.warn('Failed to load published data:', e);
-          return { points: [], rows: [] };
+          return { points: [], rows: [], geoOk: false, tableOk: false };
         }
       }
 
       document.getElementById('load').addEventListener('click', async () => {
         const key = document.getElementById('key').value.trim();
         if (!key) { alert('Enter your MapTiler key'); return; }
-        const { points, rows } = await tryLoadPublished();
-        const pts = points.length ? points : demo;
+        const { points, rows, geoOk, tableOk } = await tryLoadPublished();
+        const pts = geoOk ? points : demo; // use published even if empty when file exists
         initMap(key, pts);
-        renderTable(rows.length ? rows : demo);
+        const tableRows = tableOk ? rows : demo; // use published even if empty when file exists
+        renderTable(tableRows);
+        const ds = document.getElementById('dataSource');
+        if (ds) {
+          const label = (geoOk || tableOk) ? '• Published data' : '• Demo data';
+          ds.textContent = label;
+        }
       });
     </script>
   </body>
