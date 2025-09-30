@@ -21,6 +21,14 @@ def main():
     p_publish = sub.add_parser("publish")
     p_publish.add_argument("--out", required=True)
 
+    # Prototype: sample extraction without DB, write artifacts directly
+    p_proto = sub.add_parser("prototype")
+    p_proto.add_argument("--channel", required=False)
+    p_proto.add_argument("--limit", type=int, default=25)
+    p_proto.add_argument("--out", required=True)
+    p_proto.add_argument("--use-captions", action="store_true", help="Probe/download captions to enrich extraction")
+    p_proto.add_argument("--use-geocode", action="store_true", help="Use geocoding when possible for coords")
+
     args = parser.parse_args()
 
     settings = Settings.load()
@@ -36,6 +44,17 @@ def main():
             pipe.refresh(channel, since_days=args.since_days)
     elif args.cmd == "publish":
         pipe.publish(args.out)
+    elif args.cmd == "prototype":
+        channel = getattr(args, "channel", None) or settings.youtube_channel_id
+        if not channel:
+            raise SystemExit("Channel ID must be supplied via --channel or YOUTUBE_CHANNEL_ID")
+        pipe.prototype(
+            channel_id=channel,
+            limit=args.limit,
+            out_dir=args.out,
+            use_captions=bool(args.use_captions),
+            use_geocode=bool(args.use_geocode),
+        )
     else:
         parser.print_help()
 
