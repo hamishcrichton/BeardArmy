@@ -17,6 +17,11 @@ class Video:
     thumbnail_url: Optional[str] = None
     channel_id: Optional[str] = None
     raw_json: Dict[str, Any] = field(default_factory=dict)
+    # Enhanced metadata fields
+    recording_location: Optional[Dict[str, Any]] = None  # lat, lng, locationDescription from recordingDetails
+    localizations: Optional[Dict[str, Dict[str, str]]] = None  # localized titles/descriptions
+    topics: Optional[List[str]] = field(default_factory=list)  # topic IDs from topicDetails
+    tags: Optional[List[str]] = field(default_factory=list)  # video tags from snippet
 
 
 @dataclass

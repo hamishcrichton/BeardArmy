@@ -46,15 +46,44 @@ class Pipeline:
 
                 ext = extract_from_video(v)
 
-                # Prefer YouTube "Featured places" when available; then heuristics; then city-level fallback.
+                # Priority order for location data:
+                # 1. YouTube recordingDetails (if available)
+                # 2. YouTube "Featured places" 
+                # 3. Extraction heuristics
+                # 4. City-level fallback
                 restaurant_id = None
                 featured = None
-                try:
-                    featured = get_featured_place(v.video_id)
-                except Exception as e:
-                    logger.warning(f"Featured place scrape failed for {v.video_id}: {e}")
+                
+                # Check if we have recording location from YouTube API
+                has_recording_location = False
+                if v.recording_location and v.recording_location.get("lat") and v.recording_location.get("lng"):
+                    has_recording_location = True
+                    logger.info(f"Found recording location for {v.video_id}: {v.recording_location}")
+                
+                # Try to get featured place (but skip if we already have recording location)
+                if not has_recording_location:
+                    try:
+                        featured = get_featured_place(v.video_id)
+                    except Exception as e:
+                        logger.warning(f"Featured place scrape failed for {v.video_id}: {e}")
 
-                if featured:
+                if has_recording_location:
+                    # Use recording location from YouTube API
+                    rest = Restaurant(
+                        id=None,
+                        name=ext.restaurant_name or v.recording_location.get("description") or f"{ext.city or 'Unknown'} (Recording Location)",
+                        address=v.recording_location.get("description"),
+                        city=ext.city,
+                        region=None,
+                        country_code=ext.country,
+                        lat=v.recording_location["lat"],
+                        lng=v.recording_location["lng"],
+                        place_source="youtube_recording",
+                        place_ref=v.video_id,
+                    )
+                    if self.repo:
+                        restaurant_id = self.repo.upsert_restaurant(rest)
+                elif featured:
                     fp_name, fp_lat, fp_lng = featured
                     rest = Restaurant(
                         id=None,
@@ -226,3 +255,137 @@ class Pipeline:
         logger.info(f"Publishing artifacts: {len(features)} features, {len(rows)} rows")
         write_json(os.path.join(out_dir, "challenges.geojson"), geojson)
         write_json(os.path.join(out_dir, "table.json"), {"rows": rows})
+
+    def prototype(
+        self,
+        channel_id: str,
+        limit: int = 25,
+        out_dir: str = "public/data",
+        use_captions: bool = False,
+        use_geocode: bool = False,
+    ) -> None:
+        """
+        Prototype extraction without requiring a DB. Fetch up to `limit` videos,
+        run extractors + optional captions/geocode, and emit artifacts for preview.
+        """
+        vids = []
+        all_ids = []
+        for i, vid in enumerate(list_videos(self.settings.youtube_api_key, channel_id)):
+            all_ids.append(vid)
+            if i + 1 >= max(1, limit):
+                break
+        if not all_ids:
+            logger.info("No videos found for prototype.")
+            return
+        videos = fetch_videos(self.settings.youtube_api_key, all_ids)
+
+        proto_rows = []
+        features = []
+        details = []
+
+        for v in videos:
+            # Optionally probe and download captions (path kept for future NLP enrichment)
+            captions_path = None
+            if use_captions:
+                try:
+                    v.captions_available = probe_captions_available(v.video_id)
+                    if v.captions_available:
+                        captions_path = download_captions(
+                            v.video_id,
+                            os.path.join(self.settings.data_dir, "captions"),
+                        )
+                except Exception as e:
+                    logger.warning(f"Captions step failed for {v.video_id}: {e}")
+
+            ext = extract_from_video(v)
+
+            rest_name = None
+            lat = lng = None
+            place_source = None
+            address = city = country_code = None
+
+            featured = None
+            try:
+                featured = get_featured_place(v.video_id)
+            except Exception as e:
+                logger.warning(f"Featured place scrape failed for {v.video_id}: {e}")
+
+            if featured:
+                rest_name, lat, lng = featured[0], featured[1], featured[2]
+                place_source = "youtube_featured"
+            elif ext.restaurant_name:
+                rest_name = ext.restaurant_name
+
+            # Optional geocode: try to improve coords when we have a name or city hints
+            if use_geocode and (rest_name or ext.city or ext.country):
+                q = " ".join([s for s in [rest_name, ext.city, ext.country] if s])
+                try:
+                    g = geocode(self.settings.geocoder_provider, self.settings.geocoder_api_key, q)
+                    address = g.address or address
+                    city = g.city or ext.city or city
+                    country_code = g.country_code or country_code
+                    lat = g.lat if g.lat is not None else lat
+                    lng = g.lng if g.lng is not None else lng
+                    place_source = g.place_source or place_source
+                except Exception as e:
+                    logger.warning(f"Geocode failed for {v.video_id}: {e}")
+
+            props = {
+                "video_id": v.video_id,
+                "title": v.title,
+                "restaurant": rest_name,
+                "address": address,
+                "city": city or ext.city,
+                "country_code": country_code,
+                "date_attempted": ext.date_attempted.isoformat() if hasattr(ext.date_attempted, "isoformat") else str(ext.date_attempted) if ext.date_attempted else None,
+                "result": ext.result,
+                "type": ext.challenge_type_slug,
+                "thumbnail_url": v.thumbnail_url,
+                "place_source": place_source,
+            }
+
+            if lat is not None and lng is not None:
+                features.append({
+                    "type": "Feature",
+                    "geometry": {"type": "Point", "coordinates": [float(lng), float(lat)]},
+                    "properties": props,
+                })
+
+            proto_rows.append(props)
+            details.append({
+                "video": {
+                    "id": v.video_id,
+                    "published_at": v.published_at.isoformat(),
+                    "duration_seconds": v.duration_seconds,
+                    "captions_available": v.captions_available,
+                    "captions_path": captions_path,
+                    "watch_url": f"https://www.youtube.com/watch?v={v.video_id}",
+                },
+                "extracted": {
+                    "restaurant_name": ext.restaurant_name,
+                    "city": ext.city,
+                    "country": ext.country,
+                    "date_attempted": props["date_attempted"],
+                    "collaborators": ext.collaborators,
+                    "result": ext.result,
+                    "challenge_type_slug": ext.challenge_type_slug,
+                    "confidence": ext.confidence,
+                },
+                "featured_place": {
+                    "name": featured[0] if featured else None,
+                    "lat": featured[1] if featured else None,
+                    "lng": featured[2] if featured else None,
+                },
+                "geocode": {
+                    "address": address,
+                    "lat": lat,
+                    "lng": lng,
+                    "place_source": place_source,
+                },
+            })
+
+        os.makedirs(out_dir, exist_ok=True)
+        write_json(os.path.join(out_dir, "prototype.json"), {"rows": details})
+        write_json(os.path.join(out_dir, "table.json"), {"rows": proto_rows})
+        write_json(os.path.join(out_dir, "challenges.geojson"), {"type": "FeatureCollection", "features": features})
+        logger.info(f"Prototype wrote {len(proto_rows)} rows, {len(features)} features to {out_dir}")

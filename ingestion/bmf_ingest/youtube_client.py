@@ -51,12 +51,40 @@ def fetch_videos(api_key: str, video_ids: List[str]) -> List[Video]:
     out: List[Video] = []
     for i in range(0, len(video_ids), 50):
         batch = video_ids[i : i + 50]
-        resp = youtube.videos().list(part="snippet,contentDetails", id=",".join(batch)).execute()
+        # Fetch additional parts for enhanced metadata
+        resp = youtube.videos().list(
+            part="snippet,contentDetails,recordingDetails,localizations,topicDetails", 
+            id=",".join(batch)
+        ).execute()
         for it in resp.get("items", []):
             snip = it["snippet"]
             content = it.get("contentDetails", {})
+            recording = it.get("recordingDetails", {})
+            localizations = it.get("localizations", {})
+            topic_details = it.get("topicDetails", {})
+            
             duration_iso = content.get("duration")  # e.g., PT23M10S
             duration_seconds = _iso8601_duration_to_seconds(duration_iso) if duration_iso else None
+            
+            # Extract recording location if available
+            recording_location = None
+            if recording.get("location"):
+                loc = recording["location"]
+                recording_location = {
+                    "lat": loc.get("latitude"),
+                    "lng": loc.get("longitude"),
+                    "altitude": loc.get("altitude"),
+                    "description": recording.get("locationDescription")
+                }
+            
+            # Extract topic IDs if available
+            topics = []
+            if topic_details.get("topicIds"):
+                topics = topic_details["topicIds"]
+            
+            # Extract tags from snippet
+            tags = snip.get("tags", [])
+            
             out.append(
                 Video(
                     video_id=it["id"],
@@ -69,6 +97,10 @@ def fetch_videos(api_key: str, video_ids: List[str]) -> List[Video]:
                     thumbnail_url=snip.get("thumbnails", {}).get("high", {}).get("url"),
                     channel_id=snip.get("channelId"),
                     raw_json=it,
+                    recording_location=recording_location,
+                    localizations=localizations,
+                    topics=topics,
+                    tags=tags,
                 )
             )
     return out
@@ -89,7 +121,7 @@ def _iso8601_duration_to_seconds(iso: str) -> int:
 
 
 def probe_captions_available(video_id: str) -> bool:
-    """Quick probe using yt-dlp to see if captions are available."""
+    """Quick probe using yt-dlp to see if any captions are available (any language)."""
     import subprocess
     try:
         args = [
@@ -102,24 +134,49 @@ def probe_captions_available(video_id: str) -> bool:
             res = subprocess.run(["yt-dlp", *args], check=True, capture_output=True, text=True)
         except FileNotFoundError:
             res = subprocess.run([sys.executable, "-m", "yt_dlp", *args], check=True, capture_output=True, text=True)
-        return "Available subtitles" in res.stdout
+        out = res.stdout or ""
+        return "Available subtitles" in out or "auto captions" in out.lower()
     except Exception as e:
         logger.warning(f"Caption probe failed for {video_id}: {e}")
         return False
 
 
+def list_captions(video_id: str) -> List[str]:
+    """Return a list of available caption language codes using yt-dlp."""
+    import subprocess, re
+    langs: List[str] = []
+    try:
+        args = [
+            f"https://www.youtube.com/watch?v={video_id}",
+            "--skip-download",
+            "--list-subs",
+            "-q",
+        ]
+        try:
+            res = subprocess.run(["yt-dlp", *args], check=True, capture_output=True, text=True)
+        except FileNotFoundError:
+            res = subprocess.run([sys.executable, "-m", "yt_dlp", *args], check=True, capture_output=True, text=True)
+        for line in (res.stdout or "").splitlines():
+            m = re.match(r"^([a-zA-Z0-9\-_.]+)\s*:\s*", line)
+            if m:
+                langs.append(m.group(1))
+    except Exception:
+        pass
+    return langs
+
+
 def download_captions(video_id: str, out_dir: str) -> Optional[str]:
-    """Download English auto/normal subtitles as VTT if available. Return file path or None."""
+    """Download English (including en-GB/en-US) auto/normal subtitles as VTT if available. Return file path or None."""
     import subprocess
-    import os
+    import os, glob
     os.makedirs(out_dir, exist_ok=True)
     try:
         args = [
             f"https://www.youtube.com/watch?v={video_id}",
             "--write-auto-sub",
-            "--write-sub",
-            "--sub-lang",
-            "en",
+            "--write-subs",
+            "--sub-langs",
+            "en,en.*,English",
             "--sub-format",
             "vtt",
             "--skip-download",
@@ -130,12 +187,20 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
             subprocess.run(["yt-dlp", *args], check=True, capture_output=True, text=True)
         except FileNotFoundError:
             subprocess.run([sys.executable, "-m", "yt_dlp", *args], check=True, capture_output=True, text=True)
-        vtt_path = os.path.join(out_dir, f"{video_id}.en.vtt")
-        if os.path.exists(vtt_path):
-            return vtt_path
-        # Fallback auto-captions naming
-        auto_vtt = os.path.join(out_dir, f"{video_id}.en.auto.vtt")
-        return auto_vtt if os.path.exists(auto_vtt) else None
+
+        # Prefer en.vtt then any en-*.vtt then auto variants
+        candidates = [
+            os.path.join(out_dir, f"{video_id}.en.vtt"),
+            *sorted(glob.glob(os.path.join(out_dir, f"{video_id}.en.*.vtt"))),
+            os.path.join(out_dir, f"{video_id}.en.auto.vtt"),
+            *sorted(glob.glob(os.path.join(out_dir, f"{video_id}.en.*.auto.vtt"))),
+        ]
+        for p in candidates:
+            if os.path.exists(p):
+                return p
+        # As a last resort, return any vtt for this video
+        any_vtt = sorted(glob.glob(os.path.join(out_dir, f"{video_id}*.vtt")))
+        return any_vtt[0] if any_vtt else None
     except Exception as e:
         logger.warning(f"Caption download failed for {video_id}: {e}")
         return None
