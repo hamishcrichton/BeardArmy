@@ -133,6 +133,8 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -A -f public/data data/app.db
             git commit -m "chore(data): refresh published artifacts and persist DB"
+            # Pull with rebase before pushing to handle conflicts
+            git pull --rebase origin main
             git push
           else
             echo "No changes to publish."
