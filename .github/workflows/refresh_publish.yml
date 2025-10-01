@@ -88,6 +88,10 @@ jobs:
           echo "YOUTUBE_API_KEY present"
           if [ -n "${GEOCODER_PROVIDER}" ]; then echo "GEOCODER_PROVIDER=${GEOCODER_PROVIDER}"; fi
           if [ -n "${GEOCODER_API_KEY}" ]; then echo "GEOCODER_API_KEY present"; fi
+          echo "USE_LLM_EXTRACTION=${USE_LLM_EXTRACTION}"
+          echo "LLM_PROVIDER=${LLM_PROVIDER}"
+          if [ -n "${ANTHROPIC_API_KEY}" ]; then echo "ANTHROPIC_API_KEY present"; fi
+          if [ -n "${OPENAI_API_KEY}" ]; then echo "OPENAI_API_KEY present"; fi
 
       - name: Ingest content (refresh or backfill)
         run: |
