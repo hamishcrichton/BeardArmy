@@ -120,7 +120,9 @@ def _find_restaurant_name(text: str) -> Optional[str]:
     lines = text.split('\n')
     if lines:
         title = lines[0]
-        
+        # Also check description (first few lines)
+        description = '\n'.join(lines[1:4]) if len(lines) > 1 else ""
+
         # Format: "Restaurant Name | City, Country | Challenge Type"
         # or "Restaurant Name | City | Challenge"
         pipe_parts = [p.strip() for p in title.split('|')]
@@ -132,14 +134,31 @@ def _find_restaurant_name(text: str) -> Optional[str]:
             restaurant = re.sub(r'\s+(Challenge|Eating|Food|Restaurant|Diner|Cafe|Grill|Bar|Pub)$', '', restaurant, flags=re.I)
             if restaurant and 1 <= len(restaurant.split()) <= 8:
                 return restaurant
-        
+
         # Format: "Challenge at Restaurant Name in City"
         m = re.match(r'^[^@]+\s+(?:at|@)\s+([^in]+?)\s+in\s+', title, re.I)
         if m:
             cand = _clean_restaurant(m.group(1))
             if cand and 1 <= len(cand.split()) <= 8:
                 return cand
-    
+
+        # NEW: Check description for restaurant mentions
+        # Common patterns in descriptions: "at Restaurant Name", "Restaurant Name in City"
+        if description:
+            # Look for "at [Restaurant]" in first line of description
+            desc_match = re.search(r'\bat\s+([A-Z][A-Za-z\s\'\&\-]{2,30}?)(?:\s+in\s+[A-Z]|\.|,|\!)', description, re.MULTILINE)
+            if desc_match:
+                cand = _clean_restaurant(desc_match.group(1))
+                if cand and 2 <= len(cand.split()) <= 6:
+                    return cand
+
+            # Look for restaurant name in bold/caps at start of description
+            desc_match = re.match(r'^(?:At\s+)?([A-Z][A-Za-z\s\'\&\-]{2,30}?)(?:\s+in\s+|\.|,|!|\s+I\s+)', description)
+            if desc_match:
+                cand = _clean_restaurant(desc_match.group(1))
+                if cand and 2 <= len(cand.split()) <= 6:
+                    return cand
+
     # Fallback to original heuristics
     patterns = [
         r"\bat\s+(?:a\s+(?:place|restaurant|spot)\s+called\s+)?['\"]?([A-Z][\w'&\- ]{2,})",
@@ -155,30 +174,84 @@ def _find_restaurant_name(text: str) -> Optional[str]:
     return None
 
 
+def _parse_location_string(location: str) -> Tuple[Optional[str], Optional[str]]:
+    """Parse a location string like 'Las Vegas', 'South Carolina', 'Norway', etc. to (city, country)."""
+    location = location.strip()
+
+    # Map known locations to country codes - prioritize specific cities/regions
+    location_map = {
+        # US Cities
+        'LAS VEGAS': ('Las Vegas', 'US'),
+        'DALLAS': ('Dallas', 'US'),
+        'NEW YORK': ('New York', 'US'),
+        'LOS ANGELES': ('Los Angeles', 'US'),
+        'CHICAGO': ('Chicago', 'US'),
+        'SAN FRANCISCO': ('San Francisco', 'US'),
+        # US States
+        'KENTUCKY': ('Kentucky', 'US'),
+        'SOUTH CAROLINA': ('South Carolina', 'US'),
+        'PENNSYLVANIA': ('Pennsylvania', 'US'),
+        'TEXAS': ('Texas', 'US'),
+        'CALIFORNIA': ('California', 'US'),
+        'FLORIDA': ('Florida', 'US'),
+        # European Countries
+        'NORWAY': ('Norway', 'NO'),
+        'FINLAND': ('Finland', 'FI'),
+        'AUSTRIA': ('Austria', 'AT'),
+        'GERMANY': ('Germany', 'DE'),
+        'FRANCE': ('France', 'FR'),
+        'ITALY': ('Italy', 'IT'),
+        'SPAIN': ('Spain', 'ES'),
+        'SWEDEN': ('Sweden', 'SE'),
+        'DENMARK': ('Denmark', 'DK'),
+        'NETHERLANDS': ('Netherlands', 'NL'),
+        'BELGIUM': ('Belgium', 'BE'),
+        # UK Regions
+        'WALES': ('Wales', 'UK'),
+        'SCOTLAND': ('Scotland', 'UK'),
+        'ENGLAND': ('England', 'UK'),
+        'IRELAND': ('Ireland', 'IE'),
+        'NORTHERN IRELAND': ('Northern Ireland', 'UK'),
+        # Other
+        'CANADA': ('Canada', 'CA'),
+        'AUSTRALIA': ('Australia', 'AU'),
+        'NEW ZEALAND': ('New Zealand', 'NZ'),
+        'JAPAN': ('Japan', 'JP'),
+        'MEXICO': ('Mexico', 'MX'),
+    }
+
+    upper_loc = location.upper()
+    if upper_loc in location_map:
+        return location_map[upper_loc]
+
+    # If not in map, return as city with unknown country
+    return (location, None)
+
+
 def _find_city_country(text: str) -> Tuple[Optional[str], Optional[str]]:
     lines = text.split('\n')
     if lines:
         title = lines[0]
-        
+
         # First check pipe-delimited format
         pipe_parts = [p.strip() for p in title.split('|')]
         if len(pipe_parts) >= 2:
             # Second part is often "City, Country" or "City, State"
             location_part = pipe_parts[1].strip()
-            
+
             # Check for "City, Country" or "City, State" format
             loc_match = re.match(r'^([^,]+)(?:,\s*(.+))?$', location_part)
             if loc_match:
                 city = loc_match.group(1).strip()
                 region = (loc_match.group(2) or "").strip() if loc_match.group(2) else None
-                
+
                 # Check if region is a US state abbreviation
                 if region and len(region) == 2 and region.isupper():
                     return (f"{city}, {region}", "US")
                 elif region:
                     # Map common country names
                     country_map = {
-                        "UK": "UK", "United Kingdom": "UK", "England": "UK", 
+                        "UK": "UK", "United Kingdom": "UK", "England": "UK",
                         "Scotland": "UK", "Wales": "UK", "Northern Ireland": "UK",
                         "USA": "US", "United States": "US", "America": "US",
                         "Canada": "CA", "Australia": "AU", "Germany": "DE",
@@ -188,8 +261,25 @@ def _find_city_country(text: str) -> Tuple[Optional[str], Optional[str]]:
                     return (city, country)
                 elif city:
                     return (city, None)
-    
-    # Original pattern matching
+
+    # NEW: Enhanced "IN [LOCATION]" pattern matching
+    # Pattern 1: "IN [LOCATION] FOR..." at start of title
+    m = re.search(r'\bIN\s+([A-Z][A-Za-z\s\-\']+?)\s+FOR\s+', text, re.I)
+    if m:
+        location = m.group(1).strip()
+        city, country = _parse_location_string(location)
+        if city or country:
+            return (city, country)
+
+    # Pattern 2: "IN [LOCATION]" followed by common keywords
+    m = re.search(r'\bIN\s+([A-Z][A-Za-z\s\-\']+?)(?:\s*[|!]|\s+(?:HAS|FOR|YOU|TO|IS|HAVE|I\'VE|THIS|THE)\b)', text, re.I)
+    if m:
+        location = m.group(1).strip()
+        city, country = _parse_location_string(location)
+        if city or country:
+            return (city, country)
+
+    # Pattern 3: "... IN [LOCATION]" with comma or pipe
     m = re.search(r"\bin\s+([A-Z][A-Za-z'\- ]{1,}?)(?:,\s*([A-Z]{2}))?(?=(?:\s+(?:at|with|near|from|and)\b|[\,\.;:\|]|$))", text)
     if m:
         city = m.group(1).strip()
@@ -197,7 +287,7 @@ def _find_city_country(text: str) -> Tuple[Optional[str], Optional[str]]:
         if state:
             return (f"{city}, {state}", "US")
         return (city, None)
-    
+
     # Fallback: common country mentions
     countries = [
         "USA","United States","US","UK","United Kingdom","England","Scotland","Wales","Ireland",

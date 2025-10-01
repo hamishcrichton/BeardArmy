@@ -52,12 +52,20 @@ class Challenge:
     date_attempted: Optional[date]
     result: str = "unknown"  # success|failure|unknown
     challenge_type_slug: Optional[str] = None
+    food_type: Optional[str] = None  # burger, pizza, bbq, breakfast, etc.
     time_limit: Optional[timedelta] = None
     price_cents: Optional[int] = None
     notes: Optional[str] = None
     charity_flag: bool = False
     source: Optional[str] = None
     confidence: Optional[float] = None
+    # Challenge difficulty scores (0-10 scale)
+    food_volume_score: int = 0
+    time_limit_score: int = 0
+    success_rate_score: int = 0
+    spiciness_score: int = 0
+    food_diversity_score: int = 0
+    risk_level_score: int = 0
 
 
 @dataclass

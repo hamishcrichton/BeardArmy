@@ -14,13 +14,37 @@ from .geocode import geocode
 from .featured_places import get_featured_place
 from .repository import DbRepository
 from .publish import publish_artifacts, write_json
+from .caption_parser import extract_caption_intro
 from sqlalchemy import text
+
+# Import LLM extractor if available
+try:
+    from .llm_extractor import LLMExtractor
+    LLM_AVAILABLE = True
+except ImportError:
+    LLM_AVAILABLE = False
+    logger.warning("LLM extractor not available (missing anthropic/openai package)")
 
 
 class Pipeline:
     def __init__(self, settings: Settings):
         self.settings = settings
         self.repo = DbRepository(settings.database_url) if settings.database_url else None
+
+        # Initialize LLM extractor if enabled
+        self.llm_extractor = None
+        if settings.use_llm_extraction and LLM_AVAILABLE and settings.llm_api_key:
+            try:
+                self.llm_extractor = LLMExtractor(
+                    provider=settings.llm_provider or "anthropic",
+                    api_key=settings.llm_api_key,
+                    model=settings.llm_model
+                )
+                logger.info(f"LLM extraction enabled ({settings.llm_provider})")
+            except Exception as e:
+                logger.warning(f"Failed to initialize LLM extractor: {e}")
+        elif settings.use_llm_extraction:
+            logger.warning("LLM extraction requested but not available (check API key and dependencies)")
 
     def backfill(self, channel_id: str) -> None:
         vids = list(list_videos(self.settings.youtube_api_key, channel_id))
@@ -44,7 +68,41 @@ class Pipeline:
                 if self.repo:
                     self.repo.upsert_video(v)
 
+                # Parse caption intro if available
+                captions_text = None
+                if captions_path:
+                    try:
+                        captions_text = extract_caption_intro(captions_path, max_duration_seconds=180, max_words=500)
+                        if captions_text:
+                            logger.debug(f"Extracted {len(captions_text.split())} words from captions for {v.video_id}")
+                    except Exception as e:
+                        logger.warning(f"Caption parsing failed for {v.video_id}: {e}")
+
+                # Use LLM extraction if available, otherwise fall back to regex
+                llm_result = None
+                if self.llm_extractor:
+                    try:
+                        llm_result = self.llm_extractor.extract(v, captions_text=captions_text)
+                        logger.info(f"LLM extraction for {v.video_id}: {llm_result.get('restaurant')} in {llm_result.get('city')}, {llm_result.get('country')} (result: {llm_result.get('result')})")
+                    except Exception as e:
+                        logger.warning(f"LLM extraction failed for {v.video_id}, falling back to regex: {e}")
+
+                # Fall back to regex extraction if LLM didn't work
                 ext = extract_from_video(v)
+
+                # Merge LLM results with regex extraction (LLM takes priority)
+                if llm_result:
+                    # Use LLM data where available
+                    if llm_result.get('restaurant'):
+                        ext.restaurant_name = llm_result['restaurant']
+                    if llm_result.get('city'):
+                        ext.city = llm_result['city']
+                    if llm_result.get('country'):
+                        ext.country = llm_result['country']
+                    if llm_result.get('result') != 'unknown':
+                        ext.result = llm_result['result']
+                    if llm_result.get('confidence'):
+                        ext.confidence = max(ext.confidence, llm_result['confidence'])
 
                 # Priority order for location data:
                 # 1. YouTube recordingDetails (if available)
@@ -160,10 +218,18 @@ class Pipeline:
                     date_attempted=ext.date_attempted,
                     result=ext.result,
                     challenge_type_slug=ext.challenge_type_slug,
+                    food_type=llm_result.get('food_type') if llm_result else None,
                     notes=None,
                     charity_flag=False,
-                    source="auto",
+                    source="llm" if llm_result else "auto",
                     confidence=ext.confidence,
+                    # Challenge scoring from LLM
+                    food_volume_score=llm_result.get('food_volume_score', 0) if llm_result else 0,
+                    time_limit_score=llm_result.get('time_limit_score', 0) if llm_result else 0,
+                    success_rate_score=llm_result.get('success_rate_score', 0) if llm_result else 0,
+                    spiciness_score=llm_result.get('spiciness_score', 0) if llm_result else 0,
+                    food_diversity_score=llm_result.get('food_diversity_score', 0) if llm_result else 0,
+                    risk_level_score=llm_result.get('risk_level_score', 0) if llm_result else 0,
                 )
                 if self.repo:
                     existing_id = self.repo.get_challenge_id_by_video(v.video_id)
@@ -200,6 +266,13 @@ class Pipeline:
                    c.date_attempted,
                    c.result,
                    ct.slug AS type,
+                   c.food_type,
+                   c.food_volume_score,
+                   c.time_limit_score,
+                   c.success_rate_score,
+                   c.spiciness_score,
+                   c.food_diversity_score,
+                   c.risk_level_score,
                    v.thumbnail_url
             FROM challenges c
             LEFT JOIN restaurants r ON r.id = c.restaurant_id
@@ -238,10 +311,18 @@ class Pipeline:
                     "date_attempted": da_iso,
                     "result": r["result"],
                     "type": r["type"],
+                    "food_type": r.get("food_type"),
                     "thumbnail_url": r["thumbnail_url"],
                     # Include minimal provenance so we can distinguish approx points in the UI later
                     # (kept generic to avoid leaking provider details beyond a label)
                     "place_source": r.get("place_source") if hasattr(r, "get") else None,
+                    # Challenge difficulty scores
+                    "food_volume_score": r.get("food_volume_score", 0),
+                    "time_limit_score": r.get("time_limit_score", 0),
+                    "success_rate_score": r.get("success_rate_score", 0),
+                    "spiciness_score": r.get("spiciness_score", 0),
+                    "food_diversity_score": r.get("food_diversity_score", 0),
+                    "risk_level_score": r.get("risk_level_score", 0),
                 }
                 if r["lat"] is not None and r["lng"] is not None:
                     features.append({

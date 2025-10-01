@@ -209,11 +209,15 @@ class DbRepository:
             sql = text(
                 """
                 INSERT INTO challenges
-                  (video_id, restaurant_id, date_attempted, result, challenge_type_id, time_limit,
-                   price_cents, notes, charity_flag, source, confidence)
+                  (video_id, restaurant_id, date_attempted, result, challenge_type_id, food_type, time_limit,
+                   price_cents, notes, charity_flag, source, confidence,
+                   food_volume_score, time_limit_score, success_rate_score,
+                   spiciness_score, food_diversity_score, risk_level_score)
                 VALUES (:video_id, :restaurant_id, :date_attempted, :result,
                         (SELECT id FROM challenge_types WHERE slug = :type_slug),
-                        :time_limit, :price_cents, :notes, :charity_flag, :source, :confidence)
+                        :food_type, :time_limit, :price_cents, :notes, :charity_flag, :source, :confidence,
+                        :food_volume_score, :time_limit_score, :success_rate_score,
+                        :spiciness_score, :food_diversity_score, :risk_level_score)
                 """
             )
             with self.begin() as conn:
@@ -225,12 +229,19 @@ class DbRepository:
                         "date_attempted": (c.date_attempted.isoformat() if hasattr(c.date_attempted, "isoformat") else (str(c.date_attempted) if c.date_attempted is not None else None)),
                         "result": c.result,
                         "type_slug": c.challenge_type_slug,
+                        "food_type": c.food_type,
                         "time_limit": seconds,
                         "price_cents": c.price_cents,
                         "notes": c.notes,
                         "charity_flag": c.charity_flag,
                         "source": c.source,
                         "confidence": c.confidence,
+                        "food_volume_score": c.food_volume_score,
+                        "time_limit_score": c.time_limit_score,
+                        "success_rate_score": c.success_rate_score,
+                        "spiciness_score": c.spiciness_score,
+                        "food_diversity_score": c.food_diversity_score,
+                        "risk_level_score": c.risk_level_score,
                     },
                 )
                 row = self.engine.connect().execute(text("SELECT last_insert_rowid()")).first()
@@ -239,11 +250,15 @@ class DbRepository:
             sql = text(
                 """
                 INSERT INTO challenges
-                  (video_id, restaurant_id, date_attempted, result, challenge_type_id, time_limit,
-                   price_cents, notes, charity_flag, source, confidence)
+                  (video_id, restaurant_id, date_attempted, result, challenge_type_id, food_type, time_limit,
+                   price_cents, notes, charity_flag, source, confidence,
+                   food_volume_score, time_limit_score, success_rate_score,
+                   spiciness_score, food_diversity_score, risk_level_score)
                 VALUES (:video_id, :restaurant_id, :date_attempted, :result,
                         (SELECT id FROM challenge_types WHERE slug = :type_slug),
-                        :time_limit, :price_cents, :notes, :charity_flag, :source, :confidence)
+                        :food_type, :time_limit, :price_cents, :notes, :charity_flag, :source, :confidence,
+                        :food_volume_score, :time_limit_score, :success_rate_score,
+                        :spiciness_score, :food_diversity_score, :risk_level_score)
                 RETURNING id
                 """
             )
@@ -256,12 +271,19 @@ class DbRepository:
                         "date_attempted": c.date_attempted,
                         "result": c.result,
                         "type_slug": c.challenge_type_slug,
+                        "food_type": c.food_type,
                         "time_limit": c.time_limit,
                         "price_cents": c.price_cents,
                         "notes": c.notes,
                         "charity_flag": c.charity_flag,
                         "source": c.source,
                         "confidence": c.confidence,
+                        "food_volume_score": c.food_volume_score,
+                        "time_limit_score": c.time_limit_score,
+                        "success_rate_score": c.success_rate_score,
+                        "spiciness_score": c.spiciness_score,
+                        "food_diversity_score": c.food_diversity_score,
+                        "risk_level_score": c.risk_level_score,
                     },
                 ).first()
                 return int(row[0])

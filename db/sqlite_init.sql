@@ -58,12 +58,20 @@ CREATE TABLE IF NOT EXISTS challenges (
   date_attempted   TEXT,                  -- ISO8601 date
   result           TEXT DEFAULT 'unknown',
   challenge_type_id INTEGER,
+  food_type        TEXT,                  -- e.g., burger, pizza, bbq, breakfast
   time_limit       INTEGER,               -- seconds
   price_cents      INTEGER,
   notes            TEXT,
   charity_flag     INTEGER DEFAULT 0,
   source           TEXT,
   confidence       REAL,
+  -- Challenge difficulty scores (0-10 scale)
+  food_volume_score    INTEGER DEFAULT 0,
+  time_limit_score     INTEGER DEFAULT 0,
+  success_rate_score   INTEGER DEFAULT 0,
+  spiciness_score      INTEGER DEFAULT 0,
+  food_diversity_score INTEGER DEFAULT 0,
+  risk_level_score     INTEGER DEFAULT 0,
   created_at       TEXT DEFAULT CURRENT_TIMESTAMP,
   updated_at       TEXT DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(video_id) REFERENCES videos(video_id) ON DELETE CASCADE,
@@ -107,6 +115,7 @@ CREATE TABLE IF NOT EXISTS challenge_tags (
 CREATE INDEX IF NOT EXISTS idx_challenges_video ON challenges(video_id);
 CREATE INDEX IF NOT EXISTS idx_challenges_restaurant ON challenges(restaurant_id);
 CREATE INDEX IF NOT EXISTS idx_challenges_date ON challenges(date_attempted);
+CREATE INDEX IF NOT EXISTS idx_challenges_food_type ON challenges(food_type);
 CREATE INDEX IF NOT EXISTS idx_restaurants_country ON restaurants(country_code);
 
 -- Seed challenge types

@@ -13,6 +13,11 @@ class Settings:
     geocoder_provider: str | None
     geocoder_api_key: str | None
     data_dir: str
+    # LLM extraction settings
+    use_llm_extraction: bool = False
+    llm_provider: str | None = None  # "anthropic" or "openai"
+    llm_api_key: str | None = None
+    llm_model: str | None = None  # Override default model
 
     @staticmethod
     def load() -> "Settings":
@@ -25,4 +30,9 @@ class Settings:
             geocoder_provider=os.getenv("GEOCODER_PROVIDER"),
             geocoder_api_key=os.getenv("GEOCODER_API_KEY"),
             data_dir=os.getenv("DATA_DIR", os.path.abspath(os.path.join(os.getcwd(), "data"))),
+            # LLM settings
+            use_llm_extraction=os.getenv("USE_LLM_EXTRACTION", "false").lower() in ("true", "1", "yes"),
+            llm_provider=os.getenv("LLM_PROVIDER", "anthropic"),
+            llm_api_key=os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY"),
+            llm_model=os.getenv("LLM_MODEL"),
         )
