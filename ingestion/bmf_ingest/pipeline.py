@@ -63,16 +63,18 @@ class Pipeline:
         videos = fetch_videos(self.settings.youtube_api_key, video_ids)
         for v in videos:
             try:
-                v.captions_available = probe_captions_available(v.video_id)
-                captions_path = download_captions(v.video_id, os.path.join(self.settings.data_dir, "captions")) if v.captions_available else None
+                # Always try to download captions (probe is unreliable)
+                captions_path = download_captions(v.video_id, os.path.join(self.settings.data_dir, "captions"))
+                v.captions_available = 1 if captions_path else 0
                 if self.repo:
                     self.repo.upsert_video(v)
 
-                # Parse caption intro if available
+                # Parse captions if available (need more context to catch the ending/result)
                 captions_text = None
                 if captions_path:
                     try:
-                        captions_text = extract_caption_intro(captions_path, max_duration_seconds=180, max_words=500)
+                        # Increased to 400 seconds / 1000 words to capture video endings where results are revealed
+                        captions_text = extract_caption_intro(captions_path, max_duration_seconds=400, max_words=1000)
                         if captions_text:
                             logger.debug(f"Extracted {len(captions_text.split())} words from captions for {v.video_id}")
                     except Exception as e:

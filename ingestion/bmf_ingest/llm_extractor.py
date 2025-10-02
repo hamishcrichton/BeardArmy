@@ -39,11 +39,23 @@ Video Tags:
 
 {captions_section}
 
-IMPORTANT: If captions/transcript is provided, use it as the PRIMARY source for determining the result.
-The transcript captures the actual moment of success/failure:
-- Listen for phrases like "I did it!", "I couldn't finish", "that's it, I'm done", "I beat it!"
-- The ending of the transcript often reveals the outcome
-- Trust the transcript over ambiguous title wording
+CRITICAL: If captions/transcript is provided, it is the ONLY reliable source for determining the result.
+The transcript captures the actual moment of success/failure - titles and descriptions are often clickbait and don't reveal the outcome.
+
+Success phrases to listen for:
+- "I did it!", "I've done it!", "I beat it!", "I finished it!"
+- "That's the challenge beaten", "Challenge complete"
+- "My name goes on the wall", "I'm getting the t-shirt"
+- "I got it done", "Absolutely smashed it", "Demolished it"
+
+Failure phrases to listen for:
+- "I can't do it", "I couldn't finish", "I'm done", "I'm tapping out"
+- "That's beaten me", "I can't eat anymore", "I'm full"
+- "Unfortunately I didn't make it", "Didn't quite get there"
+- "Too much for me", "I've had to give up"
+
+The ending of the transcript (last 100 words) is most important - that's where the result is revealed.
+If no transcript is available, result should be "unknown" unless the title/description explicitly states the outcome.
 
 Respond ONLY with valid JSON in this exact format:
 {{
@@ -69,11 +81,12 @@ Important notes for extraction:
 - Common patterns: "IN [LOCATION] FOR..." means the location is in LOCATION
 - "AT [RESTAURANT]" or "at [Restaurant]" in description is usually the venue
 
-Result inference:
-- result="success" if: "completed", "won", "beat it", "did it", "finished", "demolished", video title suggests success
-- result="failure" if: "couldn't", "failed", "DNF", "didn't finish", "too much", "gave up", title says "TRIED TO" or "ATTEMPTING"
-- result="unknown" only if truly ambiguous (most BeardMeatsFood videos make the outcome clear in title/description)
-- IMPORTANT: "TRIED TO" in title usually means FAILURE, "DEMOLISHED" or "COMPLETED" means SUCCESS
+Result inference (WITHOUT transcript):
+- Only use title/description if they EXPLICITLY state the outcome
+- result="success" if title contains: "DEMOLISHED", "COMPLETED", "BEAT", "WON", "SUCCESS"
+- result="failure" if title contains: "FAILED", "COULDN'T FINISH", "DNF", "DEFEATED"
+- result="unknown" for ambiguous titles like "I TRIED", "ATTEMPTING", "CHALLENGE" (very common)
+- DO NOT assume "TRIED TO" means failure - BeardMeatsFood uses this for both outcomes
 
 Scoring guidelines:
 - food_volume: Look for phrases like "massive", "giant", "10lb", "45 inch", "family-sized"
@@ -158,9 +171,9 @@ class LLMExtractor:
         # Prepare context
         captions_section = ""
         if captions_text:
-            # Use first 500 words from captions (roughly first 3 minutes of speech)
-            words = captions_text.split()[:500]
-            captions_section = f"\nVideo Transcript (first 3 minutes):\n{' '.join(words)}\n"
+            # Use first 1000 words from captions (captures intro + ending where result is revealed)
+            words = captions_text.split()[:1000]
+            captions_section = f"\nVideo Transcript (first ~6-7 minutes, includes ending):\n{' '.join(words)}\n"
         else:
             captions_section = "\nVideo Transcript: Not available\n"
 
