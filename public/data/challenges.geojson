@@ -81,7 +81,7 @@
         "city": "Turners Falls",
         "country_code": "US",
         "date_attempted": "2025-09-14",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burrito",
         "thumbnail_url": "https://i.ytimg.com/vi/SJQloccusZI/hqdefault.jpg",
@@ -143,7 +143,7 @@
         "city": "Society Hill",
         "country_code": "US",
         "date_attempted": "2025-08-31",
-        "result": "failure",
+        "result": "success",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/9L1Z9vrXc20/hqdefault.jpg",
@@ -236,14 +236,14 @@
         "city": "East Greenbush",
         "country_code": "US",
         "date_attempted": "2025-08-10",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/4Y6XyYTO6QI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -304,7 +304,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/2DbXh_gnTno/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 7,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
@@ -484,7 +484,7 @@
         "city": "Las Vegas",
         "country_code": "US",
         "date_attempted": "2025-06-15",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/OaC-lzeqtD0/hqdefault.jpg",
@@ -675,7 +675,7 @@
         "food_type": "pancakes",
         "thumbnail_url": "https://i.ytimg.com/vi/XkwoW-fOKpY/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 7,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
@@ -763,7 +763,7 @@
         "city": "Elizabethton",
         "country_code": "US",
         "date_attempted": "2025-04-13",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/bWYVeYu3lrs/hqdefault.jpg",
@@ -949,14 +949,14 @@
         "city": "Scottsdale",
         "country_code": "US",
         "date_attempted": "2025-03-02",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "corndog",
         "thumbnail_url": "https://i.ytimg.com/vi/iLsyX2ZvTv8/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
+        "food_volume_score": 6,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 7
@@ -1011,7 +1011,7 @@
         "city": "Dumas",
         "country_code": "US",
         "date_attempted": "2025-02-16",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/McIgZi4_vpM/hqdefault.jpg",
@@ -1073,7 +1073,7 @@
         "city": "Las Vegas",
         "country_code": "US",
         "date_attempted": "2025-02-02",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/m6bnYkVfJpI/hqdefault.jpg",
@@ -1106,12 +1106,43 @@
         "date_attempted": "2025-01-26",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "milkshake",
+        "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/ziGqIEby9bI/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 8,
+        "spiciness_score": 0,
+        "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.2348815,
+          36.1601202
+        ]
+      },
+      "properties": {
+        "id": 37,
+        "video_id": "KPysiwgpWCk",
+        "title": "I TRIED TO EAT THE BIGGEST PIZZA IN LAS VEGAS...SUPER MARIO'S 45\" PIZZA CHALLENGE! | BeardMeatsFood",
+        "restaurant": "Super Mario's Pizza",
+        "address": "Super Mario's Pizza, 1000 South Torrey Pines Dr, Las Vegas, NV 89107, USA",
+        "city": "Las Vegas",
+        "country_code": "US",
+        "date_attempted": "2025-01-19",
+        "result": "failure",
+        "type": "quantity",
+        "food_type": "pizza",
+        "thumbnail_url": "https://i.ytimg.com/vi/KPysiwgpWCk/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 10,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -1166,7 +1197,7 @@
         "city": "Kingman",
         "country_code": "US",
         "date_attempted": "2025-01-05",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/e7MLDkAVeNw/hqdefault.jpg",
@@ -1197,12 +1228,12 @@
         "city": "Leeds",
         "country_code": "GB",
         "date_attempted": "2024-12-22",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/fjSoL0ySPdw/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
@@ -1290,7 +1321,7 @@
         "city": "Sagamore",
         "country_code": "US",
         "date_attempted": "2024-12-08",
-        "result": "failure",
+        "result": "success",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/sTK82C20gd8/hqdefault.jpg",
@@ -1326,7 +1357,7 @@
         "food_type": "shepherd's pie",
         "thumbnail_url": "https://i.ytimg.com/vi/3utCnrvohSQ/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -1476,41 +1507,10 @@
         "city": "Chicago",
         "country_code": "US",
         "date_attempted": "2024-11-03",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/wxmYUyLS47w/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -95.918089,
-          41.298853
-        ]
-      },
-      "properties": {
-        "id": 51,
-        "video_id": "ypEL-k-fkW4",
-        "title": "YOU WIN A HUGE TROPHY IF YOU FINISH THIS FOOD CHALLENGE IN A BOWLING ALLEY! | BeardMeatsFood",
-        "restaurant": "Shooter's Bar at Don Carter Lanes",
-        "address": "Carter Lake, Iowa, USA",
-        "city": "Carter Lake",
-        "country_code": "US",
-        "date_attempted": "2024-10-27",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "sandwich",
-        "thumbnail_url": "https://i.ytimg.com/vi/ypEL-k-fkW4/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
@@ -1600,7 +1600,7 @@
         "city": "Clare",
         "country_code": "US",
         "date_attempted": "2024-10-13",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/nx-AWSet-n8/hqdefault.jpg",
@@ -1618,20 +1618,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.1496461,
-          52.9534193
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 55,
         "video_id": "N60Q0n26KFI",
         "title": "WIN THE CASH JACKPOT IF YOU FINISH THIS UNBEATEN BREAKFAST CHALLENGE FAST ENOUGH! | BeardMeatsFood",
-        "restaurant": "Nottingham (approx)",
-        "address": "Nottingham, Nottinghamshire, England, UK",
-        "city": "Nottingham",
+        "restaurant": "BeardMeatsFood (approx)",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2024-10-06",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/N60Q0n26KFI/hqdefault.jpg",
@@ -1693,7 +1693,7 @@
         "city": "Fairmont",
         "country_code": "US",
         "date_attempted": "2024-09-22",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/qEfmcUFG-Pk/hqdefault.jpg",
@@ -1726,7 +1726,7 @@
         "date_attempted": "2024-09-15",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "sandwich",
+        "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/-e11wcNO_CU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -1788,10 +1788,10 @@
         "date_attempted": "2024-09-01",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "dessert",
+        "food_type": "cookies",
         "thumbnail_url": "https://i.ytimg.com/vi/sjsblrAfa_Y/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -1804,8 +1804,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -83.347946,
-          33.355288
+          -87.862978,
+          46.344881
         ]
       },
       "properties": {
@@ -1813,11 +1813,11 @@
         "video_id": "s4lkP9sGVEQ",
         "title": "ONLY TEN MINUTES TO BREAK THE CHAMP’S RECORD AND STUN THE LOCALS! | BeardMeatsFood",
         "restaurant": "Dawn's Cafe",
-        "address": "Dance Rd, Eatonton, GA, USA",
-        "city": "Eatonton",
+        "address": "Co Rd Cf, Ishpeming, MI, USA",
+        "city": "Ishpeming",
         "country_code": "US",
         "date_attempted": "2024-08-25",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/s4lkP9sGVEQ/hqdefault.jpg",
@@ -1879,7 +1879,7 @@
         "city": "Roosevelt",
         "country_code": "US",
         "date_attempted": "2024-08-11",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/g5D68vZi5Zg/hqdefault.jpg",
@@ -1910,7 +1910,7 @@
         "city": "Newark",
         "country_code": "US",
         "date_attempted": "2024-08-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/85g9zb29Nto/hqdefault.jpg",
@@ -1928,17 +1928,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.1487384,
-          52.9533834
+          -1.9793573,
+          50.5911666
         ]
       },
       "properties": {
         "id": 65,
         "video_id": "XE03qdGZrPc",
         "title": "\"YOU'VE GOT NO CHANCE DUCK\"...DINERS TELL ME I WON'T BEAT THIS BREAKFAST CHALLENGE | BeardMeatsFood",
-        "restaurant": "Oaks Restaurant & Grill",
-        "address": "Nottingham, UK",
-        "city": "Nottingham",
+        "restaurant": "Unknown",
+        "address": "Unknown Ledge, Swanage, BH19 2SQ, UK",
+        "city": "Swanage",
         "country_code": "GB",
         "date_attempted": "2024-07-28",
         "result": "success",
@@ -1990,20 +1990,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -18.0,
-          65.0
+          -21.89541,
+          64.13548
         ]
       },
       "properties": {
         "id": 67,
         "video_id": "SdBBFS8z3oE",
         "title": "IN ICELAND THEY CALL THIS THE VIKING CHALLENGE...AND IT'S ONLY BEEN BEATEN ONCE! | BeardMeatsFood",
-        "restaurant": "Gastrotruck",
-        "address": "Iceland",
-        "city": "Iceland",
+        "restaurant": "2 Guys",
+        "address": "Reykjavik, Capital Region, Iceland",
+        "city": "Reykjavik",
         "country_code": "IS",
         "date_attempted": "2024-07-13",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/SdBBFS8z3oE/hqdefault.jpg",
@@ -2189,7 +2189,7 @@
         "city": "Chesterfield",
         "country_code": "GB",
         "date_attempted": "2024-06-02",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/J_i5PITEEc0/hqdefault.jpg",
@@ -2344,7 +2344,7 @@
         "city": "Salford",
         "country_code": "GB",
         "date_attempted": "2024-04-28",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pie",
         "thumbnail_url": "https://i.ytimg.com/vi/BH5ruRR4sus/hqdefault.jpg",
@@ -2411,11 +2411,11 @@
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/M0CX9rjiVCY/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -2437,7 +2437,7 @@
         "city": "Charlotte",
         "country_code": "US",
         "date_attempted": "2024-04-07",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burrito",
         "thumbnail_url": "https://i.ytimg.com/vi/VCllJ5znQHw/hqdefault.jpg",
@@ -2649,21 +2649,21 @@
         "id": 88,
         "video_id": "ggqXttEhWlY",
         "title": "NORWAY'S BIGGEST PIZZA CHALLENGE HAS NEVER BEEN BEATEN! | BeardMeatsFood",
-        "restaurant": "Oslove's Pizza",
+        "restaurant": "Dattebayo",
         "address": "Oslo, Oslo County, Norway",
         "city": "Oslo",
         "country_code": "NO",
         "date_attempted": "2024-02-18",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/ggqXttEhWlY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -2672,8 +2672,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          10.0,
-          62.0
+          10.74609,
+          59.91273
         ]
       },
       "properties": {
@@ -2681,20 +2681,20 @@
         "video_id": "OWu9eM06JxA",
         "title": "IN NORWAY ATTEMPTING A RAMEN CHALLENGE WHICH HAS ONLY BEEN BEATEN ONCE IN 5 YEARS! | BeardMeatsFood",
         "restaurant": "Dattebayo",
-        "address": "Norway",
-        "city": "Norway",
+        "address": "Oslo, Oslo County, Norway",
+        "city": "Oslo",
         "country_code": "NO",
         "date_attempted": "2024-02-11",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "noodles",
+        "food_type": "ramen",
         "thumbnail_url": "https://i.ytimg.com/vi/OWu9eM06JxA/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 9,
+        "time_limit_score": 7,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -2716,7 +2716,7 @@
         "city": "Tønsberg",
         "country_code": "NO",
         "date_attempted": "2024-02-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/9J-dYr7j-3I/hqdefault.jpg",
@@ -2778,7 +2778,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2024-01-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/Ks74khlWe9c/hqdefault.jpg",
@@ -2814,11 +2814,11 @@
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/KuiidoLf8_g/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -3032,11 +3032,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/0j3ksk-RRK4/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 3,
-        "time_limit_score": 1,
-        "success_rate_score": 3,
+        "time_limit_score": 2,
+        "success_rate_score": 5,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 1
+        "risk_level_score": 2
       }
     },
     {
@@ -3088,7 +3088,7 @@
         "city": "Porvoo",
         "country_code": "FI",
         "date_attempted": "2023-12-07",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/NCAenmg55d8/hqdefault.jpg",
@@ -3119,7 +3119,7 @@
         "city": "Hämeenlinna",
         "country_code": "FI",
         "date_attempted": "2023-12-03",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/RJHihI0FMnA/hqdefault.jpg",
@@ -3187,11 +3187,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/4S-8mjx7qJU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 5,
-        "time_limit_score": 6,
-        "success_rate_score": 7,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -3249,10 +3249,10 @@
         "thumbnail_url": "https://i.ytimg.com/vi/UjChL-JdwWE/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 3,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -3346,7 +3346,7 @@
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 5
+        "risk_level_score": 6
       }
     },
     {
@@ -3462,7 +3462,7 @@
         "date_attempted": "2023-10-01",
         "result": "failure",
         "type": "quantity",
-        "food_type": "breakfast",
+        "food_type": "omelette",
         "thumbnail_url": "https://i.ytimg.com/vi/FABh_WLBkoQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -3491,7 +3491,7 @@
         "city": "Newington",
         "country_code": "US",
         "date_attempted": "2023-09-24",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "hot dog",
         "thumbnail_url": "https://i.ytimg.com/vi/pQNQJrmsBkA/hqdefault.jpg",
@@ -3591,8 +3591,8 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
-        "spiciness_score": 5,
+        "success_rate_score": 9,
+        "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
       }
@@ -3615,7 +3615,7 @@
         "city": "Prestwich",
         "country_code": "GB",
         "date_attempted": "2023-08-27",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/umVRa_pD7Uk/hqdefault.jpg",
@@ -3646,12 +3646,12 @@
         "city": "California City",
         "country_code": "US",
         "date_attempted": "2023-08-20",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/GbmeY9Zu7yY/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -3679,7 +3679,7 @@
         "date_attempted": "2023-08-13",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "sandwich",
+        "food_type": "grilled_cheese",
         "thumbnail_url": "https://i.ytimg.com/vi/jtcu62zebCY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -3925,7 +3925,7 @@
         "city": "London",
         "country_code": "GB",
         "date_attempted": "2023-06-25",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/g9Ty1sokoDQ/hqdefault.jpg",
@@ -3935,7 +3935,7 @@
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 7
       }
     },
     {
@@ -3958,10 +3958,10 @@
         "date_attempted": "2023-06-18",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "breakfast",
+        "food_type": "french toast",
         "thumbnail_url": "https://i.ytimg.com/vi/m7PyG1l4maQ/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -3987,7 +3987,7 @@
         "city": "Wellingborough",
         "country_code": "GB",
         "date_attempted": "2023-06-11",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/EAneAmuc8IM/hqdefault.jpg",
@@ -4051,12 +4051,12 @@
         "date_attempted": "2023-05-28",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "burger",
+        "food_type": "sliders",
         "thumbnail_url": "https://i.ytimg.com/vi/LNOix8vmwTI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 7,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -4118,8 +4118,8 @@
         "place_source": "opencage",
         "food_volume_score": 7,
         "time_limit_score": 8,
-        "success_rate_score": 7,
-        "spiciness_score": 0,
+        "success_rate_score": 8,
+        "spiciness_score": 2,
         "food_diversity_score": 4,
         "risk_level_score": 7
       }
@@ -4209,8 +4209,8 @@
         "food_type": "sushi",
         "thumbnail_url": "https://i.ytimg.com/vi/rpjL4-f_CNE/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 9,
+        "time_limit_score": 7,
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -4235,7 +4235,7 @@
         "city": "Reading",
         "country_code": "US",
         "date_attempted": "2023-04-23",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "fish_and_chips",
         "thumbnail_url": "https://i.ytimg.com/vi/dOIdfzosHmo/hqdefault.jpg",
@@ -4266,7 +4266,7 @@
         "city": "Temecula",
         "country_code": "US",
         "date_attempted": "2023-04-16",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/8Pl-ucZmSb8/hqdefault.jpg",
@@ -4395,8 +4395,8 @@
         "food_type": "steak",
         "thumbnail_url": "https://i.ytimg.com/vi/e0qk9kOBw00/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 9,
+        "time_limit_score": 7,
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -4426,7 +4426,7 @@
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/XhkNbX-Nf0s/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 6,
+        "food_volume_score": 5,
         "time_limit_score": 7,
         "success_rate_score": 8,
         "spiciness_score": 0,
@@ -4452,7 +4452,7 @@
         "city": "Tucson",
         "country_code": "US",
         "date_attempted": "2023-03-12",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/g0iCsiDqAPw/hqdefault.jpg",
@@ -4489,8 +4489,8 @@
         "thumbnail_url": "https://i.ytimg.com/vi/Suw3z9fAYYo/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -4514,7 +4514,7 @@
         "city": "Mount Vernon",
         "country_code": "US",
         "date_attempted": "2023-03-05",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/zyRpAcWP9wc/hqdefault.jpg",
@@ -4612,7 +4612,7 @@
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/m5qLM2RBvFI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -4674,9 +4674,9 @@
         "food_type": "calzone",
         "thumbnail_url": "https://i.ytimg.com/vi/KnvYee6_Xwc/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -4762,7 +4762,7 @@
         "city": "Manchester",
         "country_code": "GB",
         "date_attempted": "2023-01-22",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/okHtwCvEE3s/hqdefault.jpg",
@@ -4793,7 +4793,7 @@
         "city": "The Mount",
         "country_code": "GB",
         "date_attempted": "2023-01-15",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/wjPo5i1NdZs/hqdefault.jpg",
@@ -4824,7 +4824,7 @@
         "city": "South Holland",
         "country_code": "GB",
         "date_attempted": "2023-01-08",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "ribs",
         "thumbnail_url": "https://i.ytimg.com/vi/ewgfQIY8HGM/hqdefault.jpg",
@@ -4892,10 +4892,10 @@
         "thumbnail_url": "https://i.ytimg.com/vi/PEfa1aoT2VY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 8,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -4917,13 +4917,13 @@
         "city": "London",
         "country_code": "GB",
         "date_attempted": "2022-12-29",
-        "result": "failure",
+        "result": "success",
         "type": "quantity",
         "food_type": "pie",
         "thumbnail_url": "https://i.ytimg.com/vi/dQw9jr9e4V4/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 8,
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -4935,30 +4935,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.69531,
-          54.75844
+          -1.1487384,
+          52.9533834
         ]
       },
       "properties": {
         "id": 163,
         "video_id": "RketV6z5efQ",
         "title": "\"IS THAT A FULL LOAF?\"...THIS PLACE HAS A GIANT CHRISTMAS SANDWICH CHALLENGE! | BeardMeatsFood",
-        "restaurant": "BeardMeatsFood (approx)",
-        "address": "UK",
-        "city": "BeardMeatsFood",
+        "restaurant": "Oaks Restaurant & Grill",
+        "address": "Nottingham, UK",
+        "city": "Nottingham",
         "country_code": "GB",
         "date_attempted": "2022-12-22",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/RketV6z5efQ/hqdefault.jpg",
-        "place_source": "approx",
-        "food_volume_score": 9,
+        "place_source": "opencage",
+        "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 6
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -5021,6 +5021,37 @@
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.69531,
+          54.75844
+        ]
+      },
+      "properties": {
+        "id": 167,
+        "video_id": "nAP67IgssMM",
+        "title": "24 HOURS EATING FESTIVE FAST FOOD SPECIALS | BeardMeatsFood",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
+        "date_attempted": "2022-12-15",
+        "result": "unknown",
+        "type": "quantity",
+        "food_type": "mixed_grill",
+        "thumbnail_url": "https://i.ytimg.com/vi/nAP67IgssMM/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
+        "spiciness_score": 0,
+        "food_diversity_score": 7,
+        "risk_level_score": 5
       }
     },
     {
@@ -5338,37 +5369,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 178,
-        "video_id": "gpno4fU9wkw",
-        "title": "THEY CALL IT 'THE IMPOSSIBLE PANCAKE CHALLENGE' | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2022-11-06",
-        "result": "unknown",
-        "type": "quantity",
-        "food_type": "pancakes",
-        "thumbnail_url": "https://i.ytimg.com/vi/gpno4fU9wkw/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -1.8980725,
           52.4813678
         ]
@@ -5446,13 +5446,13 @@
         "date_attempted": "2022-10-20",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "noodles",
+        "food_type": "ramen",
         "thumbnail_url": "https://i.ytimg.com/vi/X4lYviqrgMk/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 9,
-        "spiciness_score": 5,
+        "spiciness_score": 8,
         "food_diversity_score": 3,
         "risk_level_score": 7
       }
@@ -5481,8 +5481,8 @@
         "thumbnail_url": "https://i.ytimg.com/vi/8GLmyTjJYtY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -5537,7 +5537,7 @@
         "city": "Montreal",
         "country_code": "CA",
         "date_attempted": "2022-10-09",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/elvvMl5dJkg/hqdefault.jpg",
@@ -5568,7 +5568,7 @@
         "city": "Montreal",
         "country_code": "CA",
         "date_attempted": "2022-10-06",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/tnAYAa9ro7k/hqdefault.jpg",
@@ -5661,7 +5661,7 @@
         "city": "King City",
         "country_code": "US",
         "date_attempted": "2022-09-25",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/BMN4GY3j9II/hqdefault.jpg",
@@ -5698,10 +5698,41 @@
         "thumbnail_url": "https://i.ytimg.com/vi/xCS1SkCMYeQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 8,
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.69531,
+          54.75844
+        ]
+      },
+      "properties": {
+        "id": 191,
+        "video_id": "Ir87L-iRMcs",
+        "title": "\"FOUR PEOPLE TRIED THIS TOGETHER AND FAILED\" | THE UNBEATEN 'BIN LID' CHALLENGE | BeardMeatsFood",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
+        "date_attempted": "2022-09-18",
+        "result": "failure",
+        "type": "quantity",
+        "food_type": "mixed_grill",
+        "thumbnail_url": "https://i.ytimg.com/vi/Ir87L-iRMcs/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 9,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
+        "spiciness_score": 0,
+        "food_diversity_score": 8,
         "risk_level_score": 7
       }
     },
@@ -5728,9 +5759,9 @@
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/SxqgeB0txmg/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 10,
+        "food_volume_score": 9,
         "time_limit_score": 8,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 7
@@ -5909,7 +5940,7 @@
         "city": "Mershon",
         "country_code": "US",
         "date_attempted": "2022-08-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/62TefiCjnI0/hqdefault.jpg",
@@ -6188,16 +6219,16 @@
         "city": "White",
         "country_code": "GB",
         "date_attempted": "2022-07-21",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "steak",
         "thumbnail_url": "https://i.ytimg.com/vi/MpIIyY-ZaVQ/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 10,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -6228,8 +6259,39 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1222819,
+          51.5145733
+        ]
+      },
+      "properties": {
+        "id": 209,
+        "video_id": "pr3saLUszn4",
+        "title": "TRYING TO EAT LONDON'S BIGGEST PIZZA SOLO | BeardMeatsFood",
+        "restaurant": "Bloomsbury Lane",
+        "address": "Bloomsbury Law Tutors, 40 Drury Ln, London, WC2B 5RR, UK",
+        "city": "London",
+        "country_code": "GB",
+        "date_attempted": "2022-07-14",
+        "result": "unknown",
+        "type": "quantity",
+        "food_type": "pizza",
+        "thumbnail_url": "https://i.ytimg.com/vi/pr3saLUszn4/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 9,
+        "time_limit_score": 5,
+        "success_rate_score": 7,
+        "spiciness_score": 0,
+        "food_diversity_score": 2,
+        "risk_level_score": 5
       }
     },
     {
@@ -6281,7 +6343,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2022-07-03",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/Htu6UVmqxvg/hqdefault.jpg",
@@ -6374,7 +6436,7 @@
         "city": "San Antonio",
         "country_code": "US",
         "date_attempted": "2022-06-23",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/UyXdtBEH1uc/hqdefault.jpg",
@@ -6600,7 +6662,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -6689,11 +6751,11 @@
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/gUTDL3PZhoM/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -6717,15 +6779,15 @@
         "date_attempted": "2022-05-15",
         "result": "failure",
         "type": "quantity",
-        "food_type": "afternoon_tea",
+        "food_type": "afternoon tea",
         "thumbnail_url": "https://i.ytimg.com/vi/pJC8nQM2Tlw/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 5,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 5
       }
     },
     {
@@ -6808,7 +6870,7 @@
         "city": "Atlanta",
         "country_code": "US",
         "date_attempted": "2022-05-05",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/9OoO9VBZmZ4/hqdefault.jpg",
@@ -6963,7 +7025,7 @@
         "city": "De Land",
         "country_code": "US",
         "date_attempted": "2022-04-14",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burrito",
         "thumbnail_url": "https://i.ytimg.com/vi/KvQipUx4VuI/hqdefault.jpg",
@@ -6981,17 +7043,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -134.420974,
-          58.287855
+          -80.018812,
+          36.853878
         ]
       },
       "properties": {
         "id": 234,
         "video_id": "mcVPmRjSASI",
         "title": "THE JOHN HENRY BURGER CHALLENGE | ATLANTA PT.2 | BeardMeatsFood",
-        "restaurant": "John Henry's",
-        "address": "John St, Juneau, AK, USA",
-        "city": "Juneau",
+        "restaurant": "John Henry",
+        "address": "Old Henry Rd, Henry, VA, USA",
+        "city": "Henry",
         "country_code": "US",
         "date_attempted": "2022-04-10",
         "result": "unknown",
@@ -7211,7 +7273,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2022-03-17",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "pancakes",
         "thumbnail_url": "https://i.ytimg.com/vi/npYMf5g6vek/hqdefault.jpg",
@@ -7273,7 +7335,7 @@
         "city": "Northampton",
         "country_code": "GB",
         "date_attempted": "2022-03-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/7OrEn71rjb0/hqdefault.jpg",
@@ -7406,7 +7468,7 @@
         "time_limit_score": 6,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
+        "food_diversity_score": 3,
         "risk_level_score": 7
       }
     },
@@ -7428,14 +7490,14 @@
         "city": "Orlando",
         "country_code": "US",
         "date_attempted": "2022-02-17",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "calzone",
         "thumbnail_url": "https://i.ytimg.com/vi/IOF65xX-aLY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -7490,7 +7552,7 @@
         "city": "Klamath",
         "country_code": "US",
         "date_attempted": "2022-02-10",
-        "result": "failure",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/DNHz2XEeupE/hqdefault.jpg",
@@ -7508,8 +7570,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -81.2436551,
-          28.3622875
+          -73.055771,
+          42.657604
         ]
       },
       "properties": {
@@ -7517,8 +7579,8 @@
         "video_id": "iNX3BSUf_KE",
         "title": "TOMASINO'S 'MADE MAN' STUFFED PIZZA CHALLENGE | FLORIDA PT.1 | BeardMeatsFood",
         "restaurant": "Tomasino's",
-        "address": "Tomasino's Pizza IV, Narcoossee Rd, Orange County, FL 32832, USA",
-        "city": "Florida",
+        "address": "N Florida Rd, North Adams, MA, USA",
+        "city": "North Adams",
         "country_code": "US",
         "date_attempted": "2022-02-06",
         "result": "unknown",
@@ -7650,43 +7712,12 @@
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/TNZkYZ_XiSM/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 10,
-        "time_limit_score": 3,
+        "food_volume_score": 9,
+        "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 1,
-        "risk_level_score": 5
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 256,
-        "video_id": "7eXzuYC2D7k",
-        "title": "EL CAFE'S VERDE'S UNBEATEN 'DEVIL'S FRY UP' CHALLENGE | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2022-01-20",
-        "result": "unknown",
-        "type": "quantity",
-        "food_type": "breakfast",
-        "thumbnail_url": "https://i.ytimg.com/vi/7eXzuYC2D7k/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 6
       }
     },
     {
@@ -7831,7 +7862,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-12-19",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/LPRD0Q4UzBQ/hqdefault.jpg",
@@ -7960,11 +7991,11 @@
         "food_type": "steak",
         "thumbnail_url": "https://i.ytimg.com/vi/0KA06AcMBuY/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
+        "food_diversity_score": 3,
         "risk_level_score": 7
       }
     },
@@ -7986,7 +8017,7 @@
         "city": "Long Beach",
         "country_code": "US",
         "date_attempted": "2021-12-02",
-        "result": "unknown",
+        "result": "failure",
         "type": "quantity",
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/RBbx917qfH8/hqdefault.jpg",
@@ -8017,7 +8048,7 @@
         "city": "Mount Crawford",
         "country_code": "US",
         "date_attempted": "2021-11-28",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/m_T5LfxJGmA/hqdefault.jpg",
@@ -8110,7 +8141,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-11-18",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/nWlgWh-IpxY/hqdefault.jpg",
@@ -8209,10 +8240,10 @@
         "thumbnail_url": "https://i.ytimg.com/vi/6visMpn8cFk/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 3,
+        "time_limit_score": 2,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 4,
         "risk_level_score": 5
       }
     },
@@ -8265,7 +8296,7 @@
         "city": "Taylorsville",
         "country_code": "US",
         "date_attempted": "2021-10-31",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/pFRRecEcWHY/hqdefault.jpg",
@@ -8296,7 +8327,7 @@
         "city": "Coronado",
         "country_code": "US",
         "date_attempted": "2021-10-28",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/OLDqBQcjU-8/hqdefault.jpg",
@@ -8327,16 +8358,16 @@
         "city": "California City",
         "country_code": "US",
         "date_attempted": "2021-10-24",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/dbbYp4Han-4/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 6,
+        "food_volume_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 5
       }
     },
@@ -8389,7 +8420,7 @@
         "city": "Kitchener",
         "country_code": "CA",
         "date_attempted": "2021-10-17",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/GSqBP550t8c/hqdefault.jpg",
@@ -8519,8 +8550,8 @@
         "thumbnail_url": "https://i.ytimg.com/vi/UfpKuFyxoag/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 3
@@ -8584,7 +8615,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -8637,7 +8668,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-09-12",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/g820trNPxT8/hqdefault.jpg",
@@ -8646,8 +8677,8 @@
         "time_limit_score": 2,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 4,
-        "risk_level_score": 5
+        "food_diversity_score": 5,
+        "risk_level_score": 3
       }
     },
     {
@@ -8983,12 +9014,12 @@
         "food_type": "milkshake",
         "thumbnail_url": "https://i.ytimg.com/vi/a7chMcusTvo/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
+        "food_volume_score": 5,
+        "time_limit_score": 7,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 6
+        "risk_level_score": 5
       }
     },
     {
@@ -9016,7 +9047,7 @@
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -9080,7 +9111,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -9102,7 +9133,7 @@
         "city": "Worcestershire",
         "country_code": "GB",
         "date_attempted": "2021-07-15",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/pbP81wXnSLk/hqdefault.jpg",
@@ -9164,7 +9195,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-07-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/joXOQxMl4vI/hqdefault.jpg",
@@ -9449,7 +9480,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/fb8DEOmmGlc/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
@@ -9474,7 +9505,7 @@
         "city": "Market Warsop",
         "country_code": "GB",
         "date_attempted": "2021-05-30",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/33_dvxbbdKE/hqdefault.jpg",
@@ -9483,7 +9514,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -9722,7 +9753,7 @@
         "city": "Windsor",
         "country_code": "GB",
         "date_attempted": "2021-04-18",
-        "result": "failure",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/YheZKfcSsh8/hqdefault.jpg",
@@ -9740,17 +9771,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.2065391,
-          51.7005742
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 330,
         "video_id": "zQxz2zR13xU",
         "title": "THE CHAMPIONS BOX GIANT BREAKFAST CHALLENGE | C.O.B. Ep.193",
-        "restaurant": "QUADZILLA MUNCH BOX",
-        "address": "Box, UK",
-        "city": "Box",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-04-15",
         "result": "unknown",
@@ -9759,11 +9790,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/zQxz2zR13xU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 5,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 7,
+        "risk_level_score": 6
       }
     },
     {
@@ -9784,13 +9815,13 @@
         "city": "BeardMeatsFood",
         "country_code": "SG",
         "date_attempted": "2021-04-11",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/tWC5La25ek0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 3,
+        "time_limit_score": 4,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -9815,7 +9846,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-04-08",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/UmbnHYQ7AXU/hqdefault.jpg",
@@ -9915,7 +9946,7 @@
         "place_source": "opencage",
         "food_volume_score": 7,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 5
@@ -9945,7 +9976,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/fPkcuOg_FE0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 5,
+        "time_limit_score": 4,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
@@ -9957,18 +9988,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -92.484584,
-          31.408235
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 338,
         "video_id": "qE2qCUgd8m8",
         "title": "ONE MAN VS THE TACO BELL CRAVINGS PARTY BUNDLE | BeardMeatsFood",
-        "restaurant": "caloric maintenance over the course of time",
-        "address": "Pineville, Louisiana, USA",
-        "city": "Pineville",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2021-03-14",
         "result": "unknown",
         "type": "quantity",
@@ -10038,7 +10069,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/cyP1Ztd6_dM/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 4,
+        "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -10050,29 +10081,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.2065391,
-          51.7005742
+          -1.4528791,
+          53.3856729
         ]
       },
       "properties": {
         "id": 341,
         "video_id": "7lidkHQfkqg",
         "title": "THE QUADZILLA MUNCH BOX CHALLENGE | C.O.B. Ep.187 | BeardMeatsFood",
-        "restaurant": "QUADZILLA MUNCH BOX",
-        "address": "Box, UK",
-        "city": "Box",
+        "restaurant": "The Cabin",
+        "address": "Sheffield, UK",
+        "city": "Sheffield",
         "country_code": "GB",
         "date_attempted": "2021-03-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/7lidkHQfkqg/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 10,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 8,
         "risk_level_score": 7
       }
     },
@@ -10089,7 +10120,7 @@
         "id": 342,
         "video_id": "jGwOGh7Ao6s",
         "title": "THE BACK TO THE 90'S PLATTER CHALLENGE | BeardMeatsFood",
-        "restaurant": "Restaurant in Swansea",
+        "restaurant": "BACK TO THE 90'S PLATTER",
         "address": "Swansea, UK",
         "city": "Swansea",
         "country_code": "GB",
@@ -10100,11 +10131,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/jGwOGh7Ao6s/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 7,
+        "risk_level_score": 5
       }
     },
     {
@@ -10112,18 +10143,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -78.015501,
-          37.343922
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 343,
         "video_id": "L0UzTauOptQ",
         "title": "THE MASSIVE DINER BREAKFAST FROM GROUNDHOG DAY CHALLENGE | BeardMeatsFood",
-        "restaurant": "MASSIVE DINER BREAKFAST FROM GROUNDHOG DAY",
-        "address": "Broad Meadow Dr, Amelia Court House, VA, USA",
-        "city": "Amelia Court House",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2021-02-21",
         "result": "success",
         "type": "quantity",
@@ -10131,11 +10162,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/L0UzTauOptQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -10161,11 +10192,11 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/cDPXyDwe3EM/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 10,
         "time_limit_score": 3,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -10174,17 +10205,48 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.076094,
-          39.042536
+          -2.69531,
+          54.75844
+        ]
+      },
+      "properties": {
+        "id": 346,
+        "video_id": "23aZl0EKSmo",
+        "title": "THE GIANT NACHO PARTY TABLE CHALLENGE | SUPER BOWL SPECIAL | BeardMeatsFood",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
+        "date_attempted": "2021-02-07",
+        "result": "success",
+        "type": "quantity",
+        "food_type": "nachos",
+        "thumbnail_url": "https://i.ytimg.com/vi/23aZl0EKSmo/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 7,
+        "spiciness_score": 0,
+        "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.348951,
+          37.952187
         ]
       },
       "properties": {
         "id": 347,
         "video_id": "gJKpQN3NPPo",
         "title": "DISNEY'S RIDICULOUS SECRET HOT DOG CHALLENGE | RECREATING THE SECRET KING DOG BUT GIANT | COB Ep.185",
-        "restaurant": "DISNEY'S RIDICULOUS SECRET HOT DOG",
-        "address": "Connecticut Ave, Silver Spring, MD, USA",
-        "city": "Silver Spring",
+        "restaurant": "Disney Springs",
+        "address": "Spring Creek Station Rd, Renick, WV, USA",
+        "city": "Renick",
         "country_code": "US",
         "date_attempted": "2021-02-04",
         "result": "unknown",
@@ -10205,18 +10267,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -86.096262,
-          39.195175
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 348,
         "video_id": "2kco-fRxrYs",
         "title": "THE MOST KFC NASHVILLE HOT CHICKEN EVER EATEN | BeardMeatsFood",
-        "restaurant": "MOST KFC NASHVILLE HOT CHICKEN EVER EATEN",
-        "address": "Old Nashville Rd, Nashville, IN, USA",
-        "city": "Nashville",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2021-01-31",
         "result": "success",
         "type": "quantity",
@@ -10225,10 +10287,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 5,
-        "success_rate_score": 7,
-        "spiciness_score": 7,
+        "success_rate_score": 8,
+        "spiciness_score": 5,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 6
       }
     },
     {
@@ -10249,7 +10311,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-01-28",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "kebab",
         "thumbnail_url": "https://i.ytimg.com/vi/cs_-GF_uQiU/hqdefault.jpg",
@@ -10285,12 +10347,12 @@
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/r7Z4lQDDUHg/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 3,
+        "food_volume_score": 9,
+        "time_limit_score": 2,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
-        "risk_level_score": 5
+        "risk_level_score": 3
       }
     },
     {
@@ -10348,42 +10410,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/k27fiISaHxo/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 3,
         "success_rate_score": 7,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 353,
-        "video_id": "h1pLVA-Z6NU",
-        "title": "THE 14 COURSES CHALLENGE | TIKTOK'S 4 COURSE CHALLENGE BEEFED UP | C.O.B. Ep.182 | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2021-01-14",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/h1pLVA-Z6NU/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "spiciness_score": 2,
+        "food_diversity_score": 5,
+        "risk_level_score": 4
       }
     },
     {
@@ -10404,17 +10435,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2021-01-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/kNKupPVtgsY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 5,
-        "success_rate_score": 8,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -10437,12 +10468,12 @@
         "date_attempted": "2021-01-07",
         "result": "success",
         "type": "quantity",
-        "food_type": "sandwich",
+        "food_type": "grilled_cheese",
         "thumbnail_url": "https://i.ytimg.com/vi/6RePylO53tg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -10497,13 +10528,13 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-12-13",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/JaU57m3qqfk/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
@@ -10659,10 +10690,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -10688,11 +10719,11 @@
         "food_type": "crepe",
         "thumbnail_url": "https://i.ytimg.com/vi/FeQxDlV0h4A/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 6,
+        "time_limit_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 7
       }
     },
@@ -10869,7 +10900,7 @@
         "city": "Pleasley",
         "country_code": "GB",
         "date_attempted": "2020-10-08",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/Tb9xnFSvyDY/hqdefault.jpg",
@@ -10900,14 +10931,14 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-10-04",
-        "result": "unknown",
+        "result": "failure",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/5b0pzqTZE8k/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -10933,7 +10964,7 @@
         "date_attempted": "2020-10-01",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "breakfast",
+        "food_type": "breakfast_sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/4DZC1YrrffI/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -10962,7 +10993,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-09-24",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/vmbfBEXIoLQ/hqdefault.jpg",
@@ -11088,15 +11119,15 @@
         "date_attempted": "2020-09-06",
         "result": "failure",
         "type": "quantity",
-        "food_type": "sandwich",
+        "food_type": "other",
         "thumbnail_url": "https://i.ytimg.com/vi/K4mOnslQxWE/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 5,
+        "time_limit_score": 3,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 6
+        "risk_level_score": 5
       }
     },
     {
@@ -11126,7 +11157,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -11154,9 +11185,9 @@
         "thumbnail_url": "https://i.ytimg.com/vi/FRwjb53psYs/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 3,
         "success_rate_score": 9,
-        "spiciness_score": 0,
+        "spiciness_score": 5,
         "food_diversity_score": 3,
         "risk_level_score": 7
       }
@@ -11166,18 +11197,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -73.947946,
-          43.605911
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 396,
         "video_id": "hHjwX4WdWiU",
         "title": "PAPA JOHN'S BIG MATCH BUNDLE CHALLENGE | BeardMeatsFood",
-        "restaurant": "Papa John's",
-        "address": "S Johnsburg Rd, Johnsburg, NY, USA",
-        "city": "Johnsburg",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2020-08-23",
         "result": "unknown",
         "type": "quantity",
@@ -11186,10 +11217,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -11210,7 +11241,7 @@
         "city": "Scunthorpe",
         "country_code": "GB",
         "date_attempted": "2020-08-20",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/Ama_JS1-a_Q/hqdefault.jpg",
@@ -11247,11 +11278,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/FtmSjKwtfVs/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 10,
-        "time_limit_score": 3,
-        "success_rate_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 7
       }
     },
     {
@@ -11309,11 +11340,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/f9Iu0xpe4Bg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 5
       }
     },
     {
@@ -11372,7 +11403,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -11396,7 +11427,7 @@
         "city": "Belle",
         "country_code": "US",
         "date_attempted": "2020-07-19",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/GFCTEUPkfgY/hqdefault.jpg",
@@ -11405,7 +11436,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
+        "food_diversity_score": 10,
         "risk_level_score": 5
       }
     },
@@ -11434,10 +11465,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -11463,7 +11494,7 @@
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/aspxB3zJU2s/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 3,
         "success_rate_score": 8,
         "spiciness_score": 0,
@@ -11558,10 +11589,10 @@
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 3,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 7
+        "food_diversity_score": 7,
+        "risk_level_score": 5
       }
     },
     {
@@ -11608,18 +11639,18 @@
         "id": 414,
         "video_id": "mIuHMIF47-g",
         "title": "THE METRE PIZZA CHALLENGE | BeardMeatsFood",
-        "restaurant": "Yorkshire Pudding Eating World Championships",
+        "restaurant": "BIGGEST DELIVERABLE BREAKFAST IN YORKSHIRE X 2",
         "address": "Yorkshire, England, UK",
         "city": "Yorkshire",
         "country_code": "GB",
         "date_attempted": "2020-06-21",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/mIuHMIF47-g/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 4,
+        "food_volume_score": 9,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
@@ -11651,9 +11682,9 @@
         "place_source": "opencage",
         "food_volume_score": 10,
         "time_limit_score": 3,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 5
       }
     },
@@ -11682,7 +11713,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 3,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 5
@@ -11742,12 +11773,12 @@
         "food_type": null,
         "thumbnail_url": "https://i.ytimg.com/vi/EXpIkvC5y64/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 0,
-        "time_limit_score": 0,
-        "success_rate_score": 0,
+        "food_volume_score": 5,
+        "time_limit_score": 3,
+        "success_rate_score": 5,
         "spiciness_score": 0,
-        "food_diversity_score": 0,
-        "risk_level_score": 0
+        "food_diversity_score": 3,
+        "risk_level_score": 3
       }
     },
     {
@@ -11778,7 +11809,7 @@
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 3
+        "risk_level_score": 4
       }
     },
     {
@@ -11799,14 +11830,14 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-05-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/QDXkcpPfyD8/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 10,
         "time_limit_score": 3,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 5
@@ -11830,48 +11861,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-05-07",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/bt9wP6_SIas/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -74.103538,
-          40.634698
-        ]
-      },
-      "properties": {
-        "id": 427,
-        "video_id": "9c5iGDzC6Yc",
-        "title": "THE MARK WAHLBERG DAILY DIET CHALLENGE | BeardMeatsFood",
-        "restaurant": "MARK WAHLBERG DAILY DIET",
-        "address": "Walbrooke Ave, Staten Island, NY, USA",
-        "city": "Staten Island",
-        "country_code": "US",
-        "date_attempted": "2020-05-03",
-        "result": "unknown",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/9c5iGDzC6Yc/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 2,
-        "success_rate_score": 5,
-        "spiciness_score": 0,
-        "food_diversity_score": 7,
-        "risk_level_score": 3
       }
     },
     {
@@ -11897,12 +11897,12 @@
         "food_type": "pie",
         "thumbnail_url": "https://i.ytimg.com/vi/B-wtZUSy_RQ/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
-        "time_limit_score": 4,
-        "success_rate_score": 8,
+        "food_volume_score": 10,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 6
+        "risk_level_score": 5
       }
     },
     {
@@ -11930,9 +11930,9 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "success_rate_score": 8,
+        "spiciness_score": 5,
+        "food_diversity_score": 4,
         "risk_level_score": 7
       }
     },
@@ -11954,7 +11954,7 @@
         "city": "Wakefield",
         "country_code": "GB",
         "date_attempted": "2020-04-05",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "italian",
         "thumbnail_url": "https://i.ytimg.com/vi/ZbD4sW44E-E/hqdefault.jpg",
@@ -12016,7 +12016,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-03-29",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/7QG3LIX4gQY/hqdefault.jpg",
@@ -12065,17 +12065,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.5,
-          52.75
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 438,
         "video_id": "yj5b5n0LOJc",
         "title": "ANOTHER HUGE PIZZA CHALLENGE | PAYBACK FOR RANDY ;) | The Midlands Mini-Series Pt.2",
-        "restaurant": "Restaurant Name",
-        "address": "England, UK",
-        "city": "The Midlands",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-03-24",
         "result": "success",
@@ -12140,7 +12140,7 @@
         "city": "Scunthorpe",
         "country_code": "GB",
         "date_attempted": "2020-03-19",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/PXIXc1syF2Y/hqdefault.jpg",
@@ -12178,7 +12178,7 @@
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 5,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 6
@@ -12239,11 +12239,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/98Gn6-MIUBU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 5,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -12264,17 +12264,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-03-05",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "hot dogs",
         "thumbnail_url": "https://i.ytimg.com/vi/dcw45bYoMcw/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 7,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -12344,37 +12344,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.1724794,
-          53.5509016
-        ]
-      },
-      "properties": {
-        "id": 448,
-        "video_id": "tb8CxXTpg9k",
-        "title": "THE FULL MONTY CHALLENGE | The Chronicles Of Beard Ep.144",
-        "restaurant": "The Full Monty",
-        "address": "Scawthorpe, UK",
-        "city": "Scawthorpe",
-        "country_code": "GB",
-        "date_attempted": "2020-02-20",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "breakfast",
-        "thumbnail_url": "https://i.ytimg.com/vi/tb8CxXTpg9k/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -2.69531,
           54.75844
         ]
@@ -12393,12 +12362,12 @@
         "food_type": "kebab",
         "thumbnail_url": "https://i.ytimg.com/vi/GW-Wl4YA-dk/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 10,
+        "food_volume_score": 9,
         "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 6
+        "risk_level_score": 5
       }
     },
     {
@@ -12455,11 +12424,11 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/GDyREy2azNk/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 3,
+        "food_volume_score": 9,
+        "time_limit_score": 2,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 8,
         "risk_level_score": 5
       }
     },
@@ -12481,14 +12450,14 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-02-06",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/CRIu9lqNuk8/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -12583,39 +12552,8 @@
         "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
-        "risk_level_score": 6
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.9703789,
-          52.5179569
-        ]
-      },
-      "properties": {
-        "id": 456,
-        "video_id": "2Wk2hb49Jq4",
-        "title": "THE JACK AND THE BEAN STALK BURGER CHALLENGE | C.O.B. Ep.140",
-        "restaurant": "Burgers And More",
-        "address": "More, UK",
-        "city": "More",
-        "country_code": "GB",
-        "date_attempted": "2020-01-23",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/2Wk2hb49Jq4/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -12636,17 +12574,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2020-01-19",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/BJLfPU68nZE/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 8,
+        "risk_level_score": 5
       }
     },
     {
@@ -12703,43 +12641,12 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/p72pYu1Tkhs/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 461,
-        "video_id": "O_l6-yLjoJ8",
-        "title": "THE JAWBREAKER CHALLENGE | The Chronicles Of Beard Ep.137",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2020-01-02",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/O_l6-yLjoJ8/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 7,
+        "risk_level_score": 5
       }
     },
     {
@@ -12762,15 +12669,15 @@
         "date_attempted": "2019-12-29",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "dessert",
+        "food_type": "chocolate",
         "thumbnail_url": "https://i.ytimg.com/vi/H9efddTXe1k/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 2,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 5
+        "food_diversity_score": 5,
+        "risk_level_score": 6
       }
     },
     {
@@ -12797,11 +12704,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/4Txy9USu7yY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -12828,11 +12735,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/Crt63aIrrRA/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 2,
-        "success_rate_score": 6,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 3,
         "food_diversity_score": 5,
-        "risk_level_score": 3
+        "risk_level_score": 5
       }
     },
     {
@@ -12859,8 +12766,8 @@
         "thumbnail_url": "https://i.ytimg.com/vi/d0dxDQsuA7U/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 7,
+        "time_limit_score": 3,
+        "success_rate_score": 6,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 5
@@ -12917,14 +12824,14 @@
         "date_attempted": "2019-12-12",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "mixed_grill",
+        "food_type": "christmas_dinner",
         "thumbnail_url": "https://i.ytimg.com/vi/Krlzu_BNxi4/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 3,
         "risk_level_score": 5
       }
     },
@@ -12946,17 +12853,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-12-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/I3H6d_SGqkM/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 2,
+        "success_rate_score": 5,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 8,
+        "risk_level_score": 3
       }
     },
     {
@@ -12985,9 +12892,9 @@
         "food_volume_score": 7,
         "time_limit_score": 3,
         "success_rate_score": 6,
-        "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 3
+        "spiciness_score": 1,
+        "food_diversity_score": 6,
+        "risk_level_score": 4
       }
     },
     {
@@ -13013,10 +12920,10 @@
         "food_type": "wings",
         "thumbnail_url": "https://i.ytimg.com/vi/QiYsx-eebg4/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 6,
+        "food_volume_score": 6,
+        "time_limit_score": 4,
         "success_rate_score": 7,
-        "spiciness_score": 5,
+        "spiciness_score": 7,
         "food_diversity_score": 2,
         "risk_level_score": 3
       }
@@ -13041,15 +12948,15 @@
         "date_attempted": "2019-11-26",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "bangers_and_mash",
+        "food_type": "sausage_and_mash",
         "thumbnail_url": "https://i.ytimg.com/vi/by0InR8_EWQ/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 5,
-        "success_rate_score": 8,
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
-        "risk_level_score": 5
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -13072,15 +12979,15 @@
         "date_attempted": "2019-11-21",
         "result": "unknown",
         "type": "quantity",
-        "food_type": "hot_pot",
+        "food_type": "hot pot",
         "thumbnail_url": "https://i.ytimg.com/vi/kptmlIcLKuM/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 7
       }
     },
     {
@@ -13107,11 +13014,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/jukMkOLTwWQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 3
       }
     },
     {
@@ -13168,12 +13075,12 @@
         "food_type": "kebab",
         "thumbnail_url": "https://i.ytimg.com/vi/8JdTHNjMbxc/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 4,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -13231,11 +13138,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/uq57-a-7vOQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 2,
-        "success_rate_score": 5,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
-        "risk_level_score": 3
+        "risk_level_score": 5
       }
     },
     {
@@ -13287,17 +13194,17 @@
         "city": "Toronto",
         "country_code": "CA",
         "date_attempted": "2019-10-27",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "poutine",
         "thumbnail_url": "https://i.ytimg.com/vi/bxTWV1ifXBU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 8,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 8
       }
     },
     {
@@ -13349,7 +13256,7 @@
         "city": "Warrington",
         "country_code": "GB",
         "date_attempted": "2019-10-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/Pf5AHrxwHLg/hqdefault.jpg",
@@ -13450,7 +13357,7 @@
         "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
-        "spiciness_score": 9,
+        "spiciness_score": 8,
         "food_diversity_score": 3,
         "risk_level_score": 7
       }
@@ -13473,7 +13380,7 @@
         "city": "Nottingham",
         "country_code": "GB",
         "date_attempted": "2019-09-26",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/7luYUzmMlYI/hqdefault.jpg",
@@ -13535,7 +13442,7 @@
         "city": "Doncaster",
         "country_code": "GB",
         "date_attempted": "2019-09-19",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/X6JAemlMoYM/hqdefault.jpg",
@@ -13572,7 +13479,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/fRsNLiiGCWg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 4,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
@@ -13637,7 +13544,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -13721,14 +13628,14 @@
         "city": "LA",
         "country_code": "US",
         "date_attempted": "2019-08-29",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/baP119Wr7EM/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 10,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -13752,17 +13659,17 @@
         "city": "Monroe",
         "country_code": "US",
         "date_attempted": "2019-08-25",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/CNkF0BPbPqU/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -13770,8 +13677,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -91.69214,
-          31.603426
+          -118.192717,
+          34.06659
         ]
       },
       "properties": {
@@ -13779,8 +13686,8 @@
         "video_id": "HMjhWPhRE3E",
         "title": "THE JACK IN THE BOX FULL BREAKFAST MENU CHALLENGE | LA Mini-Series Pt.1",
         "restaurant": "Jack In The Box",
-        "address": "Louisiana Ave, Jonesville, LA, USA",
-        "city": "Jonesville",
+        "address": "N Indiana Ave, Los Angeles, CA, USA",
+        "city": "Los Angeles",
         "country_code": "US",
         "date_attempted": "2019-08-22",
         "result": "unknown",
@@ -13790,9 +13697,9 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -13854,7 +13761,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 7,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -13876,7 +13783,7 @@
         "city": "Calumet",
         "country_code": "US",
         "date_attempted": "2019-08-08",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/7UyCb4Y_Gb4/hqdefault.jpg",
@@ -13956,17 +13863,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.69531,
-          54.75844
+          -1.36256,
+          53.72587
         ]
       },
       "properties": {
         "id": 506,
         "video_id": "ZfDiJnabHjA",
         "title": "THE UNDEFEATED CHEESY CHILLI CHIPS CHALLENGE | The Chronicles of Beard Ep.115",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
+        "restaurant": "Restaurant Name",
+        "address": "Castleford, Wakefield, England, UK",
+        "city": "Castleford",
         "country_code": "GB",
         "date_attempted": "2019-07-25",
         "result": "success",
@@ -13987,30 +13894,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -73.988483,
-          40.7290769
+          -8.13057,
+          39.6945
         ]
       },
       "properties": {
         "id": 507,
         "video_id": "SYDvpVWfgPI",
         "title": "GIANT CURRY CHALLENGE WITH CORBUCCI EATS | The Trip To Manhattan Pt.3",
-        "restaurant": "Kenka",
-        "address": "Kenka, 25 Saint Marks Pl, New York, NY 10003, USA",
-        "city": "New York",
-        "country_code": "US",
+        "restaurant": "GIANT CURRY CHALLENGE WITH CORBUCCI EATS",
+        "address": "Portugal",
+        "city": "The Trip To Manhattan Pt.3",
+        "country_code": "PT",
         "date_attempted": "2019-07-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "curry",
+        "food_type": null,
         "thumbnail_url": "https://i.ytimg.com/vi/SYDvpVWfgPI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 5,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_volume_score": 0,
+        "time_limit_score": 0,
+        "success_rate_score": 0,
+        "spiciness_score": 0,
+        "food_diversity_score": 0,
+        "risk_level_score": 0
       }
     },
     {
@@ -14018,8 +13925,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.455514,
-          43.198544
+          -78.113136,
+          37.927431
         ]
       },
       "properties": {
@@ -14027,8 +13934,8 @@
         "video_id": "DtQaFsEImh4",
         "title": "BEARD VS MATT STONIE...AND OTHER EQUALLY IMPORTANT EATERS | NATHAN'S FAMOUS HOT DOG CONTEST 2019",
         "restaurant": "Nathan's Famous",
-        "address": "Nathans Way, Webster, NY, USA",
-        "city": "Webster",
+        "address": "Kents Store Rd, Kents Store, VA, USA",
+        "city": "Kents Store",
         "country_code": "US",
         "date_attempted": "2019-07-18",
         "result": "unknown",
@@ -14036,12 +13943,12 @@
         "food_type": "hot dog",
         "thumbnail_url": "https://i.ytimg.com/vi/DtQaFsEImh4/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
+        "food_volume_score": 5,
         "time_limit_score": 8,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -14067,7 +13974,7 @@
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/fB8RJOvFxqw/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -14093,7 +14000,7 @@
         "city": "Doncaster",
         "country_code": "GB",
         "date_attempted": "2019-07-11",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/CrwIqfk9Ob4/hqdefault.jpg",
@@ -14133,7 +14040,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 4,
         "risk_level_score": 5
       }
     },
@@ -14155,7 +14062,7 @@
         "city": "Nottingham",
         "country_code": "GB",
         "date_attempted": "2019-07-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/UodYk6M_MGE/hqdefault.jpg",
@@ -14193,10 +14100,10 @@
         "place_source": "opencage",
         "food_volume_score": 7,
         "time_limit_score": 4,
-        "success_rate_score": 6,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 3
+        "risk_level_score": 4
       }
     },
     {
@@ -14235,8 +14142,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -88.66523,
-          35.425301
+          -94.847252,
+          47.768682
         ]
       },
       "properties": {
@@ -14244,18 +14151,18 @@
         "video_id": "zBZlBJfdHDE",
         "title": "EATING 11LB OF CAKE IN 8 MINUTES | WORLD STRAWBERRY CAKE CHAMPIONSHIPS | NYC Mini-Series Pt.1",
         "restaurant": "EATING 11LB OF CAKE IN 8 MINUTES",
-        "address": "Old Montezuma Rd, Henderson, TN, USA",
-        "city": "Henderson",
+        "address": "Cook Ave NE, Puposky, MN, USA",
+        "city": "Puposky",
         "country_code": "US",
         "date_attempted": "2019-06-25",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "cake",
         "thumbnail_url": "https://i.ytimg.com/vi/zBZlBJfdHDE/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 8,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
         "risk_level_score": 5
@@ -14279,13 +14186,13 @@
         "city": "Orleans",
         "country_code": "US",
         "date_attempted": "2019-06-16",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "oyster",
         "thumbnail_url": "https://i.ytimg.com/vi/0dyPprn1a4s/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 7,
-        "time_limit_score": 6,
+        "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
@@ -14403,17 +14310,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-06-02",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/RQedUPsKWtI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
-        "time_limit_score": 5,
-        "success_rate_score": 7,
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
-        "risk_level_score": 5
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -14457,25 +14364,25 @@
         ]
       },
       "properties": {
-        "id": 527,
-        "video_id": "GoO6fYAtaKc",
-        "title": "THE ULTIMATE FEASTERS EVERYTHING CHALLENGE | FULL MENU | BeardMeatsFood",
+        "id": 526,
+        "video_id": "nJui5iw0xn8",
+        "title": "THE RED BBQ FEAST FOR FOUR TAKE DOWN | The Chronicles of Beard Ep.109",
         "restaurant": "Huckleberry's Diner",
         "address": "UK",
         "city": "BeardMeatsFood",
         "country_code": "GB",
-        "date_attempted": "2019-05-19",
-        "result": "failure",
+        "date_attempted": "2019-05-23",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/GoO6fYAtaKc/hqdefault.jpg",
+        "food_type": "bbq",
+        "thumbnail_url": "https://i.ytimg.com/vi/nJui5iw0xn8/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 5,
-        "success_rate_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 6
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -14488,22 +14395,22 @@
         ]
       },
       "properties": {
-        "id": 528,
-        "video_id": "WRMaT-1OdhY",
-        "title": "THE EL B4STARDO BURRITO CHALLENGE | The Chronicles of Beard Ep.108",
+        "id": 527,
+        "video_id": "GoO6fYAtaKc",
+        "title": "THE ULTIMATE FEASTERS EVERYTHING CHALLENGE | FULL MENU | BeardMeatsFood",
         "restaurant": "Huckleberry's Diner",
         "address": "UK",
         "city": "BeardMeatsFood",
         "country_code": "GB",
-        "date_attempted": "2019-05-16",
-        "result": "success",
+        "date_attempted": "2019-05-19",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "burrito",
-        "thumbnail_url": "https://i.ytimg.com/vi/WRMaT-1OdhY/hqdefault.jpg",
+        "food_type": "mixed_grill",
+        "thumbnail_url": "https://i.ytimg.com/vi/GoO6fYAtaKc/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 5,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -14558,7 +14465,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-05-02",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "ribs",
         "thumbnail_url": "https://i.ytimg.com/vi/ug3y2lAsOWw/hqdefault.jpg",
@@ -14620,17 +14527,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-04-14",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/HDok80uTgXw/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 10,
-        "time_limit_score": 3,
-        "success_rate_score": 7,
+        "time_limit_score": 5,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 8,
-        "risk_level_score": 5
+        "risk_level_score": 7
       }
     },
     {
@@ -14682,7 +14589,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-04-07",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/L1FZhU2qe9E/hqdefault.jpg",
@@ -14713,14 +14620,14 @@
         "city": "Sheffield",
         "country_code": "GB",
         "date_attempted": "2019-04-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pancakes",
         "thumbnail_url": "https://i.ytimg.com/vi/xY5XHx5IS0I/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -14744,48 +14651,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-03-31",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "fish_and_chips",
         "thumbnail_url": "https://i.ytimg.com/vi/mLjF0f5zyhY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 5
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 540,
-        "video_id": "4cxzqX55BY8",
-        "title": "THE DOUBLE MASSIVE RUDELY NAMED BURGER CHALLENGE | C.O.B. Ep.101",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2019-03-28",
-        "result": "failure",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/4cxzqX55BY8/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 9,
-        "time_limit_score": 3,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
-        "risk_level_score": 5
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -14806,17 +14682,17 @@
         "city": "Buena Vista",
         "country_code": "US",
         "date_attempted": "2019-03-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "fried_chicken",
+        "food_type": "fried chicken",
         "thumbnail_url": "https://i.ytimg.com/vi/vT5pXT9I1yg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 5,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 6
       }
     },
     {
@@ -14837,7 +14713,7 @@
         "city": "Greenville",
         "country_code": "US",
         "date_attempted": "2019-03-17",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "croquette",
         "thumbnail_url": "https://i.ytimg.com/vi/Rz2qHd19SWY/hqdefault.jpg",
@@ -14875,10 +14751,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 5
+        "food_diversity_score": 2,
+        "risk_level_score": 7
       }
     },
     {
@@ -14905,11 +14781,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/gwnB0tjOd2w/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 2,
-        "success_rate_score": 5,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
-        "risk_level_score": 3
+        "risk_level_score": 5
       }
     },
     {
@@ -14935,7 +14811,7 @@
         "food_type": "nachos",
         "thumbnail_url": "https://i.ytimg.com/vi/3NmU5pYdFGY/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 10,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -14956,7 +14832,7 @@
         "id": 547,
         "video_id": "LbRQmOorx6Y",
         "title": "THE BIGGEST DELIVERABLE BREAKFAST IN YORKSHIRE X 2 | BeardMeatsFood",
-        "restaurant": "Yorkshire Pudding Eating World Championships",
+        "restaurant": "BIGGEST DELIVERABLE BREAKFAST IN YORKSHIRE X 2",
         "address": "Yorkshire, England, UK",
         "city": "Yorkshire",
         "country_code": "GB",
@@ -15023,45 +14899,14 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-02-17",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/HxIRl5YJqSs/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
-        "time_limit_score": 5,
-        "success_rate_score": 7,
-        "spiciness_score": 0,
-        "food_diversity_score": 8,
-        "risk_level_score": 6
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -79.443345,
-          34.701233
-        ]
-      },
-      "properties": {
-        "id": 550,
-        "video_id": "GZnv-obQNeI",
-        "title": "THE 12,000 CALORIE PAPA JOHN'S VALENTINE'S DAY FEAST CHALLENGE | B.S.B.O. Ep.8",
-        "restaurant": "Papa John's",
-        "address": "Old Johns Rd, Laurinburg, NC, USA",
-        "city": "Laurinburg",
-        "country_code": "US",
-        "date_attempted": "2019-02-14",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "pizza",
-        "thumbnail_url": "https://i.ytimg.com/vi/GZnv-obQNeI/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -15085,7 +14930,7 @@
         "city": "Nuth",
         "country_code": "NL",
         "date_attempted": "2019-02-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/Im02FDl8izU/hqdefault.jpg",
@@ -15116,17 +14961,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-01-31",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/XhhGvz6KuXU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
-        "risk_level_score": 5
+        "risk_level_score": 6
       }
     },
     {
@@ -15147,7 +14992,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-01-24",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "steak",
         "thumbnail_url": "https://i.ytimg.com/vi/4J2IPzuOVWc/hqdefault.jpg",
@@ -15185,9 +15030,9 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 3,
         "risk_level_score": 7
       }
     },
@@ -15216,7 +15061,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -15245,12 +15090,12 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/LcUHGZRgB-o/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 10,
+        "time_limit_score": 3,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 5
       }
     },
     {
@@ -15271,7 +15116,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2019-01-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/caZevhVFUB4/hqdefault.jpg",
@@ -15281,37 +15126,6 @@
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 559,
-        "video_id": "a6tnh3xrmuo",
-        "title": "THE PUB ON A PLATTER CHALLENGE RECORD | C.O.B. Ep.93",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2019-01-03",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/a6tnh3xrmuo/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -15364,14 +15178,14 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-12-02",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/vIfAr3gESKs/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 7
@@ -15402,10 +15216,10 @@
         "place_source": "approx",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 7
       }
     },
     {
@@ -15413,8 +15227,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -81.534708,
-          35.924149
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
@@ -15422,11 +15236,11 @@
         "video_id": "68jbecR7DTc",
         "title": "THE 12,000 CALORIE DEATH ROW MEAL TO END THEM ALL | FINAL MEAL CHALLENGE | BeardMeatsFood",
         "restaurant": "FINAL MEAL CHALLENGE (approx)",
-        "address": "Finley Ave, Lenoir, NC, USA",
-        "city": "Lenoir",
-        "country_code": "US",
+        "address": "UK",
+        "city": "FINAL MEAL CHALLENGE",
+        "country_code": "GB",
         "date_attempted": "2018-11-25",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/68jbecR7DTc/hqdefault.jpg",
@@ -15435,7 +15249,7 @@
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
+        "food_diversity_score": 3,
         "risk_level_score": 7
       }
     },
@@ -15457,16 +15271,16 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-11-22",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sushi",
         "thumbnail_url": "https://i.ytimg.com/vi/hpUm8Fb-iz0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 7,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 3,
         "risk_level_score": 5
       }
     },
@@ -15493,12 +15307,12 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/HE0TcQjgvSg/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 8,
+        "risk_level_score": 5
       }
     },
     {
@@ -15519,7 +15333,7 @@
         "city": "Retford",
         "country_code": "GB",
         "date_attempted": "2018-11-15",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/621ivZ0EBgs/hqdefault.jpg",
@@ -15529,68 +15343,6 @@
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.388229,
-          40.593765
-        ]
-      },
-      "properties": {
-        "id": 569,
-        "video_id": "5D3cgqUPZKI",
-        "title": "THE HOTTEST CHIP IN THE UNIVERSE | PAQUI ONE CHIP CHALLENGE | HALLOWEEN SPECIAL | C.O.B. Ep. 85",
-        "restaurant": "HOTTEST CHIP IN THE UNIVERSE",
-        "address": "E University Ave, Bethlehem, PA, USA",
-        "city": "Bethlehem",
-        "country_code": "US",
-        "date_attempted": "2018-10-31",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "snack",
-        "thumbnail_url": "https://i.ytimg.com/vi/5D3cgqUPZKI/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 3,
-        "time_limit_score": 3,
-        "success_rate_score": 7,
-        "spiciness_score": 10,
-        "food_diversity_score": 1,
-        "risk_level_score": 5
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 570,
-        "video_id": "wW1cQEu2rUg",
-        "title": "THE TERRY HOLLANDS 10,000 CALORIE STRONGMAN CHEAT MEAL CHALLENGE | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2018-10-28",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/wW1cQEu2rUg/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
-        "spiciness_score": 0,
-        "food_diversity_score": 7,
         "risk_level_score": 7
       }
     },
@@ -15648,12 +15400,12 @@
         "food_type": "nuggets",
         "thumbnail_url": "https://i.ytimg.com/vi/i6jyvVmCCTs/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 5,
-        "success_rate_score": 7,
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
-        "risk_level_score": 5
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -15692,17 +15444,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -84.767911,
-          43.937677
+          -118.616975,
+          34.48986
         ]
       },
       "properties": {
         "id": 574,
         "video_id": "F1dGN7u74OE",
         "title": "COSTCO FOOD COURT CALORIE CHAOS CHALLENGE | B.S.B.O Ep.5",
-        "restaurant": "COSTCO FOOD COURT CALORIE CHAOS",
-        "address": "S Clare Ave, Clare, MI, USA",
-        "city": "Clare",
+        "restaurant": "Costco",
+        "address": "Castaic Rd, Castaic, CA, USA",
+        "city": "Castaic",
         "country_code": "US",
         "date_attempted": "2018-10-14",
         "result": "success",
@@ -15710,42 +15462,11 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/F1dGN7u74OE/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
-        "risk_level_score": 5
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 575,
-        "video_id": "IXrMxcu9E3w",
-        "title": "THE HELL HOUND CHALLENGE & A SNEAKY FIVE GUYS | The Chronicles of Beard. Ep.82",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2018-10-11",
-        "result": "unknown",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/IXrMxcu9E3w/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 7,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
-        "spiciness_score": 0,
-        "food_diversity_score": 5,
         "risk_level_score": 5
       }
     },
@@ -15774,10 +15495,41 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 5
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1796875,
+          41.3802201
+        ]
+      },
+      "properties": {
+        "id": 577,
+        "video_id": "iZ54ab3tmOc",
+        "title": "THE TERMINATOR 2 FULL ENGLISH BREAKFAST CHALLENGE | C.O.B. Ep.81",
+        "restaurant": "C.O.B",
+        "address": "UK Look, Carrer Ample, 27, 08002 Barcelona, Spain",
+        "city": "Barcelona",
+        "country_code": "ES",
+        "date_attempted": "2018-10-04",
+        "result": "unknown",
+        "type": "quantity",
+        "food_type": "breakfast",
+        "thumbnail_url": "https://i.ytimg.com/vi/iZ54ab3tmOc/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 9,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
+        "spiciness_score": 0,
+        "food_diversity_score": 4,
+        "risk_level_score": 6
       }
     },
     {
@@ -15790,53 +15542,22 @@
         ]
       },
       "properties": {
-        "id": 577,
-        "video_id": "iZ54ab3tmOc",
-        "title": "THE TERMINATOR 2 FULL ENGLISH BREAKFAST CHALLENGE | C.O.B. Ep.81",
+        "id": 579,
+        "video_id": "w5YOVTAdAfw",
+        "title": "THE ULTIMATE CALORIE COMMUTE | CHEAT DAY | DRIVING AGAIN | C.O.B. Ep.80",
         "restaurant": "Huckleberry's Diner",
         "address": "UK",
         "city": "BeardMeatsFood",
         "country_code": "GB",
-        "date_attempted": "2018-10-04",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "breakfast",
-        "thumbnail_url": "https://i.ytimg.com/vi/iZ54ab3tmOc/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -84.19161,
-          39.75895
-        ]
-      },
-      "properties": {
-        "id": 579,
-        "video_id": "w5YOVTAdAfw",
-        "title": "THE ULTIMATE CALORIE COMMUTE | CHEAT DAY | DRIVING AGAIN | C.O.B. Ep.80",
-        "restaurant": "ULTIMATE CALORIE COMMUTE",
-        "address": "Dayton, Ohio, USA",
-        "city": "Dayton",
-        "country_code": "US",
         "date_attempted": "2018-09-27",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/w5YOVTAdAfw/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 3,
-        "success_rate_score": 6,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
         "risk_level_score": 5
@@ -15878,37 +15599,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -98.5,
-          39.76
-        ]
-      },
-      "properties": {
-        "id": 582,
-        "video_id": "0nggV3L-Jfo",
-        "title": "TRYING TO EAT BRIAN SHAW'S 16,000 CALORIE STRONG MAN CHEAT MEAL PIZZA PARTY | BeardMeatsFood",
-        "restaurant": "BeardMeatsFood (approx)",
-        "address": "USA",
-        "city": "BeardMeatsFood",
-        "country_code": "US",
-        "date_attempted": "2018-09-16",
-        "result": "failure",
-        "type": "quantity",
-        "food_type": "pizza",
-        "thumbnail_url": "https://i.ytimg.com/vi/0nggV3L-Jfo/hqdefault.jpg",
-        "place_source": "approx",
-        "food_volume_score": 10,
-        "time_limit_score": 3,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -97.548113,
           30.547381
         ]
@@ -15922,12 +15612,12 @@
         "city": "Hutto",
         "country_code": "US",
         "date_attempted": "2018-09-13",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/da_vgVrMTTo/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 7,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
@@ -15963,7 +15653,7 @@
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -16015,7 +15705,7 @@
         "city": "City of Edinburgh",
         "country_code": "GB",
         "date_attempted": "2018-08-30",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/dCa2XQQDeE4/hqdefault.jpg",
@@ -16077,7 +15767,7 @@
         "city": "Manchester",
         "country_code": "GB",
         "date_attempted": "2018-08-16",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/3G9FeRVz4K8/hqdefault.jpg",
@@ -16157,20 +15847,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.58333,
-          53.7
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 593,
         "video_id": "PdiiHrex9hk",
         "title": "THE MAN V ROAST CARVERY BUTTY CHALLENGE | The Chronicles of Beard Ep.71",
-        "restaurant": "Man V Roast",
-        "address": "England, UK",
-        "city": "Headingly, West Yorkshire",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-07-19",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "sandwich",
         "thumbnail_url": "https://i.ytimg.com/vi/PdiiHrex9hk/hqdefault.jpg",
@@ -16201,9 +15891,9 @@
         "city": "Tadcaster",
         "country_code": "GB",
         "date_attempted": "2018-07-12",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "sandwich",
+        "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/A-zwa5OEIQY/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -16242,7 +15932,7 @@
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -16263,7 +15953,7 @@
         "city": "Garden City",
         "country_code": "US",
         "date_attempted": "2018-06-14",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/ZE3FM785KVo/hqdefault.jpg",
@@ -16330,7 +16020,7 @@
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/vUc1sGRGiAg/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 10,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -16356,17 +16046,17 @@
         "city": "Reading",
         "country_code": "GB",
         "date_attempted": "2018-06-03",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "kebab",
         "thumbnail_url": "https://i.ytimg.com/vi/m-BmRes9uoI/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -16374,18 +16064,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -81.533808,
-          37.132912
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 601,
         "video_id": "FC1foBRdtyk",
         "title": "THE BIGGEST FIVE GUYS BURGER EVER MADE | BeardMeatsFood",
-        "restaurant": "Five Guys",
-        "address": "5th Ave, North Tazewell, VA, USA",
-        "city": "North Tazewell",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2018-05-30",
         "result": "success",
         "type": "quantity",
@@ -16394,7 +16084,7 @@
         "place_source": "opencage",
         "food_volume_score": 10,
         "time_limit_score": 3,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -16454,43 +16144,12 @@
         "food_type": "kebab",
         "thumbnail_url": "https://i.ytimg.com/vi/ut4T5I_cGjw/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 9,
+        "time_limit_score": 5,
         "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 605,
-        "video_id": "y0buyRiCo9M",
-        "title": "The UNDEFEATED Bird & Beast Burger Challenge | The Chronicles of Beard Ep.59",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2018-04-27",
-        "result": "failure",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/y0buyRiCo9M/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 6
       }
     },
     {
@@ -16511,17 +16170,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-04-15",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/LOzmK28kXNU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 5
+        "risk_level_score": 4
       }
     },
     {
@@ -16547,8 +16206,8 @@
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/8b9xGxHqrsI/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 7,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -16604,17 +16263,17 @@
         "city": "Colliers",
         "country_code": "US",
         "date_attempted": "2018-03-29",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "mixed_snacks",
+        "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/h3PMfWWTZMo/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
-        "risk_level_score": 5
+        "food_diversity_score": 5,
+        "risk_level_score": 7
       }
     },
     {
@@ -16666,17 +16325,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-03-23",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/Z8fgF6eNkEg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 5,
+        "time_limit_score": 3,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 5
       }
     },
     {
@@ -16702,12 +16361,12 @@
         "food_type": "wings",
         "thumbnail_url": "https://i.ytimg.com/vi/9zax3RsvoN0/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "success_rate_score": 8,
+        "spiciness_score": 5,
+        "food_diversity_score": 2,
+        "risk_level_score": 5
       }
     },
     {
@@ -16759,16 +16418,16 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-03-01",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/RaWS9tiXzrk/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 3,
         "risk_level_score": 7
       }
     },
@@ -16795,12 +16454,12 @@
         "food_type": "chicken",
         "thumbnail_url": "https://i.ytimg.com/vi/TXbTtUvmsFc/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 7,
         "time_limit_score": 3,
         "success_rate_score": 6,
         "spiciness_score": 2,
         "food_diversity_score": 3,
-        "risk_level_score": 4
+        "risk_level_score": 3
       }
     },
     {
@@ -16859,10 +16518,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -16883,7 +16542,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2018-02-08",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/gibqj8UhB8c/hqdefault.jpg",
@@ -16952,9 +16611,9 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -16983,10 +16642,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 7,
+        "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 2,
-        "risk_level_score": 5
+        "food_diversity_score": 3,
+        "risk_level_score": 7
       }
     },
     {
@@ -17012,12 +16671,12 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/SEWsqql_EEo/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
+        "food_volume_score": 9,
+        "time_limit_score": 5,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -17043,11 +16702,11 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/gzT60BTEOVo/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 7,
+        "food_volume_score": 7,
+        "time_limit_score": 4,
+        "success_rate_score": 6,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -17076,10 +16735,10 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -17105,12 +16764,12 @@
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/iP2UpZBX3nE/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 5
       }
     },
     {
@@ -17131,14 +16790,14 @@
         "city": "Reading",
         "country_code": "US",
         "date_attempted": "2017-11-08",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/KLweOkbrrrg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 7
@@ -17171,7 +16830,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 8,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -17224,7 +16883,7 @@
         "city": "Bremerton",
         "country_code": "US",
         "date_attempted": "2017-10-20",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/As6YArlBpR0/hqdefault.jpg",
@@ -17278,37 +16937,6 @@
         ]
       },
       "properties": {
-        "id": 634,
-        "video_id": "dKlWgmhOvpM",
-        "title": "The 100,000 Calorie Challenge | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2017-09-24",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/dKlWgmhOvpM/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
         "id": 635,
         "video_id": "5UM55dPjbVo",
         "title": "The Infamous 21 Pancake Challenge | Chronicles of Beard Ep.34",
@@ -17322,12 +16950,12 @@
         "food_type": "pancake",
         "thumbnail_url": "https://i.ytimg.com/vi/5UM55dPjbVo/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 6
       }
     },
     {
@@ -17353,11 +16981,11 @@
         "food_type": "pizza",
         "thumbnail_url": "https://i.ytimg.com/vi/Xo0I_yGGTQ4/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 7,
         "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 5
       }
     },
@@ -17441,7 +17069,7 @@
         "city": "Barcelona",
         "country_code": "ES",
         "date_attempted": "2017-08-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/mTGRxtajms0/hqdefault.jpg",
@@ -17478,7 +17106,7 @@
         "thumbnail_url": "https://i.ytimg.com/vi/EHhJ5r4S7X0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 2,
+        "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -17510,7 +17138,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 3,
-        "success_rate_score": 7,
+        "success_rate_score": 6,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 5
@@ -17521,20 +17149,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -83.439779,
-          38.237736
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 642,
         "video_id": "OgBvQCdJ5aE",
         "title": "Hair, Hats & The Undefeated Twin Burger Challenge | Chronicles of Beard Ep.23",
-        "restaurant": "Shooters Sports Bar",
-        "address": "Old Sportsman Rd, Morehead, KY, USA",
-        "city": "Morehead",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2017-06-28",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/OgBvQCdJ5aE/hqdefault.jpg",
@@ -17571,10 +17199,10 @@
         "thumbnail_url": "https://i.ytimg.com/vi/qzUbALHyhEo/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 3,
+        "time_limit_score": 4,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 7,
+        "food_diversity_score": 5,
         "risk_level_score": 5
       }
     },
@@ -17614,68 +17242,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 645,
-        "video_id": "NFesKh27RlM",
-        "title": "The Burger King of Kings Challenge (10,000+ Calories) | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2017-06-18",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/NFesKh27RlM/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 646,
-        "video_id": "uCIb9WXtRCE",
-        "title": "Another Burger Challenge & Another Q&A | The Chronicles of Beard Ep.21",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2017-06-11",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "burger",
-        "thumbnail_url": "https://i.ytimg.com/vi/uCIb9WXtRCE/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -78.7091534,
           35.8385157
         ]
@@ -17689,13 +17255,13 @@
         "city": "Raleigh",
         "country_code": "US",
         "date_attempted": "2017-05-29",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/OGa02AL7mO0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 3,
+        "time_limit_score": 4,
         "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 7,
@@ -17751,7 +17317,7 @@
         "city": "Raleigh",
         "country_code": "US",
         "date_attempted": "2017-05-21",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "pancake",
         "thumbnail_url": "https://i.ytimg.com/vi/tOEJjenZQY8/hqdefault.jpg",
@@ -17789,7 +17355,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 8,
+        "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 7
@@ -17815,76 +17381,14 @@
         "date_attempted": "2017-05-10",
         "result": "success",
         "type": "quantity",
-        "food_type": "burger",
+        "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/bjYdGvI084Q/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
-        "spiciness_score": 0,
+        "spiciness_score": 5,
         "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -2.69531,
-          54.75844
-        ]
-      },
-      "properties": {
-        "id": 652,
-        "video_id": "DFUqvG6XNv0",
-        "title": "The 50,000 Calorie Challenge | BeardMeatsFood",
-        "restaurant": "Huckleberry's Diner",
-        "address": "UK",
-        "city": "BeardMeatsFood",
-        "country_code": "GB",
-        "date_attempted": "2017-04-28",
-        "result": "success",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/DFUqvG6XNv0/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -121.681471,
-          47.854172
-        ]
-      },
-      "properties": {
-        "id": 653,
-        "video_id": "VvfiNgD-T_4",
-        "title": "Goldberg's INSANE Daily Diet Challenge | BeardMeatsFood",
-        "restaurant": "Goldberg's INSANE Daily Diet",
-        "address": "Goldbar Dr, Gold Bar, WA, USA",
-        "city": "Gold Bar",
-        "country_code": "US",
-        "date_attempted": "2017-04-07",
-        "result": "unknown",
-        "type": "quantity",
-        "food_type": "mixed_grill",
-        "thumbnail_url": "https://i.ytimg.com/vi/VvfiNgD-T_4/hqdefault.jpg",
-        "place_source": "opencage",
-        "food_volume_score": 9,
-        "time_limit_score": 5,
-        "success_rate_score": 8,
-        "spiciness_score": 0,
-        "food_diversity_score": 8,
         "risk_level_score": 7
       }
     },
@@ -17943,11 +17447,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/2xEk33Sq3j4/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
-        "risk_level_score": 7
+        "food_diversity_score": 7,
+        "risk_level_score": 5
       }
     },
     {
@@ -17977,7 +17481,7 @@
         "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 5,
+        "food_diversity_score": 7,
         "risk_level_score": 5
       }
     },
@@ -17986,20 +17490,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -86.308815,
-          30.984458
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 659,
         "video_id": "UHXJi6Sm_Co",
         "title": "The 14,000 Calorie Super Bowl Game Day Feast | BeardMeatsFood",
-        "restaurant": "14,000 Calorie Super Bowl Game Day Feast",
-        "address": "Clear Springs Rd, Paxton, FL, USA",
-        "city": "Paxton",
-        "country_code": "US",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
         "date_attempted": "2017-02-04",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/UHXJi6Sm_Co/hqdefault.jpg",
@@ -18036,11 +17540,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/24IshHYHfJg/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 6
       }
     },
     {
@@ -18063,7 +17567,7 @@
         "date_attempted": "2016-11-24",
         "result": "success",
         "type": "quantity",
-        "food_type": "garlic_bread",
+        "food_type": "garlic bread",
         "thumbnail_url": "https://i.ytimg.com/vi/3k4DbfwvdEM/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -18110,17 +17614,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.5000466,
-          53.6825669
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 664,
         "video_id": "lLwmUoDIA7U",
         "title": "THE UNDEFEATED GHOST CHILLI DOG CHALLENGE | BeardMeatsFood",
-        "restaurant": "The Grill Pit",
-        "address": "Wakefield, UK",
-        "city": "Wakefield",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2016-10-06",
         "result": "failure",
@@ -18141,16 +17645,16 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -68.3691611,
-          18.556551
+          -68.40431,
+          18.58182
         ]
       },
       "properties": {
         "id": 665,
         "video_id": "BrJbAAWxiD8",
         "title": "The Caribbean Eat-A-Thon (Beard's Vacation Pt 2)",
-        "restaurant": "Punta Cana (approx)",
-        "address": "Punta Cana, La Altagracia, Dominican Republic",
+        "restaurant": "BRGRSPH",
+        "address": "Punta Cana, San Juan, Dominican Republic",
         "city": "Punta Cana",
         "country_code": "DO",
         "date_attempted": "2016-09-24",
@@ -18158,13 +17662,13 @@
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/BrJbAAWxiD8/hqdefault.jpg",
-        "place_source": "approx",
+        "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 4,
+        "time_limit_score": 6,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 7,
-        "risk_level_score": 5
+        "food_diversity_score": 5,
+        "risk_level_score": 6
       }
     },
     {
@@ -18185,12 +17689,12 @@
         "city": "Punta Cana",
         "country_code": "DO",
         "date_attempted": "2016-09-17",
-        "result": "failure",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/l7gpM6-fNv4/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 9,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -18216,17 +17720,17 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2016-09-07",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/mX2DmNfvb-c/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
+        "time_limit_score": 3,
         "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 5,
+        "risk_level_score": 5
       }
     },
     {
@@ -18247,7 +17751,7 @@
         "city": "Barnsley",
         "country_code": "GB",
         "date_attempted": "2016-08-23",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/Adhi_zR2TOM/hqdefault.jpg",
@@ -18284,10 +17788,10 @@
         "thumbnail_url": "https://i.ytimg.com/vi/-p-ZIQdKGzs/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 10,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -18314,7 +17818,7 @@
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/DzoF8pYnxDU/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 10,
+        "food_volume_score": 8,
         "time_limit_score": 6,
         "success_rate_score": 9,
         "spiciness_score": 0,
@@ -18340,7 +17844,7 @@
         "city": "Leicester",
         "country_code": "GB",
         "date_attempted": "2016-07-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "breakfast",
         "thumbnail_url": "https://i.ytimg.com/vi/vAQMa6y4mXM/hqdefault.jpg",
@@ -18349,8 +17853,8 @@
         "time_limit_score": 7,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 6
+        "food_diversity_score": 5,
+        "risk_level_score": 7
       }
     },
     {
@@ -18404,14 +17908,14 @@
         "date_attempted": "2016-06-20",
         "result": "success",
         "type": "quantity",
-        "food_type": "dessert",
+        "food_type": "other",
         "thumbnail_url": "https://i.ytimg.com/vi/IDS3cQLG8XQ/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 7,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 2,
         "risk_level_score": 5
       }
     },
@@ -18420,22 +17924,22 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.2344047,
-          54.5760419
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 674,
         "video_id": "5QjrnamlIis",
         "title": "5LB PARMO CHALLENGE | BeardMeatsFood",
-        "restaurant": "5LB PARMO",
-        "address": "Middlesbrough, UK",
-        "city": "Middlesbrough",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2016-06-19",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "parmo",
+        "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/5QjrnamlIis/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
@@ -18473,7 +17977,7 @@
         "time_limit_score": 6,
         "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
+        "food_diversity_score": 5,
         "risk_level_score": 7
       }
     },
@@ -18588,7 +18092,7 @@
         "city": "Lehighton",
         "country_code": "US",
         "date_attempted": "2016-04-26",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "bbq",
         "thumbnail_url": "https://i.ytimg.com/vi/JUdPPXPzCu4/hqdefault.jpg",
@@ -18650,7 +18154,7 @@
         "city": "Yeadon",
         "country_code": "GB",
         "date_attempted": "2016-03-12",
-        "result": "unknown",
+        "result": "success",
         "type": "quantity",
         "food_type": "dessert",
         "thumbnail_url": "https://i.ytimg.com/vi/NP4OCaZ_iBE/hqdefault.jpg",
@@ -18717,12 +18221,12 @@
         "food_type": "pancake",
         "thumbnail_url": "https://i.ytimg.com/vi/YXbCU0Vc8q0/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
+        "food_volume_score": 9,
+        "time_limit_score": 7,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
-        "risk_level_score": 7
+        "risk_level_score": 5
       }
     },
     {
@@ -18750,7 +18254,7 @@
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
         "food_diversity_score": 3,
         "risk_level_score": 7
@@ -18774,17 +18278,17 @@
         "city": "Over",
         "country_code": "GB",
         "date_attempted": "2016-01-10",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "chicken_nuggets",
         "thumbnail_url": "https://i.ytimg.com/vi/CxYFvoDQOk0/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 5
       }
     },
     {
@@ -18843,7 +18347,7 @@
         "place_source": "opencage",
         "food_volume_score": 10,
         "time_limit_score": 3,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 8,
         "risk_level_score": 5
@@ -18893,7 +18397,7 @@
         "id": 689,
         "video_id": "tweKvYrBKXM",
         "title": "THE 30 XL WING CHALLENGE | BeardMeatsFood",
-        "restaurant": "Man vs Food, London",
+        "restaurant": "Man vs Food",
         "address": "Man vs Food, Syon Ln, London, TW7 5NQ, UK",
         "city": "London",
         "country_code": "GB",
@@ -18936,7 +18440,7 @@
         "place_source": "opencage",
         "food_volume_score": 8,
         "time_limit_score": 7,
-        "success_rate_score": 8,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 5,
         "risk_level_score": 5
@@ -19009,30 +18513,30 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -1.5,
-          54.0
+          -2.69531,
+          54.75844
         ]
       },
       "properties": {
         "id": 693,
         "video_id": "qV1GgTI-oRU",
         "title": "The Yorkshire Pudding Eating World Championships | BeardMeatsFood",
-        "restaurant": "Yorkshire Pudding Eating World Championships",
-        "address": "Yorkshire, England, UK",
-        "city": "Yorkshire",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2015-06-21",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
-        "food_type": "dessert",
+        "food_type": "other",
         "thumbnail_url": "https://i.ytimg.com/vi/qV1GgTI-oRU/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 7,
-        "time_limit_score": 6,
-        "success_rate_score": 8,
+        "time_limit_score": 3,
+        "success_rate_score": 7,
         "spiciness_score": 0,
         "food_diversity_score": 2,
-        "risk_level_score": 5
+        "risk_level_score": 3
       }
     },
     {
@@ -19084,7 +18588,7 @@
         "city": "Yarm",
         "country_code": "GB",
         "date_attempted": "2015-05-29",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/JzQ2761oSNw/hqdefault.jpg",
@@ -19115,7 +18619,7 @@
         "city": "London",
         "country_code": "GB",
         "date_attempted": "2015-05-28",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "mixed_grill",
         "thumbnail_url": "https://i.ytimg.com/vi/JScutvcF37k/hqdefault.jpg",
@@ -19244,12 +18748,12 @@
         "food_type": "hot dog",
         "thumbnail_url": "https://i.ytimg.com/vi/WbnSXrUSvxk/hqdefault.jpg",
         "place_source": "opencage",
-        "food_volume_score": 8,
+        "food_volume_score": 9,
         "time_limit_score": 6,
-        "success_rate_score": 9,
+        "success_rate_score": 8,
         "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "food_diversity_score": 2,
+        "risk_level_score": 6
       }
     },
     {
@@ -19270,13 +18774,13 @@
         "city": "Bradford",
         "country_code": "GB",
         "date_attempted": "2015-03-18",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "noodles",
         "thumbnail_url": "https://i.ytimg.com/vi/3HcahTc7kIk/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 9,
-        "time_limit_score": 6,
+        "time_limit_score": 7,
         "success_rate_score": 9,
         "spiciness_score": 0,
         "food_diversity_score": 3,
@@ -19324,6 +18828,37 @@
         ]
       },
       "properties": {
+        "id": 703,
+        "video_id": "BfAtXWIBjDM",
+        "title": "GIANT PANCAKE CHALLENGE | BeardMeatsFood",
+        "restaurant": "Huckleberry's Diner",
+        "address": "UK",
+        "city": "BeardMeatsFood",
+        "country_code": "GB",
+        "date_attempted": "2015-02-16",
+        "result": "success",
+        "type": "quantity",
+        "food_type": "breakfast",
+        "thumbnail_url": "https://i.ytimg.com/vi/BfAtXWIBjDM/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
+        "spiciness_score": 0,
+        "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.69531,
+          54.75844
+        ]
+      },
+      "properties": {
         "id": 704,
         "video_id": "e4oAdIcQN4k",
         "title": "THE UNDEFEATED YORKSHIRE PUDDING BURGER CHALLENGE | BeardMeatsFood",
@@ -19332,7 +18867,7 @@
         "city": "BeardMeatsFood",
         "country_code": "GB",
         "date_attempted": "2015-02-13",
-        "result": "success",
+        "result": "unknown",
         "type": "quantity",
         "food_type": "burger",
         "thumbnail_url": "https://i.ytimg.com/vi/e4oAdIcQN4k/hqdefault.jpg",
@@ -19369,11 +18904,11 @@
         "thumbnail_url": "https://i.ytimg.com/vi/NYC9bFjgTRA/hqdefault.jpg",
         "place_source": "opencage",
         "food_volume_score": 8,
-        "time_limit_score": 6,
-        "success_rate_score": 9,
-        "spiciness_score": 0,
-        "food_diversity_score": 3,
-        "risk_level_score": 7
+        "time_limit_score": 5,
+        "success_rate_score": 7,
+        "spiciness_score": 3,
+        "food_diversity_score": 4,
+        "risk_level_score": 6
       }
     },
     {
