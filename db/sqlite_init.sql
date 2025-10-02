@@ -36,13 +36,10 @@ CREATE TABLE IF NOT EXISTS restaurants (
   lng              REAL,
   last_verified_at TEXT,
   created_at       TEXT DEFAULT CURRENT_TIMESTAMP,
-  updated_at       TEXT DEFAULT CURRENT_TIMESTAMP
+  updated_at       TEXT DEFAULT CURRENT_TIMESTAMP,
+  -- Use UNIQUE constraint instead of partial index for ON CONFLICT support
+  UNIQUE(place_source, place_ref)
 );
-
--- Partial unique index matching Postgres behavior
-CREATE UNIQUE INDEX IF NOT EXISTS restaurants_place_unique
-ON restaurants (place_source, place_ref)
-WHERE place_source IS NOT NULL AND place_ref IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS challenge_types (
   id       INTEGER PRIMARY KEY AUTOINCREMENT,

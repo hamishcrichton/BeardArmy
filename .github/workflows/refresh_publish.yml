@@ -77,9 +77,11 @@ jobs:
             sqlite3 data/app.db < db/sqlite_init.sql
           else
             echo "Reusing existing data/app.db"
-            # Apply migration for new challenge scoring fields
-            echo "Applying challenge scoring migration (safe to run multiple times)..."
-            sqlite3 data/app.db < db/sqlite_add_challenge_scores.sql 2>/dev/null || echo "Migration already applied or no changes needed"
+            # Apply migrations
+            echo "Applying challenge scoring migration..."
+            sqlite3 data/app.db < db/sqlite_add_challenge_scores.sql 2>/dev/null || echo "Challenge scoring migration already applied"
+            echo "Applying restaurants UNIQUE constraint fix..."
+            sqlite3 data/app.db < db/sqlite_fix_restaurants_unique.sql 2>/dev/null || echo "Restaurants UNIQUE constraint already fixed"
           fi
 
       - name: Check environment variables
