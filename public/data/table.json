@@ -746,7 +746,7 @@
       "date_attempted": "2025-01-26",
       "result": "unknown",
       "type": "quantity",
-      "food_type": "dessert",
+      "food_type": "milkshake",
       "thumbnail_url": "https://i.ytimg.com/vi/ziGqIEby9bI/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 9,
@@ -833,11 +833,11 @@
       "food_type": "pancakes",
       "thumbnail_url": "https://i.ytimg.com/vi/-5R2xVerOic/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
+      "food_volume_score": 9,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
+      "food_diversity_score": 2,
       "risk_level_score": 7
     },
     {
@@ -1489,7 +1489,7 @@
       "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 7
+      "risk_level_score": 3
     },
     {
       "id": 72,
@@ -1614,7 +1614,7 @@
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -1915,12 +1915,12 @@
       "id": 92,
       "video_id": "Ks74khlWe9c",
       "title": "THAT UNBEATEN BURGER CHALLENGE WITH THAT SWEARY PERSONAL TRAINER GUY...JAMES SMITH | BeardMeatsFood",
-      "restaurant": "Huckleberry's Diner",
-      "address": "UK",
-      "city": "BeardMeatsFood",
+      "restaurant": "NFL UK",
+      "address": "London, UK",
+      "city": "London",
       "country_code": "GB",
       "date_attempted": "2024-01-21",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "burger",
       "thumbnail_url": "https://i.ytimg.com/vi/Ks74khlWe9c/hqdefault.jpg",
@@ -1950,7 +1950,7 @@
       "time_limit_score": 6,
       "success_rate_score": 8,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -2513,7 +2513,7 @@
       "food_type": "burger",
       "thumbnail_url": "https://i.ytimg.com/vi/GbmeY9Zu7yY/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
+      "food_volume_score": 9,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
@@ -2723,7 +2723,7 @@
       "food_type": "french toast",
       "thumbnail_url": "https://i.ytimg.com/vi/m7PyG1l4maQ/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
+      "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
@@ -2891,8 +2891,8 @@
       "food_type": "sushi",
       "thumbnail_url": "https://i.ytimg.com/vi/rpjL4-f_CNE/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
-      "time_limit_score": 7,
+      "food_volume_score": 8,
+      "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 3,
@@ -3081,8 +3081,8 @@
       "thumbnail_url": "https://i.ytimg.com/vi/Suw3z9fAYYo/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 8,
-      "success_rate_score": 7,
+      "time_limit_score": 7,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 7
@@ -3164,7 +3164,7 @@
       "food_type": "burger",
       "thumbnail_url": "https://i.ytimg.com/vi/m5qLM2RBvFI/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
+      "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
@@ -3378,7 +3378,7 @@
       "time_limit_score": 8,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -3630,7 +3630,7 @@
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
+      "food_diversity_score": 2,
       "risk_level_score": 7
     },
     {
@@ -3721,21 +3721,21 @@
       "id": 178,
       "video_id": "gpno4fU9wkw",
       "title": "THEY CALL IT 'THE IMPOSSIBLE PANCAKE CHALLENGE' | BeardMeatsFood",
-      "restaurant": "Ruby Soho",
-      "address": null,
+      "restaurant": "Huckleberry's Diner",
+      "address": "UK",
       "city": "BeardMeatsFood",
-      "country_code": null,
+      "country_code": "GB",
       "date_attempted": "2022-11-06",
       "result": "unknown",
       "type": "quantity",
-      "food_type": "pancakes",
+      "food_type": "pancake",
       "thumbnail_url": "https://i.ytimg.com/vi/gpno4fU9wkw/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 7,
+      "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -4372,22 +4372,22 @@
       "id": 209,
       "video_id": "pr3saLUszn4",
       "title": "TRYING TO EAT LONDON'S BIGGEST PIZZA SOLO | BeardMeatsFood",
-      "restaurant": "Bloomsbury Lane",
-      "address": "Bloomsbury Law Tutors, 40 Drury Ln, London, WC2B 5RR, UK",
-      "city": "London",
-      "country_code": "GB",
+      "restaurant": "TRYING TO EAT LONDON'S BIGGEST PIZZA SOLO",
+      "address": null,
+      "city": "BeardMeatsFood",
+      "country_code": null,
       "date_attempted": "2022-07-14",
       "result": "unknown",
       "type": "quantity",
-      "food_type": "pizza",
+      "food_type": null,
       "thumbnail_url": "https://i.ytimg.com/vi/pr3saLUszn4/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
-      "time_limit_score": 5,
-      "success_rate_score": 7,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
-      "risk_level_score": 5
+      "food_diversity_score": 0,
+      "risk_level_score": 0
     },
     {
       "id": 210,
@@ -4503,7 +4503,7 @@
       "city": "Killeen",
       "country_code": "US",
       "date_attempted": "2022-06-19",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "burger",
       "thumbnail_url": "https://i.ytimg.com/vi/Uz_MWeAlem4/hqdefault.jpg",
@@ -4529,9 +4529,9 @@
       "food_type": "steak",
       "thumbnail_url": "https://i.ytimg.com/vi/cLyRczwAacA/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
+      "food_volume_score": 9,
       "time_limit_score": 6,
-      "success_rate_score": 9,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 7
@@ -4571,7 +4571,7 @@
       "food_type": "noodles",
       "thumbnail_url": "https://i.ytimg.com/vi/fW3Dx_EpegU/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
+      "food_volume_score": 9,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
@@ -4993,9 +4993,9 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 9,
+      "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
+      "food_diversity_score": 5,
       "risk_level_score": 7
     },
     {
@@ -5479,7 +5479,7 @@
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 2,
-      "risk_level_score": 5
+      "risk_level_score": 3
     },
     {
       "id": 262,
@@ -5553,7 +5553,7 @@
       "city": "Syosset",
       "country_code": "US",
       "date_attempted": "2021-12-16",
-      "result": "success",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "sandwich",
       "thumbnail_url": "https://i.ytimg.com/vi/i_MEV0oyYZ4/hqdefault.jpg",
@@ -5637,7 +5637,7 @@
       "city": "Long Beach",
       "country_code": "US",
       "date_attempted": "2021-12-02",
-      "result": "failure",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "bbq",
       "thumbnail_url": "https://i.ytimg.com/vi/RBbx917qfH8/hqdefault.jpg",
@@ -5794,7 +5794,7 @@
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 4,
-      "risk_level_score": 5
+      "risk_level_score": 3
     },
     {
       "id": 277,
@@ -5812,10 +5812,10 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 9,
+      "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
-      "risk_level_score": 7
+      "food_diversity_score": 5,
+      "risk_level_score": 5
     },
     {
       "id": 278,
@@ -5847,7 +5847,7 @@
       "city": "Coronado",
       "country_code": "US",
       "date_attempted": "2021-10-28",
-      "result": "success",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "sandwich",
       "thumbnail_url": "https://i.ytimg.com/vi/OLDqBQcjU-8/hqdefault.jpg",
@@ -5895,10 +5895,10 @@
       "thumbnail_url": "https://i.ytimg.com/vi/nSGJVYp2tLQ/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 4,
+      "time_limit_score": 5,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
+      "food_diversity_score": 3,
       "risk_level_score": 5
     },
     {
@@ -6267,7 +6267,7 @@
       "city": "Southampton",
       "country_code": "GB",
       "date_attempted": "2021-08-08",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "pie",
       "thumbnail_url": "https://i.ytimg.com/vi/eINkN-QqAXk/hqdefault.jpg",
@@ -6400,7 +6400,7 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 9,
+      "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 7
@@ -6416,7 +6416,7 @@
       "date_attempted": "2021-07-18",
       "result": "unknown",
       "type": "quantity",
-      "food_type": "breakfast",
+      "food_type": "sandwich",
       "thumbnail_url": "https://i.ytimg.com/vi/Y6bxV2yBx3M/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
@@ -6477,7 +6477,7 @@
       "city": "BeardMeatsFood",
       "country_code": "GB",
       "date_attempted": "2021-07-04",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/joXOQxMl4vI/hqdefault.jpg",
@@ -6696,7 +6696,7 @@
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -6708,7 +6708,7 @@
       "city": "BeardMeatsFood",
       "country_code": "GB",
       "date_attempted": "2021-05-27",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "breakfast",
       "thumbnail_url": "https://i.ytimg.com/vi/ZL3lKSLAbTY/hqdefault.jpg",
@@ -6802,7 +6802,7 @@
       "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 7
+      "risk_level_score": 5
     },
     {
       "id": 325,
@@ -6834,17 +6834,17 @@
       "city": "BeardMeatsFood",
       "country_code": null,
       "date_attempted": "2021-05-02",
-      "result": "success",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "sushi",
       "thumbnail_url": "https://i.ytimg.com/vi/2MEOK0IV0vQ/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 3,
-      "success_rate_score": 6,
+      "time_limit_score": 2,
+      "success_rate_score": 5,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 3
+      "risk_level_score": 2
     },
     {
       "id": 327,
@@ -7304,8 +7304,8 @@
       "food_volume_score": 8,
       "time_limit_score": 5,
       "success_rate_score": 8,
-      "spiciness_score": 5,
-      "food_diversity_score": 3,
+      "spiciness_score": 3,
+      "food_diversity_score": 2,
       "risk_level_score": 6
     },
     {
@@ -7388,9 +7388,9 @@
       "food_volume_score": 8,
       "time_limit_score": 3,
       "success_rate_score": 7,
-      "spiciness_score": 2,
+      "spiciness_score": 3,
       "food_diversity_score": 5,
-      "risk_level_score": 4
+      "risk_level_score": 5
     },
     {
       "id": 353,
@@ -7401,7 +7401,7 @@
       "city": "TIKTOK'S 4 COURSE CHALLENGE BEEFED UP",
       "country_code": null,
       "date_attempted": "2021-01-14",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/h1pLVA-Z6NU/hqdefault.jpg",
@@ -7555,7 +7555,7 @@
       "place_source": "opencage",
       "food_volume_score": 9,
       "time_limit_score": 2,
-      "success_rate_score": 6,
+      "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 2,
       "risk_level_score": 3
@@ -7701,7 +7701,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/SSWnmMS4PP8/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 10,
-      "time_limit_score": 5,
+      "time_limit_score": 3,
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 1,
@@ -7910,9 +7910,9 @@
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/aUWS4E6cJP0/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 7,
+      "food_volume_score": 6,
       "time_limit_score": 3,
-      "success_rate_score": 6,
+      "success_rate_score": 5,
       "spiciness_score": 0,
       "food_diversity_score": 5,
       "risk_level_score": 3
@@ -7935,7 +7935,7 @@
       "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 7,
       "risk_level_score": 5
     },
     {
@@ -8031,14 +8031,14 @@
       "city": "BeardMeatsFood",
       "country_code": "GB",
       "date_attempted": "2020-10-04",
-      "result": "failure",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/5b0pzqTZE8k/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
+      "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 8,
+      "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 7
@@ -8124,16 +8124,16 @@
       "time_limit_score": 2,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 1,
+      "food_diversity_score": 2,
       "risk_level_score": 3
     },
     {
       "id": 388,
       "video_id": "o6PfTK4eyRY",
       "title": "THE UNDEFEATED CODBUSTER GIANT FISH & CHIP CHALLENGE | C.O.B. Ep.171",
-      "restaurant": "Misterton Chippy & Bistro",
-      "address": "Bassetlaw, Misterton, Nottinghamshire, England, UK",
-      "city": "Misterton",
+      "restaurant": "Huckleberry's Diner",
+      "address": "UK",
+      "city": "BeardMeatsFood",
       "country_code": "GB",
       "date_attempted": "2020-09-17",
       "result": "unknown",
@@ -8162,12 +8162,12 @@
       "food_type": null,
       "thumbnail_url": "https://i.ytimg.com/vi/OS6ToEmIjZY/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 3,
-      "time_limit_score": 2,
-      "success_rate_score": 5,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
-      "risk_level_score": 3
+      "food_diversity_score": 0,
+      "risk_level_score": 0
     },
     {
       "id": 390,
@@ -8250,7 +8250,7 @@
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -8352,11 +8352,11 @@
       "thumbnail_url": "https://i.ytimg.com/vi/FtmSjKwtfVs/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 10,
-      "time_limit_score": 6,
-      "success_rate_score": 9,
+      "time_limit_score": 5,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 7
+      "risk_level_score": 5
     },
     {
       "id": 399,
@@ -8457,7 +8457,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/NFWfTMwIV_Y/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 4,
+      "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 8,
@@ -8604,7 +8604,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/0CWRxZWgc2w/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 5,
-      "time_limit_score": 3,
+      "time_limit_score": 2,
       "success_rate_score": 5,
       "spiciness_score": 0,
       "food_diversity_score": 2,
@@ -8625,7 +8625,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/ttkvnLHKegw/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 3,
+      "time_limit_score": 4,
       "success_rate_score": 6,
       "spiciness_score": 0,
       "food_diversity_score": 7,
@@ -8649,7 +8649,7 @@
       "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 7,
+      "food_diversity_score": 5,
       "risk_level_score": 5
     },
     {
@@ -8880,8 +8880,8 @@
       "time_limit_score": 5,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
-      "risk_level_score": 6
+      "food_diversity_score": 7,
+      "risk_level_score": 5
     },
     {
       "id": 424,
@@ -9297,7 +9297,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/98Gn6-MIUBU/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 5,
+      "time_limit_score": 6,
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 3,
@@ -9359,9 +9359,9 @@
       "food_type": "burger",
       "thumbnail_url": "https://i.ytimg.com/vi/uCn0dP0MSJY/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
+      "food_volume_score": 9,
       "time_limit_score": 6,
-      "success_rate_score": 9,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 7
@@ -9427,7 +9427,7 @@
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 2,
-      "risk_level_score": 5
+      "risk_level_score": 6
     },
     {
       "id": 450,
@@ -9822,11 +9822,11 @@
       "thumbnail_url": "https://i.ytimg.com/vi/I3H6d_SGqkM/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 2,
-      "success_rate_score": 5,
+      "time_limit_score": 6,
+      "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 8,
-      "risk_level_score": 3
+      "food_diversity_score": 3,
+      "risk_level_score": 7
     },
     {
       "id": 469,
@@ -9926,12 +9926,12 @@
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/Fj_03vI8n5U/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
-      "time_limit_score": 3,
-      "success_rate_score": 8,
+      "food_volume_score": 8,
+      "time_limit_score": 6,
+      "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 7,
-      "risk_level_score": 5
+      "food_diversity_score": 3,
+      "risk_level_score": 7
     },
     {
       "id": 474,
@@ -9972,7 +9972,7 @@
       "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 8,
       "risk_level_score": 3
     },
     {
@@ -10011,7 +10011,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/8JdTHNjMbxc/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 9,
-      "time_limit_score": 4,
+      "time_limit_score": 3,
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
@@ -10095,11 +10095,11 @@
       "thumbnail_url": "https://i.ytimg.com/vi/bxTWV1ifXBU/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 8,
+      "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
-      "risk_level_score": 8
+      "food_diversity_score": 3,
+      "risk_level_score": 7
     },
     {
       "id": 482,
@@ -10244,7 +10244,7 @@
       "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
-      "spiciness_score": 8,
+      "spiciness_score": 9,
       "food_diversity_score": 3,
       "risk_level_score": 7
     },
@@ -10347,7 +10347,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/fRsNLiiGCWg/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 5,
+      "time_limit_score": 4,
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 7,
@@ -10495,9 +10495,9 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 7,
+      "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -10602,7 +10602,7 @@
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 10,
-      "food_diversity_score": 3,
+      "food_diversity_score": 2,
       "risk_level_score": 7
     },
     {
@@ -10682,7 +10682,7 @@
       "food_type": "sandwich",
       "thumbnail_url": "https://i.ytimg.com/vi/fB8RJOvFxqw/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
+      "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
       "spiciness_score": 0,
@@ -10803,7 +10803,7 @@
       "city": "Puposky",
       "country_code": "US",
       "date_attempted": "2019-06-25",
-      "result": "unknown",
+      "result": "success",
       "type": "quantity",
       "food_type": "cake",
       "thumbnail_url": "https://i.ytimg.com/vi/zBZlBJfdHDE/hqdefault.jpg",
@@ -10936,10 +10936,10 @@
       "place_source": "opencage",
       "food_volume_score": 10,
       "time_limit_score": 2,
-      "success_rate_score": 7,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 3
+      "risk_level_score": 5
     },
     {
       "id": 522,
@@ -11386,9 +11386,9 @@
       "id": 543,
       "video_id": "wbksGxxEhVY",
       "title": "MIAMI'S BIGGEST BURRITO CHALLENGE | The Trip To Miami Pt.1",
-      "restaurant": "MIAMI'S BIGGEST BURRITO",
-      "address": "Mimosa Rd, Fayetteville, TN, USA",
-      "city": "Fayetteville",
+      "restaurant": "Unknown",
+      "address": "Northwest 1st Avenue & Northwest 1st Street, NW 1st Ave, Miami, FL 33131, USA",
+      "city": "Miami",
       "country_code": "US",
       "date_attempted": "2019-03-14",
       "result": "unknown",
@@ -11398,9 +11398,9 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 8,
+      "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
+      "food_diversity_score": 3,
       "risk_level_score": 7
     },
     {
@@ -11440,10 +11440,10 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 3,
-      "success_rate_score": 7,
+      "success_rate_score": 6,
       "spiciness_score": 0,
       "food_diversity_score": 7,
-      "risk_level_score": 5
+      "risk_level_score": 3
     },
     {
       "id": 546,
@@ -11522,33 +11522,33 @@
       "food_type": "mixed_grill",
       "thumbnail_url": "https://i.ytimg.com/vi/HxIRl5YJqSs/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
-      "time_limit_score": 6,
-      "success_rate_score": 9,
+      "food_volume_score": 9,
+      "time_limit_score": 5,
+      "success_rate_score": 8,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
-      "risk_level_score": 7
+      "food_diversity_score": 7,
+      "risk_level_score": 6
     },
     {
       "id": 550,
       "video_id": "GZnv-obQNeI",
       "title": "THE 12,000 CALORIE PAPA JOHN'S VALENTINE'S DAY FEAST CHALLENGE | B.S.B.O. Ep.8",
-      "restaurant": "12,000 CALORIE PAPA JOHN'S VALENTINE'S DAY FEAST",
-      "address": null,
-      "city": "B.S.B.O. Ep.8",
-      "country_code": null,
+      "restaurant": "Papa John's",
+      "address": "Old Johns Rd, Laurinburg, NC, USA",
+      "city": "Laurinburg",
+      "country_code": "US",
       "date_attempted": "2019-02-14",
       "result": "unknown",
       "type": "quantity",
-      "food_type": null,
+      "food_type": "pizza",
       "thumbnail_url": "https://i.ytimg.com/vi/GZnv-obQNeI/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 0,
-      "time_limit_score": 0,
-      "success_rate_score": 0,
+      "food_volume_score": 10,
+      "time_limit_score": 5,
+      "success_rate_score": 8,
       "spiciness_score": 0,
-      "food_diversity_score": 0,
-      "risk_level_score": 0
+      "food_diversity_score": 2,
+      "risk_level_score": 6
     },
     {
       "id": 551,
@@ -11828,21 +11828,21 @@
       "video_id": "QvLG2p0dnPU",
       "title": "THE KITCHEN SINK BURGER CHALLENGE RECORD & October Q&A Highlights | The Chronicles of Beard",
       "restaurant": "The Chronicles of Beard (approx)",
-      "address": "UK",
-      "city": "The Chronicles of Beard",
-      "country_code": "GB",
+      "address": "Béard, Nièvre, France",
+      "city": "Béard",
+      "country_code": "FR",
       "date_attempted": "2018-11-29",
-      "result": "success",
+      "result": "unknown",
       "type": "quantity",
-      "food_type": "burger",
+      "food_type": null,
       "thumbnail_url": "https://i.ytimg.com/vi/QvLG2p0dnPU/hqdefault.jpg",
       "place_source": "approx",
-      "food_volume_score": 8,
-      "time_limit_score": 6,
-      "success_rate_score": 9,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
       "spiciness_score": 0,
-      "food_diversity_score": 3,
-      "risk_level_score": 7
+      "food_diversity_score": 0,
+      "risk_level_score": 0
     },
     {
       "id": 565,
@@ -11953,10 +11953,10 @@
       "id": 570,
       "video_id": "wW1cQEu2rUg",
       "title": "THE TERRY HOLLANDS 10,000 CALORIE STRONGMAN CHEAT MEAL CHALLENGE | BeardMeatsFood",
-      "restaurant": "TERRY HOLLANDS 10,000 CALORIE STRONGMAN CHEAT MEAL",
-      "address": null,
+      "restaurant": "Huckleberry's Diner",
+      "address": "UK",
       "city": "BeardMeatsFood",
-      "country_code": null,
+      "country_code": "GB",
       "date_attempted": "2018-10-28",
       "result": "unknown",
       "type": "quantity",
@@ -11964,10 +11964,10 @@
       "thumbnail_url": "https://i.ytimg.com/vi/wW1cQEu2rUg/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 10,
-      "time_limit_score": 6,
-      "success_rate_score": 9,
+      "time_limit_score": 5,
+      "success_rate_score": 8,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 7,
       "risk_level_score": 7
     },
     {
@@ -12110,12 +12110,12 @@
       "food_type": "breakfast",
       "thumbnail_url": "https://i.ytimg.com/vi/iZ54ab3tmOc/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 9,
-      "time_limit_score": 7,
-      "success_rate_score": 8,
+      "food_volume_score": 8,
+      "time_limit_score": 6,
+      "success_rate_score": 9,
       "spiciness_score": 0,
-      "food_diversity_score": 4,
-      "risk_level_score": 6
+      "food_diversity_score": 3,
+      "risk_level_score": 7
     },
     {
       "id": 578,
@@ -12156,7 +12156,7 @@
       "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 8,
+      "food_diversity_score": 7,
       "risk_level_score": 5
     },
     {
@@ -12195,11 +12195,11 @@
       "thumbnail_url": "https://i.ytimg.com/vi/6GCrK7NmZaA/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 10,
-      "time_limit_score": 0,
+      "time_limit_score": 2,
       "success_rate_score": 3,
       "spiciness_score": 0,
       "food_diversity_score": 2,
-      "risk_level_score": 2
+      "risk_level_score": 3
     },
     {
       "id": 582,
@@ -12682,7 +12682,7 @@
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 6
+      "risk_level_score": 5
     },
     {
       "id": 605,
@@ -12913,7 +12913,7 @@
       "success_rate_score": 6,
       "spiciness_score": 2,
       "food_diversity_score": 3,
-      "risk_level_score": 3
+      "risk_level_score": 4
     },
     {
       "id": 616,
@@ -12952,7 +12952,7 @@
       "place_source": "opencage",
       "food_volume_score": 8,
       "time_limit_score": 6,
-      "success_rate_score": 8,
+      "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 3,
       "risk_level_score": 5
@@ -13099,7 +13099,7 @@
       "place_source": "opencage",
       "food_volume_score": 9,
       "time_limit_score": 5,
-      "success_rate_score": 7,
+      "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 5,
       "risk_level_score": 5
@@ -13434,11 +13434,11 @@
       "thumbnail_url": "https://i.ytimg.com/vi/EHhJ5r4S7X0/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 3,
-      "success_rate_score": 7,
+      "time_limit_score": 6,
+      "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 3,
-      "risk_level_score": 5
+      "risk_level_score": 7
     },
     {
       "id": 641,
@@ -13497,10 +13497,10 @@
       "thumbnail_url": "https://i.ytimg.com/vi/qzUbALHyhEo/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 8,
-      "time_limit_score": 4,
+      "time_limit_score": 5,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
+      "food_diversity_score": 7,
       "risk_level_score": 5
     },
     {
@@ -13617,7 +13617,7 @@
       "city": "Raleigh",
       "country_code": "US",
       "date_attempted": "2017-05-21",
-      "result": "success",
+      "result": "unknown",
       "type": "quantity",
       "food_type": "pancake",
       "thumbnail_url": "https://i.ytimg.com/vi/tOEJjenZQY8/hqdefault.jpg",
@@ -13667,7 +13667,7 @@
       "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
-      "spiciness_score": 5,
+      "spiciness_score": 7,
       "food_diversity_score": 3,
       "risk_level_score": 7
     },
@@ -13710,7 +13710,7 @@
       "time_limit_score": 6,
       "success_rate_score": 8,
       "spiciness_score": 0,
-      "food_diversity_score": 8,
+      "food_diversity_score": 7,
       "risk_level_score": 7
     },
     {
@@ -13752,7 +13752,7 @@
       "time_limit_score": 3,
       "success_rate_score": 7,
       "spiciness_score": 0,
-      "food_diversity_score": 7,
+      "food_diversity_score": 5,
       "risk_level_score": 5
     },
     {
@@ -13792,7 +13792,7 @@
       "place_source": "opencage",
       "food_volume_score": 10,
       "time_limit_score": 2,
-      "success_rate_score": 8,
+      "success_rate_score": 9,
       "spiciness_score": 0,
       "food_diversity_score": 8,
       "risk_level_score": 7
@@ -14005,7 +14005,7 @@
       "success_rate_score": 7,
       "spiciness_score": 0,
       "food_diversity_score": 5,
-      "risk_level_score": 5
+      "risk_level_score": 4
     },
     {
       "id": 668,
@@ -14024,7 +14024,7 @@
       "food_volume_score": 8,
       "time_limit_score": 6,
       "success_rate_score": 9,
-      "spiciness_score": 0,
+      "spiciness_score": 5,
       "food_diversity_score": 3,
       "risk_level_score": 7
     },
@@ -14043,7 +14043,7 @@
       "thumbnail_url": "https://i.ytimg.com/vi/-p-ZIQdKGzs/hqdefault.jpg",
       "place_source": "opencage",
       "food_volume_score": 10,
-      "time_limit_score": 7,
+      "time_limit_score": 8,
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 5,
@@ -14089,7 +14089,7 @@
       "success_rate_score": 8,
       "spiciness_score": 0,
       "food_diversity_score": 5,
-      "risk_level_score": 7
+      "risk_level_score": 6
     },
     {
       "id": 672,
@@ -14473,22 +14473,22 @@
       "id": 690,
       "video_id": "ElMfPV__QPI",
       "title": "Three Eating Challenges in One Day (2000 Subscriber Landmark Thank You Challenge) | BeardMeatsFood",
-      "restaurant": "Greasy Pig",
-      "address": "Greasy Pig, 74 Victoria Rd, Leeds, LS6 1DL, UK",
-      "city": "Leeds",
-      "country_code": "GB",
+      "restaurant": "the London branch earlier",
+      "address": null,
+      "city": "BeardMeatsFood",
+      "country_code": null,
       "date_attempted": "2015-10-20",
       "result": "success",
       "type": "quantity",
-      "food_type": "breakfast",
+      "food_type": null,
       "thumbnail_url": "https://i.ytimg.com/vi/ElMfPV__QPI/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 8,
-      "time_limit_score": 7,
-      "success_rate_score": 7,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
       "spiciness_score": 0,
-      "food_diversity_score": 5,
-      "risk_level_score": 5
+      "food_diversity_score": 0,
+      "risk_level_score": 0
     },
     {
       "id": 691,
@@ -14536,22 +14536,22 @@
       "id": 693,
       "video_id": "qV1GgTI-oRU",
       "title": "The Yorkshire Pudding Eating World Championships | BeardMeatsFood",
-      "restaurant": "Huckleberry's Diner",
-      "address": "UK",
+      "restaurant": "Yorkshire Pudding Eating World Championships",
+      "address": null,
       "city": "BeardMeatsFood",
-      "country_code": "GB",
+      "country_code": null,
       "date_attempted": "2015-06-21",
       "result": "unknown",
       "type": "quantity",
-      "food_type": "other",
+      "food_type": null,
       "thumbnail_url": "https://i.ytimg.com/vi/qV1GgTI-oRU/hqdefault.jpg",
       "place_source": "opencage",
-      "food_volume_score": 7,
-      "time_limit_score": 3,
-      "success_rate_score": 7,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
       "spiciness_score": 0,
-      "food_diversity_score": 2,
-      "risk_level_score": 3
+      "food_diversity_score": 0,
+      "risk_level_score": 0
     },
     {
       "id": 694,
@@ -14801,9 +14801,9 @@
       "food_volume_score": 8,
       "time_limit_score": 5,
       "success_rate_score": 7,
-      "spiciness_score": 3,
-      "food_diversity_score": 4,
-      "risk_level_score": 6
+      "spiciness_score": 2,
+      "food_diversity_score": 3,
+      "risk_level_score": 5
     },
     {
       "id": 706,
