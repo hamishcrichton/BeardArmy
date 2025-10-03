@@ -177,12 +177,11 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
     time.sleep(random.uniform(2.0, 5.0))
 
     try:
+        # Use Android client - less likely to be bot-detected than web browser
+        # No cookies needed - works in CI/CD and locally
         args = [
             f"https://www.youtube.com/watch?v={video_id}",
-            # Use browser cookies to authenticate and avoid bot detection
-            "--cookies-from-browser", "chrome",
-            # Spoof user agent to look like real browser
-            "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "--extractor-args", "youtube:player_client=android",  # Use Android client (avoids bot detection)
             "--write-auto-sub",
             "--write-subs",
             "--sub-langs",
