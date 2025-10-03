@@ -170,14 +170,19 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
     import subprocess
     import os, glob
     import time
+    import random
     os.makedirs(out_dir, exist_ok=True)
 
-    # Add delay to avoid YouTube rate limiting (crucial for bulk downloads)
-    time.sleep(1.0)
+    # Random delay to avoid YouTube bot detection (looks more human-like)
+    time.sleep(random.uniform(2.0, 5.0))
 
     try:
         args = [
             f"https://www.youtube.com/watch?v={video_id}",
+            # Use browser cookies to authenticate and avoid bot detection
+            "--cookies-from-browser", "chrome",
+            # Spoof user agent to look like real browser
+            "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "--write-auto-sub",
             "--write-subs",
             "--sub-langs",
