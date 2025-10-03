@@ -169,7 +169,12 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
     """Download English (including en-GB/en-US) auto/normal subtitles as VTT if available. Return file path or None."""
     import subprocess
     import os, glob
+    import time
     os.makedirs(out_dir, exist_ok=True)
+
+    # Add delay to avoid YouTube rate limiting (crucial for bulk downloads)
+    time.sleep(1.0)
+
     try:
         args = [
             f"https://www.youtube.com/watch?v={video_id}",
@@ -180,13 +185,22 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
             "--sub-format",
             "vtt",
             "--skip-download",
+            "--no-warnings",  # Reduce noise
             "-o",
             os.path.join(out_dir, f"%(id)s.%(ext)s"),
         ]
         try:
-            subprocess.run(["yt-dlp", *args], check=True, capture_output=True, text=True)
+            result = subprocess.run(["yt-dlp", *args], capture_output=True, text=True, timeout=30)
         except FileNotFoundError:
-            subprocess.run([sys.executable, "-m", "yt_dlp", *args], check=True, capture_output=True, text=True)
+            result = subprocess.run([sys.executable, "-m", "yt_dlp", *args], capture_output=True, text=True, timeout=30)
+
+        # Check if yt-dlp actually succeeded (return code 0)
+        if result.returncode != 0:
+            # Log the actual error from yt-dlp
+            error_msg = result.stderr.strip() if result.stderr else result.stdout.strip()
+            if error_msg and "No subtitles" not in error_msg:  # Don't log when captions simply don't exist
+                logger.debug(f"yt-dlp returned {result.returncode} for {video_id}: {error_msg[:200]}")
+            return None
 
         # Prefer en.vtt then any en-*.vtt then auto variants
         candidates = [
@@ -200,7 +214,15 @@ def download_captions(video_id: str, out_dir: str) -> Optional[str]:
                 return p
         # As a last resort, return any vtt for this video
         any_vtt = sorted(glob.glob(os.path.join(out_dir, f"{video_id}*.vtt")))
-        return any_vtt[0] if any_vtt else None
+        if any_vtt:
+            logger.debug(f"Found caption file: {os.path.basename(any_vtt[0])}")
+            return any_vtt[0]
+        else:
+            logger.debug(f"No caption files found for {video_id} (captions may not exist)")
+            return None
+    except subprocess.TimeoutExpired:
+        logger.warning(f"Caption download timed out for {video_id}")
+        return None
     except Exception as e:
-        logger.warning(f"Caption download failed for {video_id}: {e}")
+        logger.error(f"Caption download exception for {video_id}: {type(e).__name__}: {e}")
         return None

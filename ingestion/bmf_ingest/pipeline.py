@@ -61,11 +61,22 @@ class Pipeline:
             logger.info("No videos to process.")
             return
         videos = fetch_videos(self.settings.youtube_api_key, video_ids)
+
+        # Track caption download statistics
+        caption_stats = {"success": 0, "failed": 0, "total": len(videos)}
+
         for v in videos:
             try:
                 # Always try to download captions (probe is unreliable)
                 captions_path = download_captions(v.video_id, os.path.join(self.settings.data_dir, "captions"))
                 v.captions_available = 1 if captions_path else 0
+
+                # Track caption download success/failure
+                if captions_path:
+                    caption_stats["success"] += 1
+                else:
+                    caption_stats["failed"] += 1
+
                 if self.repo:
                     self.repo.upsert_video(v)
 
@@ -241,6 +252,10 @@ class Pipeline:
                         logger.debug(f"Challenge already exists for {v.video_id} (id={existing_id}); skipping insert")
             except Exception as e:
                 logger.exception(f"Failed processing video {v.video_id}: {e}")
+
+        # Log caption download statistics
+        success_rate = (caption_stats["success"] / caption_stats["total"] * 100) if caption_stats["total"] > 0 else 0
+        logger.info(f"Caption download summary: {caption_stats['success']}/{caption_stats['total']} successful ({success_rate:.1f}%), {caption_stats['failed']} failed")
 
     def publish(self, out_dir: str) -> None:
         # Basic publish: write an index and, if DB is configured, a GeoJSON of challenges and a table JSON
