@@ -1,6 +1,27 @@
 {
   "rows": [
     {
+      "id": 713,
+      "video_id": "Uqsl89Zl2Y4",
+      "title": "THIS SPICY POUTINE CHALLENGE WITH 'INFERNO WINGS' HASN'T BEEN BEATEN YET! | BeardMeatsFood",
+      "restaurant": "The Koop",
+      "address": "The Koop, 87B South Parade, Northallerton, DL7 8SJ, UK",
+      "city": "Northallerton",
+      "country_code": "GB",
+      "date_attempted": "2025-11-16",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": "poutine",
+      "thumbnail_url": "https://i.ytimg.com/vi/Uqsl89Zl2Y4/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 8,
+      "time_limit_score": 6,
+      "success_rate_score": 9,
+      "spiciness_score": 8,
+      "food_diversity_score": 3,
+      "risk_level_score": 7
+    },
+    {
       "id": 712,
       "video_id": "r88y24--4KM",
       "title": "NOBODY HAS MANAGED TO CONQUER THIS PUB PLATTER CHALLENGE DESPITE 18 ATTEMPTS! | BeardMeatsFood",
