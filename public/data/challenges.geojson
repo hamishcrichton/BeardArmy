@@ -6,6 +6,37 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          103.8518217,
+          1.3617836
+        ]
+      },
+      "properties": {
+        "id": 715,
+        "video_id": "xATlIGrLKqc",
+        "title": "I ORDERED THAT RED HOT CURRY CHALLENGE IN SINGAPORE THAT HASN'T BEEN BEATEN YET! | BeardMeatsFood",
+        "restaurant": "Jian Zao Ipoh Curry Noodle",
+        "address": "Jian Zao Ipoh curry noodle, Ang Mo Kio Ave 1, Singapore 560332",
+        "city": "Singapore",
+        "country_code": "SG",
+        "date_attempted": "2025-11-30",
+        "result": "unknown",
+        "type": "quantity",
+        "food_type": "noodles",
+        "thumbnail_url": "https://i.ytimg.com/vi/xATlIGrLKqc/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
+        "spiciness_score": 8,
+        "food_diversity_score": 5,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -2.69531,
           54.75844
         ]
