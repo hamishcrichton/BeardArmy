@@ -6,6 +6,37 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -1.9103412,
+          54.2914432
+        ]
+      },
+      "properties": {
+        "id": 717,
+        "video_id": "1SdlDfMfGyM",
+        "title": "CAN MY SISTER BEAT 'THE GIANT SLAYER' FISH & CHIPS CHALLENGE? | BeardMeatsFood",
+        "restaurant": "The Wensleydale Heifer",
+        "address": "The Wensleydale Heifer, Main St, Leyburn, DL8 4LS, UK",
+        "city": "Leyburn",
+        "country_code": "GB",
+        "date_attempted": "2025-12-14",
+        "result": "unknown",
+        "type": "quantity",
+        "food_type": "fish_and_chips",
+        "thumbnail_url": "https://i.ytimg.com/vi/1SdlDfMfGyM/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
+        "spiciness_score": 0,
+        "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           13.3709597,
           49.7719141
         ]
