@@ -6,6 +6,37 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -96.553966,
+          32.980027
+        ]
+      },
+      "properties": {
+        "id": 721,
+        "video_id": "B65YM7VDjjw",
+        "title": "THIS CHALLENGE HAS BEEN FAILED 7,290 TIMES…THEY CALL IT THE 'PIZZASAURUS REX'! | BeardMeatsFood",
+        "restaurant": "Say Cheese Pizza",
+        "address": "Sachse Rd, Garland, TX, USA",
+        "city": "Garland",
+        "country_code": "US",
+        "date_attempted": "2026-01-11",
+        "result": "failure",
+        "type": "quantity",
+        "food_type": "pizza",
+        "thumbnail_url": "https://i.ytimg.com/vi/B65YM7VDjjw/hqdefault.jpg",
+        "place_source": "opencage",
+        "food_volume_score": 8,
+        "time_limit_score": 6,
+        "success_rate_score": 9,
+        "spiciness_score": 5,
+        "food_diversity_score": 3,
+        "risk_level_score": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.8224175,
           45.8928031
         ]
