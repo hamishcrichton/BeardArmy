@@ -1,6 +1,27 @@
 {
   "rows": [
     {
+      "id": 722,
+      "video_id": "PD_VjO99LLw",
+      "title": "ALL YOU CAN EAT CONTEST VS. PADDY THE BADDY! | BeardMeatsFood",
+      "restaurant": "Furusato",
+      "address": "Furusato Bar & Grill, Matthew Lock Way, Kennessee Green, L31 0AP, UK",
+      "city": "Maghull",
+      "country_code": "GB",
+      "date_attempted": "2026-01-18",
+      "result": "success",
+      "type": "quantity",
+      "food_type": "wings",
+      "thumbnail_url": "https://i.ytimg.com/vi/PD_VjO99LLw/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 7,
+      "time_limit_score": 6,
+      "success_rate_score": 8,
+      "spiciness_score": 2,
+      "food_diversity_score": 2,
+      "risk_level_score": 6
+    },
+    {
       "id": 721,
       "video_id": "B65YM7VDjjw",
       "title": "THIS CHALLENGE HAS BEEN FAILED 7,290 TIMES…THEY CALL IT THE 'PIZZASAURUS REX'! | BeardMeatsFood",
