@@ -1,6 +1,27 @@
 {
   "rows": [
     {
+      "id": 735,
+      "video_id": "GUd9vlhGfZE",
+      "title": "\"THE LAST GUY NEEDED A DOCTOR\"...UTAH'S FAMOUS LIBERTY BELL CHALLENGE! | BeardMeatsFood",
+      "restaurant": "Brooker's Founding Flavours",
+      "address": "Barkers Landing Rd, Magnolia, DE, USA",
+      "city": "Magnolia",
+      "country_code": "US",
+      "date_attempted": "2026-04-19",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": "dessert",
+      "thumbnail_url": "https://i.ytimg.com/vi/GUd9vlhGfZE/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 8,
+      "time_limit_score": 6,
+      "success_rate_score": 9,
+      "spiciness_score": 0,
+      "food_diversity_score": 3,
+      "risk_level_score": 7
+    },
+    {
       "id": 734,
       "video_id": "LWoKe5ULR-4",
       "title": "I ORDERED THE BIGGEST STEAK CHALLENGE IN DENMARK...IT'S HUGE! | BeardMeatsFood",
