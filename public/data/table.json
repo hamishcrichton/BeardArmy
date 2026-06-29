@@ -1,6 +1,27 @@
 {
   "rows": [
     {
+      "id": 745,
+      "video_id": "Bhq-_tXQtJQ",
+      "title": "THIS HUGE MEDIEVAL BANQUET CHALLENGE HAS NEVER BEEN BEATEN SOLO! | BeardMeatsFood",
+      "restaurant": "this week's episode I'm",
+      "address": null,
+      "city": "BeardMeatsFood",
+      "country_code": null,
+      "date_attempted": "2026-06-28",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": null,
+      "thumbnail_url": "https://i.ytimg.com/vi/Bhq-_tXQtJQ/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
+      "spiciness_score": 0,
+      "food_diversity_score": 0,
+      "risk_level_score": 0
+    },
+    {
       "id": 744,
       "video_id": "Sx8mVGP8TiE",
       "title": "I ATTEMPTED ITALY'S UNBEATEN SUSHI CHALLENGE...GET €1 CASH FOR EVERY PIECE YOU EAT! | BeardMeatsFood",
