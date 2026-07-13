@@ -32,3 +32,4 @@ data/
 
 # Logs
 *.log
+eval/label_batches/
