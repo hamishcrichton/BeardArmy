@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Records</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
       .records { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
@@ -12,19 +16,27 @@
       .rec ul { margin: var(--bmf-space-2) 0 0; padding-left: 1.1rem; font-size: var(--bmf-font-size-100); }
       .rec li { margin-bottom: .25rem; }
 
-      /* Wall of Shame (ported from the single-page dashboard) */
-      .shame-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--bmf-space-2); }
-      .shame-grid a { position: relative; display: block; border-radius: var(--bmf-radius-sm); overflow: hidden; }
-      .shame-grid img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; filter: saturate(.85); }
+      /* Wall of Shame — taped snapshots pinned to the paper */
+      .shame-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+                    gap: var(--bmf-space-6) var(--bmf-space-4); padding-top: var(--bmf-space-3); }
+      .shame-grid a { position: relative; display: block; background: #fff; padding: 7px 7px 8px;
+                      box-shadow: 0 5px 12px rgba(60, 45, 20, .22); text-decoration: none;
+                      transform: rotate(-1.4deg); transition: transform .15s ease; }
+      .shame-grid a:nth-child(2n) { transform: rotate(1.3deg); }
+      .shame-grid a:nth-child(3n) { transform: rotate(-.5deg); }
+      .shame-grid a::before { content: ""; position: absolute; top: -9px; left: 50%; width: 58px; height: 17px;
+                              transform: translateX(-50%) rotate(-2deg); background: rgba(200, 178, 130, .55); }
+      .shame-grid a:hover { transform: rotate(0) scale(1.04); z-index: 2; }
+      .shame-grid img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; filter: saturate(.9); }
       .shame-grid a:hover img { filter: none; }
-      .shame-grid .cap { position: absolute; inset: auto 0 0 0; background: linear-gradient(transparent, #000d); color: #fff; font-size: .65rem; padding: 14px 6px 4px; opacity: 0; }
-      .shame-grid a:hover .cap { opacity: 1; }
+      .shame-grid .cap { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+                         color: #4a4236; font-style: italic; font-size: .7rem; line-height: 1.35; padding: 6px 2px 0; }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>BeardMeatsFood</h1>
-      <div class="sub">Records — the streaks, the giants, and the ones that got away.</div>
+      <h1>Records</h1>
+      <div class="sub">The streaks, the giants, and the ones that got away.</div>
 
       <div class="records" id="records"></div>
 

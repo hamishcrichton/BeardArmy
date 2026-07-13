@@ -1,7 +1,9 @@
 /* Shared data + helpers for the BeardMeatsFood stats site.
  *
  * Contract used by every page:
- *   BMF.COLORS                      -> { success, failure, unknown } hex (CVD-validated on #1a1a1a)
+ *   BMF.COLORS                      -> { success, failure, unknown } hex marks
+ *                                      (CVD-validated on #f3ecdd paper and #fbf7ee card,
+ *                                       worst pair ΔE 21.1 deutan; see app.css notes)
  *   await BMF.loadData()            -> { rows, features, stats }  (cached after first call)
  *   BMF.stats(rows)                 -> { wins, losses, decided, longest, current, countries, total }
  *   BMF.esc(s) BMF.yt(id) BMF.cleanTitle(t) BMF.fmt(n)
@@ -9,7 +11,7 @@
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
 window.BMF = (() => {
-  const COLORS = { success: '#00d084', failure: '#ff4d4f', unknown: '#9ca3af' };
+  const COLORS = { success: '#2e8551', failure: '#9e2f23', unknown: '#857b6c' };
   const PAGES = [
     ['index', 'Overview', 'index.html'],
     ['map', 'Map & Tours', 'map.html'],
@@ -49,12 +51,17 @@ window.BMF = (() => {
   }
 
   function nav(active) {
-    const el = document.createElement('nav');
-    el.className = 'nav';
-    el.innerHTML = PAGES.map(([key, label, href]) =>
-      `<a href="${href}" class="${key === active ? 'active' : ''}">${label}</a>`).join('');
-    const anchor = document.querySelector('.sub') || document.querySelector('h1');
-    anchor.insertAdjacentElement('afterend', el);
+    // Masthead: CSS roundel homage to the channel's butcher-stamp logo + top nav.
+    const el = document.createElement('header');
+    el.className = 'masthead';
+    el.innerHTML = `
+      <a class="roundel" href="index.html" aria-label="BeardMeatsFood — overview">
+        <span class="r-x">&#10005;</span><span class="r-w">BEARD</span><span class="r-w">MEATS</span><span class="r-w">FOOD</span><span class="r-x">&#9733;</span>
+      </a>
+      <nav class="nav">${PAGES.map(([key, label, href]) =>
+        `<a href="${href}" class="${key === active ? 'active' : ''}">${label}</a>`).join('')}</nav>`;
+    const wrap = document.querySelector('.wrap') || document.body;
+    wrap.insertAdjacentElement('afterbegin', el);
   }
 
   const tooltip = (() => {
