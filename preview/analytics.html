@@ -12,6 +12,7 @@
     <style>
       .bar-hit { cursor: default; }
       .views-row-label { font-size: 12px; opacity: .85; }
+      .card svg { display: block; width: 100%; }
     </style>
   </head>
   <body>
@@ -53,17 +54,35 @@
         <div class="chart-note">Each dot is one video (square-root view scale). Ink line = median; shaded band = middle 50%.</div>
       </div>
 
-      <div class="card" id="collabCard">
-        <div class="chart-title">Collaborators</div>
-        <div id="collabTable"></div>
-        <div class="chart-note">People named as eating alongside him; W–L counts his own result in those videos.</div>
-      </div>
     </div>
 
     <script src="assets/app.js"></script>
     <script>
-      const { COLORS, esc, yt, cleanTitle, fmt, tooltip } = BMF;
+      const { COLORS, esc, yt, cleanTitle, fmt, countryName, tooltip } = BMF;
       const SVGNS = 'http://www.w3.org/2000/svg';
+
+      // Display labels for cuisine buckets, in the channel's voice (data keys unchanged).
+      const CUISINE_LABEL = {
+        'burger': 'Burger Off!',
+        'breakfast': 'The Full English',
+        'pizza': 'Pizza the Action',
+        'dessert & sweet': 'Do You Have Any Desserts?',
+        'wings & chicken': 'Winging It',
+        'sandwich & sub': 'Sub-mission',
+        'mexican': "Mexican or Mexican't?",
+        'steak & grill': 'Raising the Steaks',
+        'curry & asian': 'Curry On',
+        'bbq & ribs': 'Rib Ticklers',
+        'hot dog': 'Hot Dawg!',
+        'fish & chips': 'The Codfather',
+        'pasta & italian': 'Pasta La Vista',
+        'roast dinner': 'Sunday Service',
+        'other': 'Mixed Bag',
+      };
+      const cuisineLabel = k => CUISINE_LABEL[k] || k;
+
+      // Responsive chart width: draw 1:1 at the container's current width.
+      const chartW = c => Math.max(320, Math.round(c.clientWidth || 900));
 
       const pending = (cardId) => {
         document.querySelector(`#${cardId} div[id$="Chart"], #${cardId} div[id$="Table"]`)
@@ -97,7 +116,8 @@
 
       // Horizontal win-rate bars: data = [{label, pct, n}]
       function hBars(container, data) {
-        const W = 900, rowH = 26, labelW = 170, valueW = 110;
+        const W = chartW(container), rowH = 26, valueW = 96;
+        const labelW = Math.max(140, Math.min(210, Math.round(W * 0.3)));
         const H = data.length * rowH + 8;
         const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
         const plotW = W - labelW - valueW;
@@ -143,7 +163,7 @@
           byYear[y][r.result || 'unknown']++;
         }
         const years = Object.keys(byYear).sort();
-        const W = 900, H = 240, pad = 24, barW = Math.min(48, (W - 2 * pad) / years.length - 8);
+        const W = chartW(container), H = 240, pad = 24, barW = Math.min(48, (W - 2 * pad) / years.length - 8);
         const maxN = Math.max(...years.map(y => byYear[y].success + byYear[y].failure + byYear[y].unknown));
         const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
         years.forEach((y, i) => {
@@ -175,7 +195,7 @@
           label: i === edges.length - 1 ? '16+' : `${lo}–${edges[i + 1]}`,
           n: weights.filter(w => i === edges.length - 1 ? w >= lo : w >= lo && w < edges[i + 1]).length,
         }));
-        const W = 900, H = 220, pad = 24, slot = (W - 2 * pad) / bins.length;
+        const W = chartW(container), H = 220, pad = 24, slot = (W - 2 * pad) / bins.length;
         const maxN = Math.max(...bins.map(b => b.n), 1);
         const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
         bins.forEach((b, i) => {
@@ -206,7 +226,7 @@
         ].map(g => ({ ...g, vals: rows.filter(r => r.result === g.key && r.view_count > 0) }));
         const all = groups.flatMap(g => g.vals.map(r => r.view_count));
         const maxV = Math.max(...all);
-        const W = 900, rowH = 74, labelW = 90, H = groups.length * rowH + 10;
+        const W = chartW(container), rowH = 74, labelW = 90, H = groups.length * rowH + 10;
         const x = v => labelW + (W - labelW - 30) * Math.sqrt(v / maxV);
         const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
         groups.forEach((g, gi) => {
@@ -228,46 +248,31 @@
         container.replaceChildren(svg);
       }
 
-      function collabTable(container, rows) {
-        const map = {};
-        for (const r of rows) {
-          for (const name of r.collaborators || []) {
-            const m = (map[name] ||= { n: 0, w: 0, l: 0, last: '' });
-            m.n++;
-            if (r.result === 'success') m.w++;
-            if (r.result === 'failure') m.l++;
-            const d = (r.date_attempted || '').slice(0, 10);
-            if (d > m.last) m.last = d;
-          }
-        }
-        const top = Object.entries(map).sort((a, b) => b[1].n - a[1].n).slice(0, 15);
-        container.innerHTML = `<table>
-          <thead><tr><th>Collaborator</th><th>Appearances</th><th>His W–L alongside</th><th>Most recent</th></tr></thead>
-          <tbody>${top.map(([name, m]) => `
-            <tr><td>${esc(name)}</td><td>${m.n}</td>
-                <td><span class="badge win">${m.w}W</span> <span class="badge loss">${m.l}L</span></td>
-                <td>${m.last || '—'}</td></tr>`).join('')}
-          </tbody></table>`;
-      }
-
       BMF.loadData().then(({ rows }) => {
         BMF.nav('analytics');
 
-        if (hasField(rows, 'cuisine')) hBars(document.getElementById('cuisineChart'), winRateBy(rows, r => r.cuisine, 5));
-        else pending('cuisineCard');
+        const renderAll = () => {
+          if (hasField(rows, 'cuisine')) {
+            hBars(document.getElementById('cuisineChart'),
+              winRateBy(rows, r => r.cuisine, 5).map(d => ({ ...d, label: cuisineLabel(d.label) })));
+          } else pending('cuisineCard');
 
-        hBars(document.getElementById('countryChart'), winRateBy(rows, r => r.country_code, 5));
+          hBars(document.getElementById('countryChart'),
+            winRateBy(rows, r => r.country_code, 5).map(d => ({ ...d, label: countryName(d.label) })));
 
-        yearChart(document.getElementById('yearChart'), rows);
+          yearChart(document.getElementById('yearChart'), rows);
 
-        if (hasField(rows, 'weight_lb')) weightChart(document.getElementById('weightChart'), rows);
-        else pending('weightCard');
+          if (hasField(rows, 'weight_lb')) weightChart(document.getElementById('weightChart'), rows);
+          else pending('weightCard');
 
-        if (hasField(rows, 'view_count')) viewsChart(document.getElementById('viewsChart'), rows);
-        else pending('viewsCard');
+          if (hasField(rows, 'view_count')) viewsChart(document.getElementById('viewsChart'), rows);
+          else pending('viewsCard');
+        };
 
-        if (hasField(rows, 'collaborators')) collabTable(document.getElementById('collabTable'), rows);
-        else pending('collabCard');
+        renderAll();
+        // re-render at the new container width (charts draw 1:1 at render time)
+        let t;
+        window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(renderAll, 200); });
       });
     </script>
   </body>

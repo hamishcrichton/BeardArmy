@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Collaborators</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* Top Trumps deck */
+      .deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+              gap: var(--bmf-space-6) var(--bmf-space-4); margin-top: var(--bmf-space-4); }
+      .ttcard { background: var(--surface); border: 2px solid var(--bmf-color-text); border-radius: 10px;
+                box-shadow: var(--bmf-shadow-2); padding: 10px 10px 12px; display: flex; flex-direction: column; }
+      .ttcard .plate { background: var(--bmf-color-text); color: var(--bmf-color-bg);
+                       font-family: var(--bmf-font-display); font-weight: 400; text-align: center;
+                       font-size: 1.02rem; letter-spacing: .06em; text-transform: uppercase;
+                       padding: .3rem .5rem .35rem; border-radius: 5px; }
+      .ttcard .art { margin: 14px 10px 10px; transform: rotate(-1.6deg); }
+      .ttcard:nth-child(2n) .art { transform: rotate(1.4deg); }
+      .ttcard .art:hover { transform: rotate(0); }
+      .ttcard .trows { padding: 4px 6px 0; }
+      .ttcard .ledger-row { padding: .3rem 0; border-bottom: 1px solid rgba(34,28,20,.08); }
+      .ttcard .ledger-row:last-child { border-bottom: 0; }
+      .ttcard .lr-value.date { font-family: var(--bmf-font-sans); font-style: italic;
+                               font-size: .82rem; color: #4a4236; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Collaborators</h1>
+      <div class="sub">He rarely eats alone — the recurring cast, in card form.</div>
+
+      <div class="deck" id="deck"></div>
+      <div class="legend" style="margin-top:var(--bmf-space-4)">Wins and losses count his own result in the videos they appear in together.</div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmtDate } = BMF;
+
+      function maxBy(rows, f) {
+        let top = null;
+        for (const r of rows) { const v = f(r); if (v != null && (top == null || v > f(top))) top = r; }
+        return top;
+      }
+
+      BMF.loadData().then(({ rows }) => {
+        BMF.nav('collabs');
+
+        const map = {};
+        for (const r of rows) {
+          for (const name of r.collaborators || []) {
+            const m = (map[name] ||= { n: 0, w: 0, l: 0, first: '', last: '', vids: [] });
+            m.n++;
+            if (r.result === 'success') m.w++;
+            if (r.result === 'failure') m.l++;
+            const d = (r.date_attempted || '').slice(0, 10);
+            if (d) {
+              if (!m.first || d < m.first) m.first = d;
+              if (d > m.last) m.last = d;
+            }
+            m.vids.push(r);
+          }
+        }
+
+        // top 12 by appearances, plus anyone tied with 12th place
+        const ranked = Object.entries(map).sort((a, b) => b[1].n - a[1].n || a[0].localeCompare(b[0]));
+        const cutoff = ranked.length > 12 ? ranked[11][1].n : 0;
+        const deck = ranked.filter(([, m], i) => i < 12 || m.n >= cutoff);
+
+        document.getElementById('deck').innerHTML = deck.map(([name, m]) => {
+          const withThumb = m.vids.filter(r => r.thumbnail_url);
+          const art = maxBy(withThumb, r => r.view_count)
+            || withThumb.sort((a, b) => String(b.date_attempted).localeCompare(String(a.date_attempted)))[0];
+          const rate = m.w + m.l ? `${(100 * m.w / (m.w + m.l)).toFixed(0)}%` : '–';
+          const rowsHtml = [
+            ['Appearances', m.n, ''],
+            ['Wins alongside', m.w, 'win'],
+            ['Losses alongside', m.l, 'loss'],
+            ['Win rate', rate, ''],
+            ['First seen', fmtDate(m.first), 'date'],
+            ['Last seen', fmtDate(m.last), 'date'],
+          ].map(([label, value, cls]) => `
+            <div class="ledger-row">
+              <span class="lr-label">${label}</span><span class="lr-dots"></span>
+              <span class="lr-value ${cls}">${value}</span>
+            </div>`).join('');
+          const artHtml = art ? `
+            <a class="snap art" href="${yt(art.video_id)}" target="_blank" rel="noopener"
+               title="${esc(cleanTitle(art.title))} — ${fmtDate(art.date_attempted)}">
+              <img loading="lazy" src="${esc(art.thumbnail_url)}" alt="${esc(cleanTitle(art.title))}" />
+            </a>` : '';
+          return `<article class="ttcard">
+            <div class="plate">${esc(name)}</div>
+            ${artHtml}
+            <div class="trows">${rowsHtml}</div>
+          </article>`;
+        }).join('');
+      });
+    </script>
+  </body>
+</html>

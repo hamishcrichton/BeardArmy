@@ -103,6 +103,24 @@ svg text { fill: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
 .grid-line { stroke: rgba(34, 28, 20, .12); }
 .axis-label { font-size: 11px; opacity: .75; }
 
+/* Taped snapshot — the site's photo treatment (hero, collaborator cards, Wall of Shame) */
+.snap { position: relative; display: block; background: #fff; padding: 7px 7px 8px;
+        box-shadow: 0 5px 12px rgba(60, 45, 20, .22); text-decoration: none; }
+.snap::before { content: ""; position: absolute; top: -9px; left: 50%; width: 58px; height: 17px;
+                transform: translateX(-50%) rotate(-2deg); background: rgba(200, 178, 130, .55); z-index: 1; }
+.snap img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+.snap .cap { display: block; color: #4a4236; font-style: italic; font-size: .7rem; line-height: 1.35; padding: 6px 2px 0; }
+
+/* Ledger row — label, dotted leader, value (hero tape + collaborator cards) */
+.ledger-row { display: flex; align-items: baseline; gap: 8px; padding: .28rem 0; }
+.ledger-row .lr-label { font-size: .72rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase;
+                        color: var(--bmf-color-text-muted); white-space: nowrap; }
+.ledger-row .lr-dots { flex: 1; border-bottom: 2px dotted rgba(34, 28, 20, .25); transform: translateY(-3px); }
+.ledger-row .lr-value { font-family: var(--bmf-font-display); font-size: 1.05rem; line-height: 1; white-space: nowrap; }
+.ledger-row .lr-value.win { color: var(--win-text); }
+.ledger-row .lr-value.loss { color: var(--loss-text); }
+.ledger-row .lr-value.pending { color: var(--unknown-text); }
+
 /* Tooltip (shared) — a paper slip */
 .tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--bmf-color-text);
        border: 1.5px solid var(--bmf-color-text); box-shadow: var(--bmf-shadow-3);

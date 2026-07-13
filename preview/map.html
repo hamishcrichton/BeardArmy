@@ -14,13 +14,11 @@
       #map { width: 100%; height: 540px; border-radius: var(--bmf-radius-md); }
       .map-card { position: relative; }
       .map-legend { position: absolute; bottom: 26px; left: 26px; background: #fbf7eee6; color: var(--bmf-color-text); border: 1px solid var(--border); border-radius: var(--bmf-radius-md); box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-2) var(--bmf-space-3); display: flex; gap: var(--bmf-space-3); font-size: .75rem; }
-      .keybar { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; }
-      .keybar input { padding: .45rem .75rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border); background: #fff; color: var(--bmf-color-text); font-family: var(--bmf-font-sans); width: 280px; }
       .controls { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--bmf-space-4); }
       .controls select { padding: .4rem .7rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border); background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); font-size: var(--bmf-font-size-100); max-width: 260px; }
       .scrubber { display: flex; gap: var(--bmf-space-2); align-items: center; flex: 1; min-width: 260px; }
       .scrubber input[type=range] { flex: 1; accent-color: var(--bmf-color-brand); }
-      .scrubber .date { font-size: .8rem; color: var(--bmf-color-text-muted); min-width: 88px; text-align: right; font-variant-numeric: tabular-nums; }
+      .scrubber .date { font-size: .8rem; color: var(--bmf-color-text-muted); min-width: 150px; text-align: right; font-variant-numeric: tabular-nums; }
       .playbtn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--bmf-color-border); background: var(--surface); color: var(--bmf-color-text); cursor: pointer; font-size: .8rem; }
       .playbtn.playing { background: var(--bmf-color-brand); color: var(--bmf-color-text-alt); border-color: var(--bmf-color-brand); }
       #world { width: 100%; height: auto; display: block; }
@@ -36,12 +34,6 @@
     <div class="wrap">
       <h1>Map &amp; Tours</h1>
       <div class="sub">Where the challenges happened — filter by trip, watch the career unfold in time.</div>
-
-      <div class="card keybar">
-        <label>MapTiler key <input id="key" type="text" placeholder="YOUR_MAPTILER_KEY" /></label>
-        <button id="load" class="btn">Load map</button>
-        <span class="muted">Free key at maptiler.com — remembered locally.</span>
-      </div>
 
       <div class="controls" id="controls">
         <button class="fbtn active" data-filter="all">All</button>
@@ -79,6 +71,7 @@
 
     <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
     <script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+    <script src="assets/config.js"></script>
     <script src="assets/app.js"></script>
     <script>
       BMF.nav('map');
@@ -174,9 +167,9 @@
             new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(`
               <div style="min-width:220px;max-width:280px">
                 <div style="font-weight:700">${esc(p.restaurant || '')}</div>
-                <div style="opacity:.7">${esc([p.city, p.country_code].filter(Boolean).join(', '))}</div>
+                <div style="opacity:.7">${esc([p.city, BMF.countryName(p.country_code)].filter(Boolean).join(', '))}</div>
                 <div style="margin:.3rem 0">${esc(cleanTitle(p.title))}</div>
-                <div><b style="color:${labelColor}">${label}</b> · ${esc((p.date_attempted || '').slice(0, 10))}${p.trip_name ? ' · ' + esc(p.trip_name) : ''}</div>
+                <div><b style="color:${labelColor}">${label}</b> · ${BMF.fmtDate(p.date_attempted)}${p.trip_name ? ' · ' + esc(p.trip_name) : ''}</div>
                 <a href="${yt(p.video_id)}" target="_blank" rel="noopener">Watch on YouTube →</a>
               </div>`).addTo(map);
           });
@@ -199,7 +192,7 @@
         scrub.value = step;
         state.cutoff = step >= STEPS ? Infinity : cutoffForStep(step);
         const shown = step >= STEPS ? state.maxT : state.cutoff;
-        scrubDate.textContent = new Date(shown).toISOString().slice(0, 10);
+        scrubDate.textContent = BMF.fmtDate(new Date(shown).toISOString());
         applyFilters(fit);
       }
       scrub.addEventListener('input', () => { stopPlay(); setStep(Number(scrub.value)); });
@@ -239,7 +232,7 @@
         CZ: 'Czechia', PL: 'Poland', SE: 'Sweden', CA: 'Canada', AU: 'Australia',
         NZ: 'New Zealand', AE: 'United Arab Emirates', SG: 'Singapore', TH: 'Thailand',
         CH: 'Switzerland', PT: 'Portugal', MX: 'Mexico', JP: 'Japan', DK: 'Denmark',
-        NO: 'Norway', FI: 'Finland',
+        NO: 'Norway', FI: 'Finland', IS: 'Iceland', DO: 'Dominican Republic',
       };
       const W = 960, H = 430, LAT_MAX = 84, LAT_MIN = -56; // clip poles/Antarctica band
       const px = ([lon, lat]) => [
@@ -314,12 +307,17 @@
       }
 
       /* ---- boot ---- */
-      document.getElementById('load').addEventListener('click', () => {
-        const key = document.getElementById('key').value.trim();
-        if (!key) { console.warn('No MapTiler key entered'); return; }
-        localStorage.setItem('maptiler_key', key);
-        initMap(key);
-      });
+      // Map key comes from assets/config.js (window.BMF_CONFIG.maptilerKey) —
+      // client-visible by design, origin-restricted in the MapTiler dashboard.
+      function bootMap() {
+        const key = (((window.BMF_CONFIG || {}).maptilerKey) || '').trim();
+        if (key && !/YOUR_MAPTILER_KEY|placeholder/i.test(key)) { initMap(key); return; }
+        const el = document.getElementById('map');
+        el.style.height = 'auto';
+        el.innerHTML = '<div class="muted" style="padding:.25rem 0">Map tiles need a key in assets/config.js</div>';
+        const legend = document.querySelector('.map-legend');
+        if (legend) legend.style.display = 'none';
+      }
 
       BMF.loadData().then(({ rows, features }) => {
         state.rows = rows;
@@ -347,9 +345,7 @@
         }
 
         renderWorld(rows);
-
-        const saved = localStorage.getItem('maptiler_key');
-        if (saved) { document.getElementById('key').value = saved; initMap(saved); }
+        bootMap();
       });
     </script>
   </body>

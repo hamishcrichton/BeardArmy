@@ -7,6 +7,8 @@
  *   await BMF.loadData()            -> { rows, features, stats }  (cached after first call)
  *   BMF.stats(rows)                 -> { wins, losses, decided, longest, current, countries, total }
  *   BMF.esc(s) BMF.yt(id) BMF.cleanTitle(t) BMF.fmt(n)
+ *   BMF.fmtDate(iso)                -> "13 July 2026" (site-wide date format)
+ *   BMF.countryName(cc)             -> display name for an alpha-2 code (falls back to the code)
  *   BMF.nav('map')                  -> injects the top nav, marking the given page active
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
@@ -16,13 +18,34 @@ window.BMF = (() => {
     ['index', 'Overview', 'index.html'],
     ['map', 'Map & Tours', 'map.html'],
     ['analytics', 'Analytics', 'analytics.html'],
-    ['records', 'Records', 'records.html'],
+    ['collabs', 'Collaborators', 'collaborators.html'],
+    ['shame', 'Wall of Shame', 'shame.html'],
   ];
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const yt = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
   const cleanTitle = t => String(t || '').replace(/\s*\|\s*BeardMeatsFood\s*$/i, '');
   const fmt = n => n == null ? '–' : Number(n).toLocaleString('en-GB');
+
+  // Site-wide date format: "13 July 2026".
+  const fmtDate = (iso) => {
+    const s = String(iso || '').slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return '–';
+    const d = new Date(`${s}T00:00:00Z`);
+    return isNaN(d) ? '–' : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  };
+
+  // Display names for every alpha-2 code in the data (plus likely next stops);
+  // falls back to the raw code so a new country never breaks rendering.
+  const COUNTRY_NAMES = {
+    GB: 'United Kingdom', US: 'United States', CA: 'Canada', DE: 'Germany',
+    SG: 'Singapore', DK: 'Denmark', IT: 'Italy', PT: 'Portugal', BE: 'Belgium',
+    NO: 'Norway', SE: 'Sweden', FI: 'Finland', CZ: 'Czechia', NL: 'Netherlands',
+    IS: 'Iceland', FR: 'France', AT: 'Austria', DO: 'Dominican Republic',
+    IE: 'Ireland', ES: 'Spain', AU: 'Australia', NZ: 'New Zealand', CH: 'Switzerland',
+    PL: 'Poland', MX: 'Mexico', JP: 'Japan', AE: 'United Arab Emirates', TH: 'Thailand',
+  };
+  const countryName = cc => COUNTRY_NAMES[cc] || cc || '–';
 
   function stats(rows) {
     const dated = rows.filter(r => r.date_attempted).sort((a, b) => a.date_attempted.localeCompare(b.date_attempted));
@@ -83,5 +106,5 @@ window.BMF = (() => {
     };
   })();
 
-  return { COLORS, esc, yt, cleanTitle, fmt, stats, loadData, nav, tooltip };
+  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, stats, loadData, nav, tooltip };
 })();
