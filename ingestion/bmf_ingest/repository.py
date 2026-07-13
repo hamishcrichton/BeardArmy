@@ -27,14 +27,18 @@ class DbRepository:
             sql = text(
                 """
                 INSERT INTO videos (video_id, title, description, published_at, duration_seconds,
+                                    view_count, like_count,
                                     captions_available, playlist_ids, thumbnail_url, channel_id, raw_json, updated_at)
                 VALUES (:video_id, :title, :description, :published_at, :duration_seconds,
+                        :view_count, :like_count,
                         :captions_available, :playlist_ids, :thumbnail_url, :channel_id, :raw_json, CURRENT_TIMESTAMP)
                 ON CONFLICT(video_id) DO UPDATE SET
                   title = excluded.title,
                   description = excluded.description,
                   published_at = excluded.published_at,
                   duration_seconds = excluded.duration_seconds,
+                  view_count = COALESCE(excluded.view_count, videos.view_count),
+                  like_count = COALESCE(excluded.like_count, videos.like_count),
                   captions_available = excluded.captions_available,
                   playlist_ids = excluded.playlist_ids,
                   thumbnail_url = excluded.thumbnail_url,
@@ -49,6 +53,8 @@ class DbRepository:
                 "description": v.description,
                 "published_at": v.published_at.isoformat() if hasattr(v.published_at, "isoformat") else str(v.published_at),
                 "duration_seconds": v.duration_seconds,
+                "view_count": v.view_count,
+                "like_count": v.like_count,
                 "captions_available": v.captions_available,
                 "playlist_ids": json.dumps(v.playlist_ids or []),
                 "thumbnail_url": v.thumbnail_url,
@@ -59,14 +65,18 @@ class DbRepository:
             sql = text(
                 """
                 INSERT INTO videos (video_id, title, description, published_at, duration_seconds,
+                                    view_count, like_count,
                                     captions_available, playlist_ids, thumbnail_url, channel_id, raw_json, updated_at)
                 VALUES (:video_id, :title, :description, :published_at, :duration_seconds,
+                        :view_count, :like_count,
                         :captions_available, :playlist_ids, :thumbnail_url, :channel_id, :raw_json, now())
                 ON CONFLICT (video_id) DO UPDATE SET
                   title = EXCLUDED.title,
                   description = EXCLUDED.description,
                   published_at = EXCLUDED.published_at,
                   duration_seconds = EXCLUDED.duration_seconds,
+                  view_count = COALESCE(EXCLUDED.view_count, videos.view_count),
+                  like_count = COALESCE(EXCLUDED.like_count, videos.like_count),
                   captions_available = EXCLUDED.captions_available,
                   playlist_ids = EXCLUDED.playlist_ids,
                   thumbnail_url = EXCLUDED.thumbnail_url,
@@ -81,6 +91,8 @@ class DbRepository:
                 "description": v.description,
                 "published_at": v.published_at,
                 "duration_seconds": v.duration_seconds,
+                "view_count": v.view_count,
+                "like_count": v.like_count,
                 "captions_available": v.captions_available,
                 "playlist_ids": v.playlist_ids,
                 "thumbnail_url": v.thumbnail_url,

@@ -53,7 +53,7 @@ def fetch_videos(api_key: str, video_ids: List[str]) -> List[Video]:
         batch = video_ids[i : i + 50]
         # Fetch additional parts for enhanced metadata
         resp = youtube.videos().list(
-            part="snippet,contentDetails,recordingDetails,localizations,topicDetails", 
+            part="snippet,contentDetails,recordingDetails,localizations,topicDetails,statistics",
             id=",".join(batch)
         ).execute()
         for it in resp.get("items", []):
@@ -84,6 +84,10 @@ def fetch_videos(api_key: str, video_ids: List[str]) -> List[Video]:
             
             # Extract tags from snippet
             tags = snip.get("tags", [])
+
+            stats = it.get("statistics", {})
+            view_count = int(stats["viewCount"]) if stats.get("viewCount") else None
+            like_count = int(stats["likeCount"]) if stats.get("likeCount") else None
             
             out.append(
                 Video(
@@ -92,6 +96,8 @@ def fetch_videos(api_key: str, video_ids: List[str]) -> List[Video]:
                     description=snip.get("description", ""),
                     published_at=datetime.fromisoformat(snip["publishedAt"].replace("Z", "+00:00")),
                     duration_seconds=duration_seconds,
+                    view_count=view_count,
+                    like_count=like_count,
                     captions_available=False,  # set later via captions probe
                     playlist_ids=[],
                     thumbnail_url=snip.get("thumbnails", {}).get("high", {}).get("url"),

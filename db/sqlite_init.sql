@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS videos (
   description        TEXT,
   published_at       TEXT NOT NULL,              -- ISO8601
   duration_seconds   INTEGER,
+  view_count         INTEGER,
+  like_count         INTEGER,
   captions_available INTEGER DEFAULT 0,          -- boolean
   playlist_ids       TEXT,                       -- JSON array
   thumbnail_url      TEXT,
@@ -62,6 +64,7 @@ CREATE TABLE IF NOT EXISTS challenges (
   charity_flag     INTEGER DEFAULT 0,
   source           TEXT,
   confidence       REAL,
+  weight_lb        REAL,                  -- total challenge food weight (extraction v2.1)
   -- Challenge difficulty scores (0-10 scale)
   food_volume_score    INTEGER DEFAULT 0,
   time_limit_score     INTEGER DEFAULT 0,

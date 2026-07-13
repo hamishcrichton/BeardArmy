@@ -13,8 +13,9 @@ from .extractors import extract_from_video
 from .geocode import geocode
 from .featured_places import get_featured_place
 from .repository import DbRepository
-from .publish import publish_artifacts, write_json
+from .publish import publish_artifacts, write_json, cuisine_bucket
 from .caption_parser import extract_caption_intro
+from .derive_trips import derive_trip_names
 from sqlalchemy import text
 
 # Import LLM extractor if available
@@ -284,6 +285,12 @@ class Pipeline:
                    c.result,
                    ct.slug AS type,
                    c.food_type,
+                   c.weight_lb,
+                   v.view_count,
+                   (SELECT GROUP_CONCAT(col.name, '|')
+                      FROM challenge_collaborators cc
+                      JOIN collaborators col ON col.id = cc.collaborator_id
+                     WHERE cc.challenge_id = c.id) AS collaborators,
                    c.food_volume_score,
                    c.time_limit_score,
                    c.success_rate_score,
@@ -329,6 +336,10 @@ class Pipeline:
                     "result": r["result"],
                     "type": r["type"],
                     "food_type": r.get("food_type"),
+                    "cuisine": cuisine_bucket(r.get("food_type")),
+                    "weight_lb": r.get("weight_lb"),
+                    "view_count": r.get("view_count"),
+                    "collaborators": (r.get("collaborators") or "").split("|") if r.get("collaborators") else [],
                     "thumbnail_url": r["thumbnail_url"],
                     # Include minimal provenance so we can distinguish approx points in the UI later
                     # (kept generic to avoid leaking provider details beyond a label)
@@ -348,6 +359,12 @@ class Pipeline:
                         "properties": props,
                     })
                 rows.append(props)
+
+        # trip/series names (deterministic; annotates the shared props dicts,
+        # so both rows and geojson features pick them up)
+        trips = derive_trip_names(rows)
+        for props in rows:
+            props["trip_name"] = trips.get(props["video_id"])
 
         geojson = {"type": "FeatureCollection", "features": features}
         logger.info(f"Publishing artifacts: {len(features)} features, {len(rows)} rows")

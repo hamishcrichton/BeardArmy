@@ -24,6 +24,15 @@ SCORE_FIELDS = [
 ]
 
 
+def sane_weight(weight, title: str):
+    """Guard against oz-vs-lb slips: no single challenge is >25 lb of food."""
+    if weight is None or weight <= 25:
+        return weight
+    if "oz" in (title or "").lower():
+        return round(weight / 16.0, 1)
+    return None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Apply extraction v2 to challenges table")
     parser.add_argument("--db", default="data/app.db")
@@ -51,7 +60,7 @@ def main() -> None:
         if not args.dry_run:
             conn.execute(
                 """UPDATE challenges SET
-                       result = ?, challenge_type_id = ?, food_type = ?,
+                       result = ?, challenge_type_id = ?, food_type = ?, weight_lb = ?,
                        food_volume_score = ?, time_limit_score = ?, success_rate_score = ?,
                        spiciness_score = ?, food_diversity_score = ?, risk_level_score = ?,
                        source = 'llm_v2', confidence = ?
@@ -60,11 +69,27 @@ def main() -> None:
                     rec["result"],
                     type_ids.get(rec.get("challenge_type")),  # 'unknown' -> NULL
                     rec.get("food_type"),
+                    sane_weight(rec.get("food_weight_lb"), rec.get("title", "")),
                     *(rec.get(f) for f in SCORE_FIELDS),
                     rec.get("confidence"),
                     rec["video_id"],
                 ),
             )
+            # collaborators: idempotent rewrite of this challenge's links
+            (cid,) = row
+            conn.execute("DELETE FROM challenge_collaborators WHERE challenge_id = ?", (cid,))
+            for name in rec.get("collaborators") or []:
+                name = name.strip()
+                if not name:
+                    continue
+                cur = conn.execute("SELECT id FROM collaborators WHERE name = ?", (name,)).fetchone()
+                col_id = cur[0] if cur else conn.execute(
+                    "INSERT INTO collaborators(name) VALUES (?)", (name,)
+                ).lastrowid
+                conn.execute(
+                    "INSERT OR IGNORE INTO challenge_collaborators(challenge_id, collaborator_id) VALUES (?, ?)",
+                    (cid, col_id),
+                )
         updated += 1
 
     if args.dry_run:
