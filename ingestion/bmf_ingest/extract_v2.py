@@ -22,7 +22,7 @@ import re
 import sqlite3
 from pathlib import Path
 
-EXTRACTOR_VERSION = 2
+EXTRACTOR_VERSION = 3
 RAW_CAPTIONS = Path("data/raw/captions")
 OUT_PATH = Path("data/derived/extractions_v2.jsonl")
 
@@ -112,6 +112,15 @@ SCHEMA = {
             "enum": ["quantity", "spicy", "speed", "mixed", "unknown"],
         },
         "food_type": {"type": ["string", "null"]},
+        "food_weight_lb": {
+            "type": ["number", "null"],
+            "description": "Total stated weight of the challenge food in pounds; null if never stated",
+        },
+        "collaborators": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Other named eaters participating in THIS challenge; empty if he eats alone",
+        },
         "food_volume_score": {"type": "integer"},
         "time_limit_score": {"type": "integer"},
         "success_rate_score": {"type": "integer"},
@@ -122,7 +131,8 @@ SCHEMA = {
     },
     "required": [
         "restaurant_name", "city", "country_code", "result", "result_evidence",
-        "challenge_type", "food_type", "food_volume_score", "time_limit_score",
+        "challenge_type", "food_type", "food_weight_lb", "collaborators",
+        "food_volume_score", "time_limit_score",
         "success_rate_score", "spiciness_score", "food_diversity_score",
         "risk_level_score", "confidence",
     ],
@@ -146,6 +156,11 @@ Other fields:
 - restaurant_name / city / country_code: the venue where the challenge takes place. Use the description \
 and intro; country_code is ISO 3166-1 alpha-2 (UK videos = GB).
 - challenge_type: quantity (volume of food), spicy (heat-based), speed (time-critical), mixed, or unknown.
+- food_weight_lb: the total stated weight of the challenge food, converted to pounds (1 kg = 2.2 lb, \
+16 oz = 1 lb). He usually announces it in the intro ("six pounds of food"). null if never stated.
+- collaborators: other people named as EATING in this challenge/contest (e.g. Randy Santel, Kate Ovens, \
+"Mrs Beard" for his wife/fiancee, Leah Shutkever). Use their common name. Empty array when he eats alone \
+(camera operators and restaurant staff do not count).
 - Scores are integers 0-10: food_volume_score (amount of food), time_limit_score (10 = very tight limit, \
 0 = no limit), success_rate_score (how rarely others complete it, 10 = nobody has), spiciness_score, \
 food_diversity_score (variety of components), risk_level_score (overall difficulty).

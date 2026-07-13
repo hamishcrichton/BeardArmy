@@ -12,6 +12,8 @@ class Video:
     description: str
     published_at: datetime
     duration_seconds: Optional[int] = None
+    view_count: Optional[int] = None
+    like_count: Optional[int] = None
     captions_available: bool = False
     playlist_ids: List[str] = field(default_factory=list)
     thumbnail_url: Optional[str] = None

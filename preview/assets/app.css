@@ -1,0 +1,59 @@
+/* Shared styles for the BeardMeatsFood stats site (all pages). */
+@import url("../../frontend/styles/tokens.css");
+
+:root {
+  --win: #00d084;
+  --loss: #ff4d4f;
+  --unknown: #9ca3af;
+  --surface: #242424;
+  --border: #ffffff1f;
+}
+body { margin: 0; background: var(--bmf-color-bg); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: var(--bmf-space-6); }
+h1 { font-family: var(--bmf-font-display); font-size: var(--bmf-font-size-700); margin: 0; letter-spacing: .02em; text-transform: uppercase; }
+h3 { margin-top: 0; }
+.sub { opacity: .7; margin-bottom: var(--bmf-space-4); }
+.muted { opacity: .7; }
+a { color: inherit; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--bmf-radius-lg); padding: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
+
+/* Top navigation */
+.nav { display: flex; gap: var(--bmf-space-2); margin: var(--bmf-space-4) 0; flex-wrap: wrap; }
+.nav a { padding: .4rem 1rem; border-radius: var(--bmf-radius-pill); border: 1px solid #ffffff2e; text-decoration: none; font-size: var(--bmf-font-size-100); }
+.nav a.active { background: var(--bmf-color-brand); color: var(--bmf-color-bg); border-color: var(--bmf-color-brand); font-weight: 600; }
+.nav a:hover:not(.active) { border-color: var(--bmf-color-brand); }
+
+/* Stat tiles */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--bmf-radius-lg); padding: var(--bmf-space-4); }
+.tile .num { font-family: var(--bmf-font-display); font-size: var(--bmf-font-size-500); line-height: 1.1; color: var(--bmf-color-brand); }
+.tile .num .w { color: var(--win); } .tile .num .l { color: var(--loss); }
+.tile .label { font-size: var(--bmf-font-size-100); opacity: .7; margin-top: var(--bmf-space-1); }
+
+/* Badges, chips, filters */
+.badge { display: inline-block; padding: .1rem .55rem; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; }
+.badge.win { background: #00d08426; color: var(--win); }
+.badge.loss { background: #ff4d4f26; color: var(--loss); }
+.badge.unknown { background: #9ca3af26; color: var(--unknown); }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.legend { display: flex; gap: var(--bmf-space-4); font-size: var(--bmf-font-size-100); opacity: .85; margin-top: var(--bmf-space-3); flex-wrap: wrap; }
+.fbtn { background: var(--surface); color: var(--bmf-color-text); border: 1px solid #ffffff2e; border-radius: var(--bmf-radius-pill); padding: .35rem .9rem; cursor: pointer; font-size: var(--bmf-font-size-100); }
+.fbtn.active { background: var(--bmf-color-brand); color: var(--bmf-color-bg); border-color: var(--bmf-color-brand); font-weight: 600; }
+.btn { background: var(--bmf-color-brand); color: var(--bmf-color-bg); border: 0; border-radius: var(--bmf-radius-md); padding: var(--bmf-space-2) var(--bmf-space-4); cursor: pointer; font-weight: 600; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: var(--bmf-font-size-100); }
+th, td { padding: var(--bmf-space-2); border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+th { opacity: .7; font-weight: 600; }
+
+/* Charts (hand-rolled SVG) */
+.chart-title { font-weight: 600; margin-bottom: var(--bmf-space-2); }
+.chart-note { font-size: .75rem; opacity: .6; margin-top: var(--bmf-space-2); }
+svg text { fill: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
+.grid-line { stroke: #ffffff14; }
+.axis-label { font-size: 11px; opacity: .7; }
+
+/* Tooltip (shared) */
+.tip { position: fixed; pointer-events: none; background: #111; color: #fff; border: 1px solid #ffffff2e;
+       padding: 6px 10px; border-radius: 6px; font-size: .75rem; z-index: 50; display: none; max-width: 280px; }

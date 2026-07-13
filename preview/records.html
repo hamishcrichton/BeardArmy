@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Records</title>
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      .records { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
+      .rec .detail { font-size: var(--bmf-font-size-100); margin-top: var(--bmf-space-2); }
+      .rec .detail a { opacity: .9; }
+      .rec ul { margin: var(--bmf-space-2) 0 0; padding-left: 1.1rem; font-size: var(--bmf-font-size-100); }
+      .rec li { margin-bottom: .25rem; }
+
+      /* Wall of Shame (ported from the single-page dashboard) */
+      .shame-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--bmf-space-2); }
+      .shame-grid a { position: relative; display: block; border-radius: var(--bmf-radius-sm); overflow: hidden; }
+      .shame-grid img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; filter: saturate(.85); }
+      .shame-grid a:hover img { filter: none; }
+      .shame-grid .cap { position: absolute; inset: auto 0 0 0; background: linear-gradient(transparent, #000d); color: #fff; font-size: .65rem; padding: 14px 6px 4px; opacity: 0; }
+      .shame-grid a:hover .cap { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>BeardMeatsFood</h1>
+      <div class="sub">Records — the streaks, the giants, and the ones that got away.</div>
+
+      <div class="records" id="records"></div>
+
+      <div class="card">
+        <h3>Wall of Shame <span class="muted" style="font-weight:400">— the challenges that beat the Beard</span></h3>
+        <div class="shame-grid" id="shame"></div>
+      </div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmt } = BMF;
+
+      const link = r => `<a href="${yt(r.video_id)}" target="_blank" rel="noopener">${esc(cleanTitle(r.title))}</a>`;
+      const day = r => (r.date_attempted || '').slice(0, 10);
+
+      function card(num, label, detail) {
+        return `<div class="tile rec"><div class="num">${num}</div><div class="label">${label}</div>
+                <div class="detail">${detail}</div></div>`;
+      }
+
+      function streaks(decided) {
+        let best = { len: 0 }, worst = { len: 0 }, run = [], lossRun = [];
+        for (const r of decided) {
+          if (r.result === 'success') { run.push(r); lossRun = []; }
+          else { lossRun.push(r); run = []; }
+          if (run.length > best.len) best = { len: run.length, from: day(run[0]), to: day(run[run.length - 1]) };
+          if (lossRun.length > worst.len) worst = { len: lossRun.length, from: day(lossRun[0]), to: day(lossRun[lossRun.length - 1]) };
+        }
+        return { best, worst };
+      }
+
+      function maxBy(rows, f) {
+        let top = null;
+        for (const r of rows) { const v = f(r); if (v != null && (top == null || v > f(top))) top = r; }
+        return top;
+      }
+
+      BMF.loadData().then(({ rows, stats }) => {
+        BMF.nav('records');
+        const cards = [];
+        const { best, worst } = streaks(stats.decided);
+
+        cards.push(card(best.len, 'Longest win streak', `${best.from} → ${best.to}`));
+        cards.push(card(worst.len, 'Longest losing run', worst.len ? `${worst.from} → ${worst.to}` : '—'));
+
+        const heaviest = maxBy(rows, r => r.weight_lb);
+        cards.push(heaviest
+          ? card(`${heaviest.weight_lb}lb`, 'Heaviest challenge attempted', link(heaviest))
+          : card('–', 'Heaviest challenge attempted', '(pending next publish)'));
+
+        const heavyLoss = maxBy(rows.filter(r => r.result === 'failure'), r => r.weight_lb);
+        cards.push(heavyLoss
+          ? card(`${heavyLoss.weight_lb}lb`, 'Heaviest defeat', link(heavyLoss))
+          : card('–', 'Heaviest defeat', '(pending next publish)'));
+
+        const mostViewed = maxBy(rows, r => r.view_count);
+        cards.push(mostViewed
+          ? card(fmt(mostViewed.view_count), 'Most-viewed challenge', link(mostViewed))
+          : card('–', 'Most-viewed challenge', '(pending next publish)'));
+
+        const byMonth = {};
+        for (const r of rows) {
+          if (r.result !== 'success') continue;
+          const m = (r.date_attempted || '').slice(0, 7);
+          if (m) byMonth[m] = (byMonth[m] || 0) + 1;
+        }
+        const topMonth = Object.entries(byMonth).sort((a, b) => b[1] - a[1])[0];
+        if (topMonth) {
+          const [ym, n] = topMonth;
+          const label = new Date(`${ym}-01T00:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+          cards.push(card(n, 'Most wins in a month', label));
+        }
+
+        const venues = {};
+        for (const r of rows) {
+          const name = (r.restaurant || '').trim();
+          if (!name) continue;
+          const v = (venues[name] ||= { n: 0, w: 0, l: 0 });
+          v.n++;
+          if (r.result === 'success') v.w++;
+          if (r.result === 'failure') v.l++;
+        }
+        const topVenues = Object.entries(venues).sort((a, b) => b[1].n - a[1].n).slice(0, 5);
+        cards.push(`<div class="tile rec"><div class="num">${topVenues[0] ? topVenues[0][1].n : '–'}</div>
+          <div class="label">Most-visited venues</div>
+          <ul>${topVenues.map(([n, v]) => `<li>${esc(n)} — ${v.n} visits (${v.w}W–${v.l}L)</li>`).join('')}</ul></div>`);
+
+        const ccGroups = {};
+        for (const r of rows) {
+          if (!r.country_code || (r.result !== 'success' && r.result !== 'failure')) continue;
+          const g = (ccGroups[r.country_code] ||= { n: 0, l: 0 });
+          g.n++;
+          if (r.result === 'failure') g.l++;
+        }
+        const conquered = Object.entries(ccGroups).filter(([, g]) => g.n >= 2 && g.l === 0).map(([cc]) => cc).sort();
+        cards.push(card(conquered.length, 'Countries conquered (undefeated, 2+ challenges)', conquered.join(' · ') || '—'));
+
+        document.getElementById('records').innerHTML = cards.join('');
+
+        const losses = rows.filter(r => r.result === 'failure' && r.thumbnail_url)
+          .sort((a, b) => String(b.date_attempted).localeCompare(String(a.date_attempted)));
+        document.getElementById('shame').innerHTML = losses.map(r => `
+          <a href="${yt(r.video_id)}" target="_blank" rel="noopener" title="${esc(cleanTitle(r.title))}">
+            <img loading="lazy" src="${esc(r.thumbnail_url)}" alt="${esc(cleanTitle(r.title))}" />
+            <span class="cap">${esc(cleanTitle(r.title))}</span>
+          </a>`).join('');
+      });
+    </script>
+  </body>
+</html>

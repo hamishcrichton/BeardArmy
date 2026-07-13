@@ -38,6 +38,23 @@ PYTHONPATH=ingestion python -m bmf_ingest.main prototype --channel UCc9CjaAjsMMv
 ```
 `--channel` falls back to `YOUTUBE_CHANNEL_ID` from the environment.
 
+### Extraction v2 (transcript-based; run locally — CI cannot download captions)
+```bash
+# Catch up new videos end-to-end (harvest captions -> extract -> apply -> publish)
+PYTHONPATH=ingestion python -m bmf_ingest.catchup [--dry-run]
+
+# Individual steps
+PYTHONPATH=ingestion python -m bmf_ingest.harvest_captions [--ids file]   # raw VTTs -> data/raw/captions/
+PYTHONPATH=ingestion python -m bmf_ingest.extract_v2 [--only file]        # LLM extraction -> data/derived/extractions_v2.jsonl (needs ANTHROPIC_API_KEY in .env)
+PYTHONPATH=ingestion python -m bmf_ingest.apply_v2 [--dry-run]            # write v2 results onto challenges table (weights, collaborators)
+PYTHONPATH=ingestion python -m bmf_ingest.regeocode_v2 [--dry-run]        # rebuild venues from v2 names + geocode (cached in geocode_cache table; needs GEOCODER_API_KEY)
+
+# Score an extraction run against the 75-video ground-truth set
+python eval/run_eval.py data/derived/extractions_v2.jsonl
+python eval/run_eval.py --v1   # score whatever is in the DB
+```
+Commit `data/app.db` + `public/data` after a catchup to update the live site. CI runs with `USE_LLM_EXTRACTION=false` (repo variable): new videos land as result=unknown until a local catchup corrects them.
+
 ### Local Preview Server
 ```bash
 python application.py   # Flask, serves preview/ at http://127.0.0.1:5000 and artifacts at /public/data/<file>
