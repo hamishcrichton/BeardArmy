@@ -6,27 +6,28 @@
     <title>BeardMeatsFood – Collaborators</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
       /* Top Trumps deck */
       .deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
               gap: var(--bmf-space-6) var(--bmf-space-4); margin-top: var(--bmf-space-4); }
-      .ttcard { background: var(--surface); border: 2px solid var(--bmf-color-text); border-radius: 10px;
+      .ttcard { background: var(--surface); border: 1px solid #ffffff2e; border-radius: 10px;
                 box-shadow: var(--bmf-shadow-2); padding: 10px 10px 12px; display: flex; flex-direction: column; }
-      .ttcard .plate { background: var(--bmf-color-text); color: var(--bmf-color-bg);
-                       font-family: var(--bmf-font-display); font-weight: 400; text-align: center;
-                       font-size: 1.02rem; letter-spacing: .06em; text-transform: uppercase;
+      /* name plate = inverted section, per the official kit */
+      .ttcard .plate { background: var(--bmf-color-bg-alt); color: var(--bmf-color-text-alt);
+                       font-family: var(--bmf-font-display); font-weight: 700; text-align: center;
+                       font-size: 1.3rem; line-height: 1.05; letter-spacing: .06em; text-transform: uppercase;
                        padding: .3rem .5rem .35rem; border-radius: 5px; }
       .ttcard .art { margin: 14px 10px 10px; transform: rotate(-1.6deg); }
       .ttcard:nth-child(2n) .art { transform: rotate(1.4deg); }
       .ttcard .art:hover { transform: rotate(0); }
       .ttcard .trows { padding: 4px 6px 0; }
-      .ttcard .ledger-row { padding: .3rem 0; border-bottom: 1px solid rgba(34,28,20,.08); }
+      .ttcard .ledger-row { padding: .3rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
       .ttcard .ledger-row:last-child { border-bottom: 0; }
-      .ttcard .lr-value.date { font-family: var(--bmf-font-sans); font-style: italic;
-                               font-size: .82rem; color: #4a4236; }
+      .ttcard .lr-value.date { font-family: var(--bmf-font-sans); font-weight: 400;
+                               font-size: .82rem; color: var(--bmf-color-text-muted); }
     </style>
   </head>
   <body>

@@ -2,8 +2,8 @@
  *
  * Contract used by every page:
  *   BMF.COLORS                      -> { success, failure, unknown } hex marks
- *                                      (CVD-validated on #f3ecdd paper and #fbf7ee card,
- *                                       worst pair ΔE 21.1 deutan; see app.css notes)
+ *                                      (CVD-validated on #1a1a1a body and #242424 card,
+ *                                       worst pair ΔE 24.8 deutan; see app.css notes)
  *   await BMF.loadData()            -> { rows, features, stats }  (cached after first call)
  *   BMF.stats(rows)                 -> { wins, losses, decided, longest, current, countries, total }
  *   BMF.esc(s) BMF.yt(id) BMF.cleanTitle(t) BMF.fmt(n)
@@ -13,7 +13,7 @@
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
 window.BMF = (() => {
-  const COLORS = { success: '#2e8551', failure: '#9e2f23', unknown: '#857b6c' };
+  const COLORS = { success: '#00d084', failure: '#ff4d4f', unknown: '#9ca3af' };
   const PAGES = [
     ['index', 'Overview', 'index.html'],
     ['map', 'Map & Tours', 'map.html'],

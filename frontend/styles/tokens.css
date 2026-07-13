@@ -1,33 +1,41 @@
-/* BeardMeatsFood design tokens — "Butcher's Paper" direction (single light theme).
+/* BeardMeatsFood design tokens — official-site kit (beardmeatsfood.co.uk, measured).
  *
- * Cream paper ground, ink text, stamp-red accent, slab display + serif body.
- * Fonts load via Google Fonts <link>s in each page head:
- *   Alfa Slab One (display) · Source Serif 4 (body).
+ * Near-black ground, white ink, #c8c8c8 secondary, neon-lime #e0ff00 accent used
+ * SPARINGLY (kickers, active-nav underline, rules, small SVG fills — never large
+ * surfaces). Occasional inverted sections (#f8f8f8 bg / #1a1a1a type). Frosted
+ * glass chips: rgba(255,255,255,.2) bg, ~10px radius, white all-caps labels.
+ *
+ * Display type: Thunder 700 (ultra-condensed, free — Sander Bakker) loaded from
+ * fonts.cdnfonts.com with Anton as the fallback; body Roboto 400/500. Both come
+ * from font CDNs — no font binaries in the repo.
  *
  * Status colours (win/loss/unknown) live in preview/assets/app.css and
  * preview/assets/app.js (BMF.COLORS); CVD-validated — see notes there.
  */
 :root {
   /* Color aliases */
-  --bmf-color-bg: #f3ecdd;          /* paper */
-  --bmf-color-bg-alt: #221c14;      /* ink panel (inverse) */
-  --bmf-color-surface: #fbf7ee;     /* card */
-  --bmf-color-text: #221c14;        /* ink */
-  --bmf-color-text-alt: #f3ecdd;    /* paper text on ink / stamp red */
-  --bmf-color-text-muted: #6f6353;  /* warm grey-brown, 4.9:1+ on paper */
-  --bmf-color-link: #221c14;
-  --bmf-color-border: #d9cdb4;
+  --bmf-color-bg: #1a1a1a;          /* body */
+  --bmf-color-bg-alt: #f8f8f8;      /* inverted section */
+  --bmf-color-surface: #242424;     /* card */
+  --bmf-color-text: #f8f8f8;        /* ink */
+  --bmf-color-text-alt: #1a1a1a;    /* type on inverted / neon */
+  --bmf-color-text-muted: #c8c8c8;  /* secondary text (9.3:1 on card) */
+  --bmf-color-link: #f8f8f8;
+  --bmf-color-border: #ffffff1f;
 
-  --bmf-color-brand: #9e2f23;       /* stamp red (6.2:1 on paper) */
-  --bmf-color-success: #256b41;     /* text-safe win green (6.0:1 on card) */
-  --bmf-color-success-bg: #e6efe6;
-  --bmf-color-danger: #9e2f23;
-  --bmf-color-danger-bg: #f4e4e0;
+  --bmf-color-brand: #e0ff00;       /* neon lime — small elements only */
+  --bmf-color-frost: rgba(255, 255, 255, 0.2); /* frosted chip/button fill */
+  --bmf-color-success: #00d084;
+  --bmf-color-success-bg: #00d08426;
+  --bmf-color-danger: #ff4d4f;
+  --bmf-color-danger-bg: #ff4d4f26;
 
-  /* Typography — note: --bmf-font-sans keeps its name for compatibility but
-     now holds the serif body stack. */
-  --bmf-font-sans: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --bmf-font-display: "Alfa Slab One", Rockwell, "Arial Black", serif;
+  /* Typography */
+  --bmf-font-sans: Roboto, Arial, sans-serif;
+  /* "Thunder" (the official site's face) intentionally NOT first: the public
+     CDN slug by that name serves an unrelated script font. Self-host the real
+     Thunder woff2 and prepend it here when the owner approves the download. */
+  --bmf-font-display: Anton, "Arial Narrow", Impact, sans-serif;
   --bmf-font-size-100: .875rem;
   --bmf-font-size-200: 1rem;
   --bmf-font-size-300: 1.25rem;
@@ -46,18 +54,18 @@
   --bmf-space-10: 2.5rem;/* 40px */
   --bmf-space-12: 3rem;  /* 48px */
 
-  /* Radius */
+  /* Radius (official chips measure ~10px) */
   --bmf-radius-sm: .25rem;
-  --bmf-radius-md: .5rem;
+  --bmf-radius-md: .625rem;
   --bmf-radius-lg: .75rem;
   --bmf-radius-pill: 100vw;
   --bmf-radius-round: 50%;
 
-  /* Shadows (warm-tinted for the paper ground) */
-  --bmf-shadow-1: 0 1px 2px rgba(74, 56, 28, 0.07);
-  --bmf-shadow-2: 0 1px 3px rgba(74, 56, 28, 0.12), 0 1px 2px rgba(74, 56, 28, 0.07);
-  --bmf-shadow-3: 0 12px 16px -4px rgba(74, 56, 28, 0.10), 0 4px 6px -2px rgba(74, 56, 28, 0.05);
-  --bmf-shadow-4: 0 24px 48px -12px rgba(74, 56, 28, 0.22);
+  /* Shadows */
+  --bmf-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --bmf-shadow-2: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --bmf-shadow-3: 0 12px 16px -4px rgba(0, 0, 0, 0.45), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --bmf-shadow-4: 0 24px 48px -12px rgba(0, 0, 0, 0.6);
 }
 
 /* Example usage classes (handy for prototyping) */
@@ -71,8 +79,10 @@
 }
 
 .bmf-btn-primary {
-  background: var(--bmf-color-brand);
-  color: var(--bmf-color-text-alt);
+  background: var(--bmf-color-frost);
+  color: var(--bmf-color-text);
   border-radius: var(--bmf-radius-md);
   padding: var(--bmf-space-2) var(--bmf-space-4);
+  text-transform: uppercase;
+  letter-spacing: .08em;
 }

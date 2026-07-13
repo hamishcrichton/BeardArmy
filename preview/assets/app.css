@@ -1,48 +1,42 @@
-/* Shared styles for the BeardMeatsFood stats site (all pages) — Butcher's Paper. */
+/* Shared styles for the BeardMeatsFood stats site (all pages) — official-site dark kit. */
 @import url("../../frontend/styles/tokens.css");
 
 :root {
-  /* Status colours. Marks (fills, dots, bars) vs text variants (badges, labels).
+  /* Status colours — marks and text share values on this kit (all pass WCAG
+     text contrast on both surfaces: win 7.7:1, loss 4.8:1, unknown 6.1:1 on
+     #242424; higher on #1a1a1a).
      CVD-validated (Machado 2009 protan/deutan/tritan) 2026-07-13:
-     win #2e8551 vs loss #9e2f23 — worst adjacent ΔE 21.1 (deutan) on both
-     #f3ecdd (paper) and #fbf7ee (card); all marks >= 3:1 contrast on both.
+     win #00d084 vs loss #ff4d4f — worst adjacent ΔE 24.8 (deutan) on both
+     #1a1a1a (body) and #242424 (card); all marks >= 3:1 contrast on both.
      Results are additionally never encoded by colour alone (letters, labels,
-     position, tooltips). Re-validate if any of these values change. */
-  --win: #2e8551;          /* marks */
-  --win-text: #256b41;     /* text (6.0:1 on card) */
-  --loss: #9e2f23;         /* marks + text (6.8:1 on card); = stamp red accent */
-  --loss-text: #9e2f23;
-  --unknown: #857b6c;      /* "verdict pending" marks */
-  --unknown-text: #6f6353; /* pending text (5.5:1 on card) */
+     position, texture, tooltips). Re-validate if any value changes. */
+  --win: #00d084;
+  --win-text: #00d084;
+  --loss: #ff4d4f;
+  --loss-text: #ff4d4f;
+  --unknown: #9ca3af;      /* "verdict pending" */
+  --unknown-text: #9ca3af;
   --surface: var(--bmf-color-surface);
-  --border: rgba(34, 28, 20, .16);
+  --border: #ffffff1f;
 }
 
-body {
-  margin: 0;
-  color: var(--bmf-color-text);
-  font-family: var(--bmf-font-sans);
-  /* paper with a whisper of grain */
-  background:
-    repeating-linear-gradient(2deg, rgba(158, 47, 35, .018) 0 2px, transparent 2px 7px),
-    radial-gradient(120% 100% at 50% 0%, #f7f1e3 0%, var(--bmf-color-bg) 55%, #ece2cb 100%);
-  background-attachment: fixed;
-}
+body { margin: 0; background: var(--bmf-color-bg); color: var(--bmf-color-text);
+       font-family: var(--bmf-font-sans); }
 .wrap { max-width: 1200px; margin: 0 auto; padding: var(--bmf-space-6); }
-h1 { font-family: var(--bmf-font-display); font-weight: 400; font-size: clamp(2rem, 6vw, 3.25rem);
-     line-height: 1.05; margin: 0; letter-spacing: .01em; text-transform: uppercase; }
+h1 { font-family: var(--bmf-font-display); font-weight: 700; font-size: clamp(3rem, 11vw, 7rem);
+     line-height: .92; margin: 0; letter-spacing: .01em; text-transform: uppercase; }
 h3 { margin-top: 0; }
-.sub { color: var(--bmf-color-text-muted); font-style: italic; font-size: var(--bmf-font-size-200);
-       margin: var(--bmf-space-1) 0 var(--bmf-space-4); }
+.sub { color: var(--bmf-color-text-muted); font-size: var(--bmf-font-size-200);
+       margin: var(--bmf-space-2) 0 var(--bmf-space-4); }
 .muted { color: var(--bmf-color-text-muted); }
-a { color: inherit; text-decoration-color: rgba(158, 47, 35, .5); }
+a { color: inherit; text-decoration-color: rgba(224, 255, 0, .5); }
 a:hover { text-decoration-color: var(--bmf-color-brand); }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--bmf-radius-md);
-        box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
+        box-shadow: var(--bmf-shadow-1); padding: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
 
-/* Masthead: roundel homage + top navigation (injected by BMF.nav) */
+/* Masthead: roundel homage (white-on-dark, like the official mark) + top nav */
 .masthead { display: flex; align-items: center; justify-content: space-between; gap: var(--bmf-space-4);
-            flex-wrap: wrap; border-bottom: 2px solid var(--bmf-color-text);
+            flex-wrap: wrap; border-bottom: 1px solid rgba(255, 255, 255, .16);
             padding: var(--bmf-space-1) 0 var(--bmf-space-3); margin-bottom: var(--bmf-space-6); }
 .roundel { width: 64px; height: 64px; border-radius: 50%; flex: none; text-decoration: none;
            border: 2.5px solid var(--bmf-color-text);
@@ -51,24 +45,24 @@ a:hover { text-decoration-color: var(--bmf-color-brand); }
            text-align: center; line-height: 1.06; letter-spacing: .05em; color: var(--bmf-color-text);
            transform: rotate(-4deg); }
 .roundel .r-x { font-size: 7px; }
-.roundel .r-w { font-family: var(--bmf-font-display); font-size: 8.5px; }
+.roundel .r-w { font-family: var(--bmf-font-display); font-weight: 700; font-size: 10px; }
 .nav { display: flex; gap: var(--bmf-space-6); flex-wrap: wrap; margin: 0; }
-.nav a { padding: .35rem 0; border-bottom: 3px solid transparent; text-decoration: none;
-         text-transform: uppercase; letter-spacing: .13em; font-weight: 600;
+.nav a { padding: .35rem 0; border-bottom: 2px solid transparent; text-decoration: none;
+         text-transform: uppercase; letter-spacing: .13em; font-weight: 500;
          font-size: var(--bmf-font-size-100); }
 .nav a.active { color: var(--bmf-color-brand); border-bottom-color: var(--bmf-color-brand); }
-.nav a:hover:not(.active) { border-bottom-color: rgba(158, 47, 35, .4); }
+.nav a:hover:not(.active) { border-bottom-color: rgba(224, 255, 0, .4); }
 
 /* Stat tiles */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
 .tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--bmf-radius-md);
         box-shadow: var(--bmf-shadow-1); padding: var(--bmf-space-4); }
-.tile .num { font-family: var(--bmf-font-display); font-weight: 400; font-size: var(--bmf-font-size-500);
-             line-height: 1.1; color: var(--bmf-color-text); }
+.tile .num { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2.4rem;
+             line-height: 1; color: var(--bmf-color-text); }
 .tile .num .w { color: var(--win-text); } .tile .num .l { color: var(--loss-text); }
 .tile .label { font-size: var(--bmf-font-size-100); color: var(--bmf-color-text-muted); margin-top: var(--bmf-space-1); }
 
-/* Badges, chips, filters — result badges styled as ink stamps; pending = dashed
+/* Badges, chips, filters — result badges as outline stamps; pending = dashed
    (not-yet-stamped). Letters/labels always accompany the colour. */
 .badge { display: inline-block; padding: .08rem .5rem; border: 1.5px solid currentColor; border-radius: 4px;
          background: transparent; font-size: .7rem; font-weight: 700; letter-spacing: .07em;
@@ -78,53 +72,64 @@ a:hover { text-decoration-color: var(--bmf-color-brand); }
 .badge.unknown { color: var(--unknown-text); border-style: dashed; }
 .chip { display: inline-flex; align-items: center; gap: 6px; }
 .swatch { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
-.swatch.pending { background: repeating-linear-gradient(45deg, #b7a992 0 2px, #e7dcc4 2px 5px) !important;
+.swatch.pending { background: repeating-linear-gradient(45deg, #9ca3af 0 2px, #3a3a3a 2px 5px) !important;
                   border: 1px solid var(--unknown); }
 .legend { display: flex; gap: var(--bmf-space-4); font-size: var(--bmf-font-size-100);
           color: var(--bmf-color-text-muted); margin-top: var(--bmf-space-3); flex-wrap: wrap; }
-.fbtn { background: var(--surface); color: var(--bmf-color-text); border: 1px solid var(--bmf-color-border);
-        border-radius: var(--bmf-radius-pill); padding: .35rem .9rem; cursor: pointer;
-        font-family: var(--bmf-font-sans); font-size: var(--bmf-font-size-100); }
-.fbtn:hover:not(.active) { border-color: var(--bmf-color-brand); }
-.fbtn.active { background: var(--bmf-color-brand); color: var(--bmf-color-text-alt); border-color: var(--bmf-color-brand); font-weight: 600; }
-.btn { background: var(--bmf-color-brand); color: var(--bmf-color-text-alt); border: 0; border-radius: var(--bmf-radius-md);
-       padding: var(--bmf-space-2) var(--bmf-space-4); cursor: pointer; font-family: var(--bmf-font-sans); font-weight: 600; }
+
+/* Frosted-glass chips/buttons (official kit): rgba white fill, ~10px radius,
+   white all-caps labels. Active = neon text + underline, never a neon fill. */
+.fbtn { background: var(--bmf-color-frost); color: var(--bmf-color-text); border: 0;
+        border-radius: var(--bmf-radius-md); padding: .4rem 1rem; cursor: pointer;
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        font-family: var(--bmf-font-sans); font-size: .72rem; font-weight: 500;
+        letter-spacing: .08em; text-transform: uppercase; }
+.fbtn:hover:not(.active) { background: rgba(255, 255, 255, .28); }
+.fbtn.active { color: var(--bmf-color-brand); font-weight: 700;
+               text-decoration: underline 2px; text-underline-offset: 4px; }
+.btn { background: var(--bmf-color-frost); color: var(--bmf-color-text); border: 0;
+       border-radius: var(--bmf-radius-md); padding: var(--bmf-space-2) var(--bmf-space-4); cursor: pointer;
+       -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+       font-family: var(--bmf-font-sans); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.btn:hover { background: rgba(255, 255, 255, .28); }
 
 /* Tables */
 table { width: 100%; border-collapse: collapse; font-size: var(--bmf-font-size-100); }
 th, td { padding: var(--bmf-space-2); border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
-th { color: var(--bmf-color-text-muted); font-weight: 600; font-size: .72rem;
+th { color: var(--bmf-color-text-muted); font-weight: 500; font-size: .72rem;
      text-transform: uppercase; letter-spacing: .09em; }
 
 /* Charts (hand-rolled SVG) */
-.chart-title { font-weight: 600; margin-bottom: var(--bmf-space-2); }
+.chart-title { font-weight: 500; margin-bottom: var(--bmf-space-2); }
 .chart-note { font-size: .75rem; color: var(--bmf-color-text-muted); margin-top: var(--bmf-space-2); }
 svg text { fill: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
-.grid-line { stroke: rgba(34, 28, 20, .12); }
+.grid-line { stroke: #ffffff14; }
 .axis-label { font-size: 11px; opacity: .75; }
 
-/* Taped snapshot — the site's photo treatment (hero, collaborator cards, Wall of Shame) */
+/* Taped snapshot — the site's photo treatment (hero, collaborator cards, Wall of
+   Shame). White print, semi-transparent white tape on the dark ground. */
 .snap { position: relative; display: block; background: #fff; padding: 7px 7px 8px;
-        box-shadow: 0 5px 12px rgba(60, 45, 20, .22); text-decoration: none; }
+        box-shadow: 0 6px 14px rgba(0, 0, 0, .5); text-decoration: none; }
 .snap::before { content: ""; position: absolute; top: -9px; left: 50%; width: 58px; height: 17px;
-                transform: translateX(-50%) rotate(-2deg); background: rgba(200, 178, 130, .55); z-index: 1; }
+                transform: translateX(-50%) rotate(-2deg); background: rgba(255, 255, 255, .28); z-index: 1; }
 .snap img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
-.snap .cap { display: block; color: #4a4236; font-style: italic; font-size: .7rem; line-height: 1.35; padding: 6px 2px 0; }
+.snap .cap { display: block; color: #3a3a3a; font-style: italic; font-size: .7rem; line-height: 1.35; padding: 6px 2px 0; }
 
 /* Ledger row — label, dotted leader, value (hero tape + collaborator cards) */
 .ledger-row { display: flex; align-items: baseline; gap: 8px; padding: .28rem 0; }
-.ledger-row .lr-label { font-size: .72rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase;
+.ledger-row .lr-label { font-size: .72rem; font-weight: 500; letter-spacing: .11em; text-transform: uppercase;
                         color: var(--bmf-color-text-muted); white-space: nowrap; }
-.ledger-row .lr-dots { flex: 1; border-bottom: 2px dotted rgba(34, 28, 20, .25); transform: translateY(-3px); }
-.ledger-row .lr-value { font-family: var(--bmf-font-display); font-size: 1.05rem; line-height: 1; white-space: nowrap; }
+.ledger-row .lr-dots { flex: 1; border-bottom: 2px dotted rgba(255, 255, 255, .22); transform: translateY(-3px); }
+.ledger-row .lr-value { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.3rem;
+                        line-height: 1; white-space: nowrap; letter-spacing: .02em; }
 .ledger-row .lr-value.win { color: var(--win-text); }
 .ledger-row .lr-value.loss { color: var(--loss-text); }
 .ledger-row .lr-value.pending { color: var(--unknown-text); }
 
-/* Tooltip (shared) — a paper slip */
-.tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--bmf-color-text);
-       border: 1.5px solid var(--bmf-color-text); box-shadow: var(--bmf-shadow-3);
-       padding: 6px 10px; border-radius: 4px; font-size: .75rem; z-index: 50; display: none; max-width: 280px; }
+/* Tooltip (shared) */
+.tip { position: fixed; pointer-events: none; background: #111; color: #fff;
+       border: 1px solid #ffffff2e; box-shadow: var(--bmf-shadow-3);
+       padding: 6px 10px; border-radius: 6px; font-size: .75rem; z-index: 50; display: none; max-width: 280px; }
 
 /* Small screens: keep everything one column and readable at 390px */
 @media (max-width: 480px) {
