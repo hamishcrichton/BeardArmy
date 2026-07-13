@@ -5,23 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Map &amp; Tours</title>
     <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      #map { width: 100%; height: 540px; border-radius: var(--bmf-radius-lg); }
+      #map { width: 100%; height: 540px; border-radius: var(--bmf-radius-md); }
       .map-card { position: relative; }
-      .map-legend { position: absolute; bottom: 26px; left: 26px; background: #1a1a1acc; border-radius: var(--bmf-radius-md); padding: var(--bmf-space-2) var(--bmf-space-3); display: flex; gap: var(--bmf-space-3); font-size: .75rem; }
+      .map-legend { position: absolute; bottom: 26px; left: 26px; background: #fbf7eee6; color: var(--bmf-color-text); border: 1px solid var(--border); border-radius: var(--bmf-radius-md); box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-2) var(--bmf-space-3); display: flex; gap: var(--bmf-space-3); font-size: .75rem; }
       .keybar { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; }
-      .keybar input { padding: .45rem .75rem; border-radius: var(--bmf-radius-md); border: 1px solid #ffffff2e; background: #1a1a1a; color: var(--bmf-color-text); width: 280px; }
+      .keybar input { padding: .45rem .75rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border); background: #fff; color: var(--bmf-color-text); font-family: var(--bmf-font-sans); width: 280px; }
       .controls { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--bmf-space-4); }
-      .controls select { padding: .4rem .7rem; border-radius: var(--bmf-radius-md); border: 1px solid #ffffff2e; background: var(--surface); color: var(--bmf-color-text); font-size: var(--bmf-font-size-100); max-width: 260px; }
+      .controls select { padding: .4rem .7rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border); background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); font-size: var(--bmf-font-size-100); max-width: 260px; }
       .scrubber { display: flex; gap: var(--bmf-space-2); align-items: center; flex: 1; min-width: 260px; }
       .scrubber input[type=range] { flex: 1; accent-color: var(--bmf-color-brand); }
-      .scrubber .date { font-size: .8rem; opacity: .8; min-width: 88px; text-align: right; font-variant-numeric: tabular-nums; }
-      .playbtn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #ffffff2e; background: var(--surface); color: var(--bmf-color-text); cursor: pointer; font-size: .8rem; }
-      .playbtn.playing { background: var(--bmf-color-brand); color: var(--bmf-color-bg); border-color: var(--bmf-color-brand); }
+      .scrubber .date { font-size: .8rem; color: var(--bmf-color-text-muted); min-width: 88px; text-align: right; font-variant-numeric: tabular-nums; }
+      .playbtn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--bmf-color-border); background: var(--surface); color: var(--bmf-color-text); cursor: pointer; font-size: .8rem; }
+      .playbtn.playing { background: var(--bmf-color-brand); color: var(--bmf-color-text-alt); border-color: var(--bmf-color-brand); }
       #world { width: 100%; height: auto; display: block; }
-      .world-legend { display: flex; gap: var(--bmf-space-4); font-size: .75rem; opacity: .85; margin-top: var(--bmf-space-2); flex-wrap: wrap; }
-      .maplibregl-popup-content { color: #1a1a1a; }
+      .world-legend { display: flex; gap: var(--bmf-space-4); font-size: .75rem; color: var(--bmf-color-text-muted); margin-top: var(--bmf-space-2); flex-wrap: wrap; }
+      .maplibregl-popup-content { background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); border-radius: 6px; box-shadow: var(--bmf-shadow-3); }
+      .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--surface); }
+      .maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--surface); }
+      .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--surface); }
+      .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--surface); }
     </style>
   </head>
   <body>
@@ -39,7 +47,7 @@
         <button class="fbtn active" data-filter="all">All</button>
         <button class="fbtn" data-filter="success">Wins</button>
         <button class="fbtn" data-filter="failure">Losses</button>
-        <button class="fbtn" data-filter="unknown">Unknown</button>
+        <button class="fbtn" data-filter="unknown">Pending</button>
         <select id="trip" style="display:none"><option value="all">All challenges</option></select>
         <div class="scrubber">
           <button id="play" class="playbtn" title="Play through time">&#9654;</button>
@@ -53,7 +61,7 @@
         <div class="map-legend">
           <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
           <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
-          <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Unknown</span>
+          <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Verdict pending</span>
         </div>
       </div>
 
@@ -61,10 +69,10 @@
         <h3>Countries visited <span class="muted" id="worldCount" style="font-weight:400"></span></h3>
         <svg id="world" viewBox="0 0 960 430" role="img" aria-label="World map shaded by number of challenges per country"></svg>
         <div class="world-legend">
-          <span class="chip"><span class="swatch" style="background:#0b4f38"></span>1–4 challenges</span>
-          <span class="chip"><span class="swatch" style="background:#00915d"></span>5–49</span>
-          <span class="chip"><span class="swatch" style="background:#00d084"></span>50+</span>
-          <span class="chip"><span class="swatch" style="background:#ffffff0d;border:1px solid #ffffff1f"></span>Not yet visited</span>
+          <span class="chip"><span class="swatch" style="background:#74b491"></span>1–4 challenges</span>
+          <span class="chip"><span class="swatch" style="background:#3d8f63"></span>5–49</span>
+          <span class="chip"><span class="swatch" style="background:#175934"></span>50+</span>
+          <span class="chip"><span class="swatch" style="background:rgba(34,28,20,.06);border:1px solid rgba(34,28,20,.25)"></span>Not yet visited</span>
         </div>
       </div>
     </div>
@@ -126,7 +134,7 @@
       }
 
       function initMap(key) {
-        const styleUrl = `https://api.maptiler.com/maps/streets-v2-dark/style.json?key=${encodeURIComponent(key)}`;
+        const styleUrl = `https://api.maptiler.com/maps/streets-v2/style.json?key=${encodeURIComponent(key)}`;
         const map = new maplibregl.Map({ container: 'map', style: styleUrl, center: [-20, 40], zoom: 1.8 });
         state.map = map;
         map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
@@ -138,19 +146,19 @@
           });
           map.addSource('trip-route', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
           map.addLayer({ id: 'trip-route', type: 'line', source: 'trip-route', paint: {
-            'line-color': '#e0ff00', 'line-width': 2, 'line-opacity': .7, 'line-dasharray': [2, 1.5]
+            'line-color': '#9e2f23', 'line-width': 2, 'line-opacity': .75, 'line-dasharray': [2, 1.5]
           }});
           map.addLayer({ id: 'clusters', type: 'circle', source: 'challenges', filter: ['has', 'point_count'], paint: {
-            'circle-color': '#4b5563', 'circle-opacity': .85,
+            'circle-color': '#6f6353', 'circle-opacity': .9,
             'circle-radius': ['step', ['get', 'point_count'], 14, 25, 20, 100, 26],
-            'circle-stroke-width': 2, 'circle-stroke-color': '#1a1a1a'
+            'circle-stroke-width': 2, 'circle-stroke-color': '#fbf7ee'
           }});
           map.addLayer({ id: 'cluster-count', type: 'symbol', source: 'challenges', filter: ['has', 'point_count'],
-            layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12 }, paint: { 'text-color': '#ffffff' }});
+            layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12 }, paint: { 'text-color': '#fbf7ee' }});
           map.addLayer({ id: 'points', type: 'circle', source: 'challenges', filter: ['!', ['has', 'point_count']], paint: {
             'circle-radius': 6,
             'circle-color': ['match', ['get', 'result'], 'success', COLORS.success, 'failure', COLORS.failure, COLORS.unknown],
-            'circle-stroke-width': 1.5, 'circle-stroke-color': '#1a1a1a'
+            'circle-stroke-width': 1.5, 'circle-stroke-color': '#fbf7ee'
           }});
           map.on('click', 'clusters', async (e) => {
             const f = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0];
@@ -161,13 +169,14 @@
             const f = e.features && e.features[0];
             if (!f) return;
             const p = f.properties;
-            const label = p.result === 'success' ? 'WIN' : p.result === 'failure' ? 'LOSS' : 'UNKNOWN';
+            const label = p.result === 'success' ? 'WIN' : p.result === 'failure' ? 'LOSS' : 'VERDICT PENDING';
+            const labelColor = p.result === 'success' ? 'var(--win-text)' : p.result === 'failure' ? 'var(--loss-text)' : 'var(--unknown-text)';
             new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(`
               <div style="min-width:220px;max-width:280px">
                 <div style="font-weight:700">${esc(p.restaurant || '')}</div>
                 <div style="opacity:.7">${esc([p.city, p.country_code].filter(Boolean).join(', '))}</div>
                 <div style="margin:.3rem 0">${esc(cleanTitle(p.title))}</div>
-                <div><b style="color:${COLORS[p.result] || COLORS.unknown}">${label}</b> · ${esc((p.date_attempted || '').slice(0, 10))}${p.trip_name ? ' · ' + esc(p.trip_name) : ''}</div>
+                <div><b style="color:${labelColor}">${label}</b> · ${esc((p.date_attempted || '').slice(0, 10))}${p.trip_name ? ' · ' + esc(p.trip_name) : ''}</div>
                 <a href="${yt(p.video_id)}" target="_blank" rel="noopener">Watch on YouTube →</a>
               </div>`).addTo(map);
           });
@@ -255,11 +264,12 @@
         const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
         return polys.map(rings => rings.map(ringPath).join('')).join('');
       }
+      // Sequential one-hue ramp (light -> dark = more challenges), validated on #fbf7ee.
       function shade(count) {
-        if (count >= 50) return '#00d084';
-        if (count >= 5) return '#00915d';
-        if (count >= 1) return '#0b4f38';
-        return '#ffffff0d';
+        if (count >= 50) return '#175934';
+        if (count >= 5) return '#3d8f63';
+        if (count >= 1) return '#74b491';
+        return 'rgba(34,28,20,.06)';
       }
 
       async function renderWorld(rows) {
@@ -284,7 +294,7 @@
           .map((f, i) => {
             const stat = byName[f.properties.name];
             return `<path d="${geomPath(f.geometry)}" fill="${shade(stat ? stat.count : 0)}"
-                      stroke="#ffffff1f" stroke-width="0.5" data-i="${i}"></path>`;
+                      stroke="rgba(34,28,20,.22)" stroke-width="0.5" data-i="${i}"></path>`;
           }).join('');
 
         const feats = fc.features.filter(f => f.properties.name !== 'Antarctica');
@@ -294,7 +304,7 @@
           const f = feats[Number(path.dataset.i)];
           const stat = byName[f.properties.name];
           BMF.tooltip.show(e, stat
-            ? `<b>${esc(f.properties.name)}</b><br>${stat.count} challenge${stat.count === 1 ? '' : 's'} · <span style="color:${COLORS.success}">${stat.wins}W</span>–<span style="color:${COLORS.failure}">${stat.losses}L</span>`
+            ? `<b>${esc(f.properties.name)}</b><br>${stat.count} challenge${stat.count === 1 ? '' : 's'} · <span style="color:var(--win-text)">${stat.wins}W</span>–<span style="color:var(--loss-text)">${stat.losses}L</span>`
             : `<b>${esc(f.properties.name)}</b><br>Not yet visited`);
         });
         svg.addEventListener('mouseleave', BMF.tooltip.hide);

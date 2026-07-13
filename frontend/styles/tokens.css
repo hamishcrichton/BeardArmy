@@ -1,22 +1,33 @@
+/* BeardMeatsFood design tokens — "Butcher's Paper" direction (single light theme).
+ *
+ * Cream paper ground, ink text, stamp-red accent, slab display + serif body.
+ * Fonts load via Google Fonts <link>s in each page head:
+ *   Alfa Slab One (display) · Source Serif 4 (body).
+ *
+ * Status colours (win/loss/unknown) live in preview/assets/app.css and
+ * preview/assets/app.js (BMF.COLORS); CVD-validated — see notes there.
+ */
 :root {
   /* Color aliases */
-  --bmf-color-bg: var(--background-color--background-primary, #1a1a1a);
-  --bmf-color-bg-alt: var(--background-color--background-alternate, #f8f8f8);
-  --bmf-color-surface: var(--background-color--background-tertiary, #aaa);
-  --bmf-color-text: var(--text-color--text-primary, #f8f8f8);
-  --bmf-color-text-alt: var(--text-color--text-alternate, #1a1a1a);
-  --bmf-color-link: var(--link-color--link-primary, #f8f8f8);
-  --bmf-color-border: var(--border-color--border-primary, #f8f8f8);
+  --bmf-color-bg: #f3ecdd;          /* paper */
+  --bmf-color-bg-alt: #221c14;      /* ink panel (inverse) */
+  --bmf-color-surface: #fbf7ee;     /* card */
+  --bmf-color-text: #221c14;        /* ink */
+  --bmf-color-text-alt: #f3ecdd;    /* paper text on ink / stamp red */
+  --bmf-color-text-muted: #6f6353;  /* warm grey-brown, 4.9:1+ on paper */
+  --bmf-color-link: #221c14;
+  --bmf-color-border: #d9cdb4;
 
-  --bmf-color-brand: var(--base-color-brand--neon, #e0ff00);
-  --bmf-color-success: var(--base-color-system--success-green, #027a48);
-  --bmf-color-success-bg: var(--base-color-system--success-green-light, #ecfdf3);
-  --bmf-color-danger: var(--base-color-system--error-red, #b42318);
-  --bmf-color-danger-bg: var(--base-color-system--error-red-light, #fef3f2);
+  --bmf-color-brand: #9e2f23;       /* stamp red (6.2:1 on paper) */
+  --bmf-color-success: #256b41;     /* text-safe win green (6.0:1 on card) */
+  --bmf-color-success-bg: #e6efe6;
+  --bmf-color-danger: #9e2f23;
+  --bmf-color-danger-bg: #f4e4e0;
 
-  /* Typography */
-  --bmf-font-sans: Roboto, Arial, sans-serif;
-  --bmf-font-display: "Thunder", Impact, sans-serif;
+  /* Typography — note: --bmf-font-sans keeps its name for compatibility but
+     now holds the serif body stack. */
+  --bmf-font-sans: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --bmf-font-display: "Alfa Slab One", Rockwell, "Arial Black", serif;
   --bmf-font-size-100: .875rem;
   --bmf-font-size-200: 1rem;
   --bmf-font-size-300: 1.25rem;
@@ -42,17 +53,18 @@
   --bmf-radius-pill: 100vw;
   --bmf-radius-round: 50%;
 
-  /* Shadows */
-  --bmf-shadow-1: 0 1px 2px rgba(0,0,0,0.05);
-  --bmf-shadow-2: 0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
-  --bmf-shadow-3: 0 12px 16px -4px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
-  --bmf-shadow-4: 0 24px 48px -12px rgba(0,0,0,0.18);
+  /* Shadows (warm-tinted for the paper ground) */
+  --bmf-shadow-1: 0 1px 2px rgba(74, 56, 28, 0.07);
+  --bmf-shadow-2: 0 1px 3px rgba(74, 56, 28, 0.12), 0 1px 2px rgba(74, 56, 28, 0.07);
+  --bmf-shadow-3: 0 12px 16px -4px rgba(74, 56, 28, 0.10), 0 4px 6px -2px rgba(74, 56, 28, 0.05);
+  --bmf-shadow-4: 0 24px 48px -12px rgba(74, 56, 28, 0.22);
 }
 
 /* Example usage classes (handy for prototyping) */
 .bmf-card {
-  background: var(--bmf-color-bg-alt);
-  color: var(--bmf-color-text-alt);
+  background: var(--bmf-color-surface);
+  color: var(--bmf-color-text);
+  border: 1px solid var(--bmf-color-border);
   border-radius: var(--bmf-radius-lg);
   box-shadow: var(--bmf-shadow-2);
   padding: var(--bmf-space-4);
@@ -60,8 +72,7 @@
 
 .bmf-btn-primary {
   background: var(--bmf-color-brand);
-  color: var(--bmf-color-bg);
+  color: var(--bmf-color-text-alt);
   border-radius: var(--bmf-radius-md);
   padding: var(--bmf-space-2) var(--bmf-space-4);
 }
-

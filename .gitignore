@@ -13,6 +13,9 @@ Lib/
 Scripts/
 pyvenv.cfg
 
+# Scratch/experiments (per repo convention)
+scratch/
+
 # Editors/OS
 .idea/
 .vscode/

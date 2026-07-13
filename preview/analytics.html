@@ -4,16 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
       .bar-hit { cursor: default; }
-      .views-row-label { font-size: 12px; opacity: .8; }
+      .views-row-label { font-size: 12px; opacity: .85; }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>BeardMeatsFood</h1>
-      <div class="sub">Analytics — what he eats, where he wins, and what the numbers say.</div>
+      <h1>Analytics</h1>
+      <div class="sub">What he eats, where he wins, and what the numbers say.</div>
 
       <div class="card" id="cuisineCard">
         <div class="chart-title">Win rate by cuisine</div>
@@ -33,7 +37,7 @@
         <div class="legend">
           <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
           <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
-          <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Unknown</span>
+          <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Verdict pending</span>
         </div>
       </div>
 
@@ -46,7 +50,7 @@
       <div class="card" id="viewsCard">
         <div class="chart-title">Does failure sell? — video views by result</div>
         <div id="viewsChart"></div>
-        <div class="chart-note">Each dot is one video (square-root view scale). White line = median; shaded band = middle 50%.</div>
+        <div class="chart-note">Each dot is one video (square-root view scale). Ink line = median; shaded band = middle 50%.</div>
       </div>
 
       <div class="card" id="collabCard">
@@ -128,6 +132,8 @@
           .sort((a, b) => b.pct - a.pct || b.n - a.n);
       }
 
+      const RES_LABEL = { success: 'wins', failure: 'losses', unknown: 'verdict pending' };
+
       function yearChart(container, rows) {
         const byYear = {};
         for (const r of rows) {
@@ -150,7 +156,7 @@
             const h = Math.max(2, (H - 70) * n / maxN);
             cy -= h;
             const seg = el('rect', { x, y: cy, width: barW, height: h, fill: COLORS[res] });
-            attachTip(seg, `<b>${y}</b><br>${res}: ${n} of ${total}`);
+            attachTip(seg, `<b>${y}</b><br>${RES_LABEL[res]}: ${n} of ${total}`);
             svg.appendChild(seg);
             cy -= 2; // surface gap between stacked segments
           });
@@ -177,8 +183,8 @@
           const x = pad + i * slot + 6, y = H - 30 - h;
           if (b.n) {
             const bar = roundedBar(x, y, slot - 12, h, false);
-            bar.setAttribute('fill', '#e0ff00');
-            bar.setAttribute('opacity', '.8');
+            // kraft brown: a quantity, not a verdict (keeps green/red for results only)
+            bar.setAttribute('fill', '#8f6530');
             attachTip(bar, `<b>${b.label} lb</b><br>${b.n} challenges`);
             svg.appendChild(bar);
             svg.appendChild(el('text', { x: x + (slot - 12) / 2, y: y - 6, 'text-anchor': 'middle', 'font-size': 11 }, b.n));
@@ -216,7 +222,7 @@
             attachTip(dot, `<b>${esc(cleanTitle(r.title))}</b><br>${fmt(r.view_count)} views · ${g.label.slice(0, -1)}`);
             svg.appendChild(dot);
           });
-          svg.appendChild(el('line', { x1: x(med), x2: x(med), y1: cy - 20, y2: cy + 20, stroke: '#fff', 'stroke-width': 2 }));
+          svg.appendChild(el('line', { x1: x(med), x2: x(med), y1: cy - 20, y2: cy + 20, stroke: '#221c14', 'stroke-width': 2 }));
           svg.appendChild(el('text', { x: x(med) + 6, y: cy - 24, 'font-size': 11 }, `median ${fmt(Math.round(med))}`));
         });
         container.replaceChildren(svg);
