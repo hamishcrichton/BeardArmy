@@ -13,6 +13,8 @@
  *   BMF.fmtDate(iso)                -> "13 July 2026" (site-wide date format)
  *   BMF.countryName(cc)             -> display name for an alpha-2 code (falls back to the code)
  *   BMF.cuisineLabel(key)           -> humorous display label for a cuisine bucket (falls back to key)
+ *   BMF.openmojiUrl(cp)             -> OpenMoji colour-SVG CDN URL for a codepoint sequence
+ *   BMF.flagUrl(cc)                 -> OpenMoji flag SVG URL for an alpha-2 country code
  *   BMF.nav('map')                  -> injects the top nav, marking the given page active
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
@@ -22,6 +24,7 @@ window.BMF = (() => {
     ['index', 'Overview', 'index.html'],
     ['map', 'Map', 'map.html'],
     ['tours', 'Tours & Series', 'tours.html'],
+    ['challenges', 'All Challenges', 'challenges.html'],
     ['analytics', 'Analytics', 'analytics.html'],
     ['collabs', 'Collaborators', 'collaborators.html'],
     ['calendar', 'Calendar', 'calendar.html'],
@@ -56,6 +59,12 @@ window.BMF = (() => {
     PL: 'Poland', MX: 'Mexico', JP: 'Japan', AE: 'United Arab Emirates', TH: 'Thailand',
   };
   const countryName = cc => COUNTRY_NAMES[cc] || cc || '–';
+
+  // OpenMoji colour SVGs (CC BY-SA 4.0), hotlinked from jsDelivr — no binaries in
+  // the repo. Flags are regional-indicator pairs (GB -> 1F1EC-1F1E7.svg).
+  const openmojiUrl = cp => `https://cdn.jsdelivr.net/npm/openmoji@15.1.0/color/svg/${cp}.svg`;
+  const flagUrl = cc => openmojiUrl(String(cc || '').toUpperCase().split('')
+    .map(c => (0x1F1E6 + c.charCodeAt(0) - 65).toString(16).toUpperCase()).join('-'));
 
   // Display labels for cuisine buckets, in the channel's voice (data keys unchanged).
   const CUISINE_LABEL = {
@@ -137,5 +146,5 @@ window.BMF = (() => {
     };
   })();
 
-  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, isChallenge, stats, loadData, nav, tooltip };
+  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge, stats, loadData, nav, tooltip };
 })();

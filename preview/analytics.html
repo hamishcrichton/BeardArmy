@@ -29,6 +29,9 @@
       .ctile .label .w { color: var(--win-text); font-weight: 700; }
       .ctile .label .l { color: var(--loss-text); font-weight: 700; }
       .ctile .num { flex: none; margin-left: auto; font-size: 2.3rem; }
+      /* tiles link to the matching filtered view on All Challenges */
+      a.ctile { text-decoration: none; color: inherit; }
+      a.ctile:hover { border-color: rgba(224, 255, 0, .5); }
     </style>
   </head>
   <body>
@@ -75,11 +78,11 @@
 
     <script src="assets/app.js"></script>
     <script>
-      const { COLORS, esc, yt, cleanTitle, fmt, countryName, cuisineLabel, isChallenge, tooltip } = BMF;
+      const { COLORS, esc, yt, cleanTitle, fmt, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge, tooltip } = BMF;
       const SVGNS = 'http://www.w3.org/2000/svg';
 
-      // OpenMoji colour SVGs (CC BY-SA 4.0), hotlinked from jsDelivr — no binaries
-      // in the repo. All codepoints verified to resolve at openmoji@15.1.0.
+      // OpenMoji colour SVGs (CC BY-SA 4.0) via BMF.openmojiUrl/BMF.flagUrl — all
+      // codepoints below verified to resolve at openmoji@15.1.0.
       const CUISINE_ICON = {
         'burger': '1F354', 'breakfast': '1F373', 'pizza': '1F355', 'dessert & sweet': '1F370',
         'wings & chicken': '1F357', 'sandwich & sub': '1F96A', 'mexican': '1F32E',
@@ -87,11 +90,6 @@
         'hot dog': '1F32D', 'fish & chips': '1F41F', 'pasta & italian': '1F35D',
         'roast dinner': '1F372', 'other': '1F37D',
       };
-      const openmoji = cp => `https://cdn.jsdelivr.net/npm/openmoji@15.1.0/color/svg/${cp}.svg`;
-      // Flag SVGs from the same set: regional-indicator pair for an alpha-2 code
-      // (e.g. GB -> 1F1EC-1F1E7.svg). All codes in the data verified to resolve.
-      const flagSeq = cc => String(cc || '').toUpperCase().split('')
-        .map(c => (0x1F1E6 + c.charCodeAt(0) - 65).toString(16).toUpperCase()).join('-');
 
       // Responsive chart width: draw 1:1 at the container's current width.
       const chartW = c => Math.max(320, Math.round(c.clientWidth || 900));
@@ -144,21 +142,22 @@
 
       // Win-rate tiles (cuisine + country): icon flanks left, the NAME is the
       // tile's headline, win rate is the big number, "n bouts · W–L" detail
-      // (letters keep the verdict readable without colour).
-      function tileGrid(container, data, iconUrlFor, labelFor) {
+      // (letters keep the verdict readable without colour). Each tile links to
+      // the corresponding filtered view on All Challenges.
+      function tileGrid(container, data, iconUrlFor, labelFor, hrefFor) {
         container.innerHTML = `<div class="cgrid">${data.map(d => {
           const url = iconUrlFor(d.label);
           const img = url
             ? `<img class="ct-icon" src="${url}" alt="${esc(labelFor(d.label))}" width="56" height="56" loading="lazy" onerror="this.style.display='none'" />`
             : '';
-          return `<div class="tile ctile">
+          return `<a class="tile ctile" href="${hrefFor(d.label)}">
             ${img}
             <div class="ct-body">
               <div class="ct-label">${esc(labelFor(d.label))}</div>
               <div class="label">${d.n} bouts · <span class="w">${d.w}W</span>–<span class="l">${d.n - d.w}L</span></div>
             </div>
             <div class="num">${d.pct.toFixed(0)}%</div>
-          </div>`;
+          </a>`;
         }).join('')}</div>`;
       }
 
@@ -267,11 +266,13 @@
         const renderAll = () => {
           if (hasField(ch, 'cuisine')) {
             tileGrid(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5),
-              k => CUISINE_ICON[k] ? openmoji(CUISINE_ICON[k]) : '', cuisineLabel);
+              k => CUISINE_ICON[k] ? openmojiUrl(CUISINE_ICON[k]) : '', cuisineLabel,
+              k => `challenges.html?cuisine=${encodeURIComponent(k)}`);
           } else pending('cuisineCard');
 
           tileGrid(document.getElementById('countryChart'), winRateBy(ch, r => r.country_code, 5),
-            cc => openmoji(flagSeq(cc)), countryName);
+            flagUrl, countryName,
+            cc => `challenges.html?country=${encodeURIComponent(cc)}`);
 
           yearChart(document.getElementById('yearChart'), ch);
 

@@ -11,30 +11,36 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      /* Trip cards, grouped Continent -> Country -> (US state) */
+      /* Trip rows (dense), grouped Continent -> Country -> (US state) */
       .continent-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2rem; line-height: 1;
                         text-transform: uppercase; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.16);
-                        padding-bottom: 6px; margin: var(--bmf-space-8) 0 var(--bmf-space-2); }
+                        padding-bottom: 6px; margin: var(--bmf-space-6) 0 var(--bmf-space-2); }
       #trips .continent-head:first-child { margin-top: 0; }
       .country-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.3rem; line-height: 1;
-                      text-transform: uppercase; letter-spacing: .04em; margin: var(--bmf-space-4) 0 var(--bmf-space-2); }
+                      text-transform: uppercase; letter-spacing: .04em; margin: var(--bmf-space-4) 0 var(--bmf-space-1); }
       .state-head { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-                    color: var(--bmf-color-text-muted); margin: var(--bmf-space-3) 0 var(--bmf-space-2); }
-      .trip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-                   gap: var(--bmf-space-3); margin-bottom: var(--bmf-space-4); }
-      .trip { background: var(--surface); border: 1px solid var(--border); border-radius: var(--bmf-radius-md);
-              box-shadow: var(--bmf-shadow-1); padding: var(--bmf-space-3) var(--bmf-space-4);
-              text-align: left; cursor: pointer; color: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
-      .trip:hover { border-color: rgba(224,255,0,.4); }
-      .trip.active { border-color: rgba(224,255,0,.75); }
-      .trip.active .trip-name::after { content: " · viewing"; font-family: var(--bmf-font-sans);
-                                       font-size: .62rem; font-weight: 700; letter-spacing: .12em;
-                                       color: var(--bmf-color-brand); text-transform: uppercase; vertical-align: middle; }
-      .trip-name { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.35rem;
-                   line-height: 1; text-transform: uppercase; letter-spacing: .02em; }
-      .trip-dates { font-size: .78rem; color: var(--bmf-color-text-muted); margin-top: 4px; }
-      .trip-meta { font-size: .8rem; margin-top: 6px; }
-      .trip-meta .w { color: var(--win-text); font-weight: 700; } .trip-meta .l { color: var(--loss-text); font-weight: 700; }
+                    color: var(--bmf-color-text-muted); margin: var(--bmf-space-2) 0 2px; }
+      .trip-rows { margin-bottom: var(--bmf-space-3); }
+      .trip-row { display: grid; grid-template-columns: minmax(150px, 1.5fr) minmax(210px, 1.7fr) 84px minmax(130px, 1fr);
+                  gap: var(--bmf-space-3); align-items: baseline; width: 100%;
+                  background: transparent; border: 0; border-left: 3px solid transparent;
+                  border-bottom: 1px solid var(--border); padding: .45rem .5rem;
+                  color: var(--bmf-color-text); font-family: var(--bmf-font-sans); font-size: .85rem;
+                  text-align: left; cursor: pointer; }
+      .trip-row:hover { background: rgba(255,255,255,.05); }
+      /* selected = neon left rule + neon underline on the name, never a fill */
+      .trip-row.active { border-left-color: var(--bmf-color-brand); }
+      .trip-row.active .tr-name { text-decoration: underline 2px; text-underline-offset: 3px;
+                                  text-decoration-color: var(--bmf-color-brand); }
+      .tr-name { font-weight: 600; }
+      .tr-dates, .tr-bouts { color: var(--bmf-color-text-muted); font-size: .78rem; white-space: nowrap; }
+      .tr-wl { white-space: nowrap; }
+      .tr-wl .w { color: var(--win-text); font-weight: 700; } .tr-wl .l { color: var(--loss-text); font-weight: 700; }
+      .tr-wl .sp { color: var(--bmf-color-text-muted); font-size: .78rem; }
+      @media (max-width: 640px) {
+        .trip-row { grid-template-columns: 1fr auto; }
+        .tr-dates, .tr-bouts { display: none; }
+      }
 
       /* Detail: focused map + episodes */
       .detail-title { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2.4rem; line-height: 1;
@@ -167,19 +173,17 @@
       const dominantState = t => mode(t.rows.filter(r => r.country_code === 'US')
         .map(r => US_CITY_STATE[(r.city || '').trim()] || 'Various')) || 'Various';
 
-      function tripCardHtml(name) {
+      function tripRowHtml(name) {
         const t = state.trips.get(name);
         const ch = t.rows.filter(isChallenge);
         const w = ch.filter(r => r.result === 'success').length;
         const l = ch.filter(r => r.result === 'failure').length;
         const sp = t.rows.length - ch.length;
-        const countries = [...t.countries].map(countryName).join(' · ') || '—';
-        return `<button class="trip" data-trip="${esc(name)}">
-          <span class="trip-name">${esc(name)}</span>
-          <span class="trip-dates" style="display:block">${fmtDate(t.first)} → ${fmtDate(t.last)}</span>
-          <span class="trip-meta" style="display:block">${esc(countries)}</span>
-          <span class="trip-meta" style="display:block">${ch.length} bout${ch.length === 1 ? '' : 's'} ·
-            <span class="w">${w}W</span>–<span class="l">${l}L</span>${sp ? ` · ${sp} special${sp === 1 ? '' : 's'}` : ''}</span>
+        return `<button class="trip-row" data-trip="${esc(name)}">
+          <span class="tr-name">${esc(name)}</span>
+          <span class="tr-dates">${fmtDate(t.first)} → ${fmtDate(t.last)}</span>
+          <span class="tr-bouts">${ch.length} bout${ch.length === 1 ? '' : 's'}</span>
+          <span class="tr-wl"><span class="w">${w}W</span>–<span class="l">${l}L</span>${sp ? ` <span class="sp">· ${sp} special${sp === 1 ? '' : 's'}</span>` : ''}</span>
         </button>`;
       }
 
@@ -214,7 +218,7 @@
               .sort((a, b) => (a === 'Various') - (b === 'Various') || a.localeCompare(b)); // Various last
             for (const st of states) {
               if (st) html += `<h4 class="state-head">${esc(st)}</h4>`;
-              html += `<div class="trip-grid">${byState.get(st).sort(byFirst).map(tripCardHtml).join('')}</div>`;
+              html += `<div class="trip-rows">${byState.get(st).sort(byFirst).map(tripRowHtml).join('')}</div>`;
             }
           }
         }
@@ -225,7 +229,7 @@
       /* ---- selection ---- */
       function select(name) {
         state.selected = name;
-        document.querySelectorAll('.trip').forEach(b => b.classList.toggle('active', b.dataset.trip === name));
+        document.querySelectorAll('.trip-row').forEach(b => b.classList.toggle('active', b.dataset.trip === name));
         const t = state.trips.get(name);
         if (!t) return;
         document.getElementById('detail').hidden = false;
@@ -333,7 +337,7 @@
         buildTrips(rows);
         const names = renderTripGroups();
         document.getElementById('trips').addEventListener('click', (e) => {
-          const btn = e.target.closest('.trip[data-trip]');
+          const btn = e.target.closest('.trip-row[data-trip]');
           if (btn) select(btn.dataset.trip);
         });
         bootMap();

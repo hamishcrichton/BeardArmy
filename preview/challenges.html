@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – All Challenges</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      .searchbox { padding: .4rem .8rem; border-radius: var(--bmf-radius-md); border: 1px solid var(--bmf-color-border);
+                   background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans);
+                   font-size: var(--bmf-font-size-100); width: min(320px, 100%); }
+      .controls { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--bmf-space-3); }
+      /* dismissible active URL-filter chip */
+      .afilter { color: var(--bmf-color-brand); font-weight: 700; }
+      .afilter span { margin-left: 4px; }
+
+      .table-scroll { overflow-x: auto; }
+      table { min-width: 640px; }
+      th .th-btn { background: none; border: 0; padding: 0; cursor: pointer;
+                   display: inline-flex; align-items: center; gap: 5px;
+                   color: var(--bmf-color-text-muted); font-family: var(--bmf-font-sans);
+                   font-weight: 500; font-size: .72rem; text-transform: uppercase; letter-spacing: .09em; }
+      th .th-btn:hover { color: var(--bmf-color-text); }
+      th .dir { color: var(--bmf-color-brand); font-size: .6rem; min-width: 1em; }
+      td.c-date { white-space: nowrap; }
+      td.c-flag { text-align: center; }
+      .flag { width: 24px; height: 24px; display: inline-block; vertical-align: middle; }
+      th.c-views, td.c-views { text-align: right; font-variant-numeric: tabular-nums; }
+      td a { text-decoration: none; }
+      td a:hover { text-decoration: underline; text-decoration-color: var(--bmf-color-brand); }
+      #sentinel { height: 1px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>All Challenges</h1>
+      <div class="sub">Every video on the record — sort it, search it, filter it.</div>
+
+      <div class="controls" id="chips" role="group" aria-label="Filter by result">
+        <button class="fbtn active" data-filter="all">All</button>
+        <button class="fbtn" data-filter="success">Wins</button>
+        <button class="fbtn" data-filter="failure">Losses</button>
+        <button class="fbtn" data-filter="unknown">Pending</button>
+        <button class="fbtn" data-filter="special">Specials</button>
+      </div>
+      <div class="controls">
+        <input id="search" class="searchbox" type="search" placeholder="Search titles, venues, places…"
+               aria-label="Search challenges" />
+        <span id="activeFilters"></span>
+      </div>
+
+      <div class="card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th class="c-date" data-key="date" aria-sort="descending"><button class="th-btn" data-key="date">Date <span class="dir">▼</span></button></th>
+                <th data-key="title"><button class="th-btn" data-key="title">Video name <span class="dir"></span></button></th>
+                <th data-key="country"><button class="th-btn" data-key="country">Country <span class="dir"></span></button></th>
+                <th data-key="cuisine"><button class="th-btn" data-key="cuisine">Cuisine <span class="dir"></span></button></th>
+                <th data-key="result"><button class="th-btn" data-key="result">Success? <span class="dir"></span></button></th>
+                <th class="c-views" data-key="views"><button class="th-btn" data-key="views">Views <span class="dir"></span></button></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div id="sentinel" aria-hidden="true"></div>
+        <div class="chart-note" id="countNote"></div>
+      </div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, isChallenge, flagUrl } = BMF;
+
+      const CHUNK = 100;
+      const state = {
+        rows: [], list: [], rendered: 0,
+        sortKey: 'date', sortDir: -1,
+        filter: 'all', search: '',
+        cuisine: null, country: null, // URL-driven filters
+      };
+
+      function badgeFor(r) {
+        if (!isChallenge(r)) return '<span class="badge special">SPECIAL</span>';
+        if (r.result === 'success') return '<span class="badge win">WIN</span>';
+        if (r.result === 'failure') return '<span class="badge loss">LOSS</span>';
+        return '<span class="badge unknown">PENDING</span>';
+      }
+
+      /* ---- sorting ---- */
+      const SORT = {
+        date: r => r.date_attempted || '',
+        title: r => cleanTitle(r.title).toLowerCase(),
+        country: r => r.country_code ? countryName(r.country_code).toLowerCase() : '',
+        cuisine: r => r.cuisine ? cuisineLabel(r.cuisine).toLowerCase() : '',
+        result: r => !isChallenge(r) ? 3 : r.result === 'success' ? 0 : r.result === 'failure' ? 1 : 2,
+        views: r => r.view_count,
+      };
+      const DESC_FIRST = { date: true, views: true };
+
+      function cmp(a, b) {
+        const f = SORT[state.sortKey];
+        const av = f(a), bv = f(b);
+        const aNull = av == null || av === '';
+        const bNull = bv == null || bv === '';
+        if (aNull && bNull) return 0;
+        if (aNull) return 1;  // missing values always sort last
+        if (bNull) return -1;
+        if (av < bv) return -state.sortDir;
+        if (av > bv) return state.sortDir;
+        return 0;
+      }
+
+      function updateSortUi() {
+        document.querySelectorAll('th[data-key]').forEach(th => {
+          const active = th.dataset.key === state.sortKey;
+          const dir = th.querySelector('.dir');
+          if (dir) dir.textContent = active ? (state.sortDir === 1 ? '▲' : '▼') : '';
+          if (active) th.setAttribute('aria-sort', state.sortDir === 1 ? 'ascending' : 'descending');
+          else th.removeAttribute('aria-sort');
+        });
+      }
+
+      /* ---- filtering ---- */
+      function passes(r) {
+        if (state.cuisine && r.cuisine !== state.cuisine) return false;
+        if (state.country && r.country_code !== state.country) return false;
+        const flt = state.filter;
+        if (flt === 'success' || flt === 'failure') { if (r.result !== flt) return false; }
+        else if (flt === 'unknown') { if (!isChallenge(r) || r.result === 'success' || r.result === 'failure') return false; }
+        else if (flt === 'special') { if (isChallenge(r)) return false; }
+        if (state.search) {
+          const hay = `${cleanTitle(r.title)} ${r.restaurant || ''} ${r.city || ''} ${countryName(r.country_code)} ${cuisineLabel(r.cuisine)}`.toLowerCase();
+          if (!hay.includes(state.search)) return false;
+        }
+        return true;
+      }
+
+      function renderActiveFilters() {
+        const parts = [];
+        if (state.cuisine) parts.push(`<button class="fbtn afilter" data-clear="cuisine"
+          aria-label="Clear cuisine filter">Cuisine: ${esc(cuisineLabel(state.cuisine))} <span aria-hidden="true">✕</span></button>`);
+        if (state.country) parts.push(`<button class="fbtn afilter" data-clear="country"
+          aria-label="Clear country filter">Country: ${esc(countryName(state.country))} <span aria-hidden="true">✕</span></button>`);
+        document.getElementById('activeFilters').innerHTML = parts.join(' ');
+      }
+
+      /* ---- lazy rendering ---- */
+      const tbody = document.getElementById('tbody');
+      const sentinel = document.getElementById('sentinel');
+
+      function rowHtml(r) {
+        const flag = r.country_code
+          ? `<img class="flag" src="${flagUrl(r.country_code)}" alt="${esc(countryName(r.country_code))}"
+               title="${esc(countryName(r.country_code))}" loading="lazy" onerror="this.style.display='none'" />`
+          : '—';
+        return `<tr>
+          <td class="c-date">${fmtDate(r.date_attempted)}</td>
+          <td><a href="${yt(r.video_id)}" target="_blank" rel="noopener">${esc(cleanTitle(r.title))}</a></td>
+          <td class="c-flag">${flag}</td>
+          <td>${r.cuisine ? esc(cuisineLabel(r.cuisine)) : '—'}</td>
+          <td>${badgeFor(r)}</td>
+          <td class="c-views">${r.view_count == null ? '—' : fmt(r.view_count)}</td>
+        </tr>`;
+      }
+
+      function appendChunk() {
+        if (state.rendered >= state.list.length) return;
+        const next = state.list.slice(state.rendered, state.rendered + CHUNK);
+        tbody.insertAdjacentHTML('beforeend', next.map(rowHtml).join(''));
+        state.rendered += next.length;
+        updateCount();
+      }
+
+      // keep appending while the sentinel is still near the viewport (IO only
+      // refires on intersection *changes*, so top up in a bounded loop)
+      function fill() {
+        let guard = 0;
+        while (state.rendered < state.list.length && guard++ < 20) {
+          const rect = sentinel.getBoundingClientRect();
+          if (rect.top > window.innerHeight + 600) break;
+          appendChunk();
+        }
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) fill();
+      }, { rootMargin: '600px 0px' });
+      io.observe(sentinel);
+
+      function updateCount() {
+        const filtered = state.cuisine || state.country || state.filter !== 'all' || state.search;
+        document.getElementById('countNote').textContent =
+          `Showing ${Math.min(state.rendered, state.list.length)} of ${state.list.length} videos${filtered ? ' (filtered)' : ''}.`;
+      }
+
+      function rebuild() {
+        state.list = state.rows.filter(passes).sort(cmp);
+        state.rendered = 0;
+        tbody.innerHTML = '';
+        updateSortUi();
+        appendChunk();
+        fill();
+        updateCount();
+      }
+
+      /* ---- events ---- */
+      document.querySelector('thead').addEventListener('click', (e) => {
+        const btn = e.target.closest('.th-btn[data-key]');
+        if (!btn) return;
+        const key = btn.dataset.key;
+        if (state.sortKey === key) state.sortDir = -state.sortDir;
+        else { state.sortKey = key; state.sortDir = DESC_FIRST[key] ? -1 : 1; }
+        rebuild();
+      });
+
+      document.getElementById('chips').addEventListener('click', (e) => {
+        const btn = e.target.closest('.fbtn[data-filter]');
+        if (!btn) return;
+        document.querySelectorAll('#chips .fbtn[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+        state.filter = btn.dataset.filter;
+        rebuild();
+      });
+
+      let searchT;
+      document.getElementById('search').addEventListener('input', (e) => {
+        clearTimeout(searchT);
+        searchT = setTimeout(() => { state.search = e.target.value.trim().toLowerCase(); rebuild(); }, 150);
+      });
+
+      document.getElementById('activeFilters').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-clear]');
+        if (!btn) return;
+        state[btn.dataset.clear] = null;
+        const p = new URLSearchParams(location.search);
+        p.delete(btn.dataset.clear);
+        history.replaceState(null, '', location.pathname + (p.toString() ? `?${p}` : ''));
+        renderActiveFilters();
+        rebuild();
+      });
+
+      /* ---- boot: read URL params, then render ---- */
+      BMF.nav('challenges');
+      const params = new URLSearchParams(location.search);
+      state.cuisine = params.get('cuisine') || null;
+      state.country = (params.get('country') || '').toUpperCase() || null;
+      const resParam = params.get('result'), kindParam = params.get('kind');
+      if (kindParam === 'special') state.filter = 'special';
+      else if (['success', 'failure', 'unknown'].includes(resParam)) state.filter = resParam;
+      document.querySelectorAll('#chips .fbtn[data-filter]').forEach(b =>
+        b.classList.toggle('active', b.dataset.filter === state.filter));
+
+      BMF.loadData().then(({ rows }) => {
+        state.rows = rows;
+        renderActiveFilters();
+        rebuild();
+      });
+    </script>
+  </body>
+</html>
