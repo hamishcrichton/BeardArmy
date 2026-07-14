@@ -47,23 +47,7 @@
         .tape-photo { max-width: 220px; }
       }
 
-      /* ---- Challenge calendar (collapsed to the weekday rows that hold challenges) ---- */
-      .cal-year { margin-bottom: var(--bmf-space-4); }
-      .cal-year h4 { margin: 0 0 var(--bmf-space-1); font-size: var(--bmf-font-size-200); }
-      .cal-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: var(--bmf-space-1); }
-      .cal-months { position: relative; height: 14px; font-size: .62rem; color: var(--bmf-color-text-muted);
-                    margin-left: 40px; }
-      .cal-months span { position: absolute; top: 0; }
-      .cal-row { display: flex; align-items: center; width: max-content; margin-top: 2px; }
-      .cal-tag { width: 32px; margin-right: 8px; font-size: .6rem; font-weight: 700; letter-spacing: .08em;
-                 color: var(--bmf-color-text-muted); flex: none; }
-      .cal-cells { display: flex; gap: 2px; }
-      .cal-day { width: 11px; height: 11px; border-radius: 2px; background: rgba(255,255,255,.06); flex: none; }
-      .cal-day.win { background: var(--win); cursor: pointer; }
-      .cal-day.loss { background: var(--loss); cursor: pointer; }
-      /* verdict pending: pencil hatch, not a solid verdict colour */
-      .cal-day.unknown { background: repeating-linear-gradient(45deg, #9ca3af 0 2px, #3a3a3a 2px 5px); cursor: pointer; }
-      .cal-day.win:hover, .cal-day.loss:hover, .cal-day.unknown:hover { outline: 2px solid var(--bmf-color-text); }
+      .tape-rows .note { font-size: .75rem; color: var(--bmf-color-text-muted); padding-top: .55rem; }
 
       /* ---- For the record (folded in from the old Records page) ---- */
       .section-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2.4rem;
@@ -103,24 +87,13 @@
         </div>
       </section>
 
-      <div class="card">
-        <h3>Challenge calendar <span class="muted" style="font-weight:400">— one square per challenge day (click to watch)</span></h3>
-        <div id="calendar"></div>
-        <div class="legend">
-          <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
-          <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
-          <span class="chip"><span class="swatch pending"></span>Verdict pending</span>
-          <span class="chip"><span class="swatch" style="background:rgba(255,255,255,.06)"></span>No challenge</span>
-        </div>
-      </div>
-
       <h2 class="section-head">For the record</h2>
       <div class="records" id="records"></div>
     </div>
 
     <script src="assets/app.js"></script>
     <script>
-      const { esc, yt, cleanTitle, fmt, fmtDate, countryName } = BMF;
+      const { esc, yt, cleanTitle, fmt, fmtDate, countryName, isChallenge } = BMF;
 
       function maxBy(rows, f) {
         let top = null;
@@ -128,11 +101,13 @@
         return top;
       }
 
-      /* ---- Tale of the tape ---- */
+      /* ---- Tale of the tape (true challenges only; stats already exclude specials) ---- */
       function renderTape(rows, s) {
+        const ch = rows.filter(isChallenge);
+        const specialsN = rows.length - ch.length;
         const pendingN = s.total - s.wins - s.losses;
         const rate = s.wins + s.losses ? (100 * s.wins / (s.wins + s.losses)).toFixed(1) : '–';
-        const heaviest = maxBy(rows, r => r.weight_lb);
+        const heaviest = maxBy(ch, r => r.weight_lb);
         const items = [
           ['Bouts', s.total],
           ['Won', s.wins, 'win stampv'],
@@ -147,114 +122,22 @@
           <div class="ledger-row">
             <span class="lr-label">${label}</span><span class="lr-dots"></span>
             <span class="lr-value ${cls || ''}">${value}</span>
-          </div>`).join('');
+          </div>`).join('') + (specialsN ? `
+          <div class="note">+ ${specialsN} specials — cheat days, Q&amp;As, tours &amp; music videos, not counted above.</div>` : '');
       }
 
       /* ---- Challenge calendar (collapsed weekday rows) ---- */
-      const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
-      const WDAY = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-      const RESULT_LABEL = { success: 'WIN', failure: 'LOSS', unknown: 'verdict pending' };
-
-      function mondayIndex(d) { return (d.getUTCDay() + 6) % 7; } // Mon=0 .. Sun=6
-
-      function renderCalendar(rows) {
-        const byDay = new Map(); // 'YYYY-MM-DD' -> [rows]
-        for (const r of rows) {
-          const day = (r.date_attempted || '').slice(0, 10);
-          if (!day) continue;
-          if (!byDay.has(day)) byDay.set(day, []);
-          byDay.get(day).push(r);
-        }
-        const years = [...new Set([...byDay.keys()].map(d => +d.slice(0, 4)))].sort((a, b) => b - a);
-        const host = document.getElementById('calendar');
-
-        for (const year of years) {
-          const jan1 = new Date(Date.UTC(year, 0, 1));
-          const pad = mondayIndex(jan1);
-          const daysInYear = (Date.UTC(year + 1, 0, 1) - Date.UTC(year, 0, 1)) / 86400000;
-          const weeks = Math.ceil((pad + daysInYear) / 7);
-
-          // only the weekday rows that actually contain challenges this year
-          const dows = new Set();
-          for (const key of byDay.keys()) {
-            if (key.startsWith(`${year}-`)) dows.add(mondayIndex(new Date(`${key}T00:00:00Z`)));
-          }
-          const dowList = [...dows].sort((a, b) => a - b);
-          if (!dowList.length) continue;
-
-          // month initials positioned at the week-column of each month's 1st
-          let monthsHtml = '';
-          for (let m = 0; m < 12; m++) {
-            const first = new Date(Date.UTC(year, m, 1));
-            const doy = (first - jan1) / 86400000;
-            const col = Math.floor((pad + doy) / 7);
-            monthsHtml += `<span style="left:${col * 13}px">${MONTHS[m]}</span>`;
-          }
-
-          let rowsHtml = '';
-          for (const dow of dowList) {
-            let cells = '';
-            for (let w = 0; w < weeks; w++) {
-              const doy = w * 7 + dow - pad;
-              if (doy < 0 || doy >= daysInYear) { cells += '<span class="cal-day" style="visibility:hidden"></span>'; continue; }
-              const d = new Date(Date.UTC(year, 0, 1 + doy));
-              const key = d.toISOString().slice(0, 10);
-              const dayRows = byDay.get(key);
-              if (!dayRows) { cells += '<span class="cal-day"></span>'; continue; }
-              const wins = dayRows.filter(r => r.result === 'success').length;
-              const losses = dayRows.filter(r => r.result === 'failure').length;
-              const cls = wins || losses ? (wins >= losses ? 'win' : 'loss') : 'unknown';
-              cells += `<span class="cal-day ${cls}" data-day="${key}"></span>`;
-            }
-            rowsHtml += `<div class="cal-row"><span class="cal-tag">${WDAY[dow]}</span><div class="cal-cells">${cells}</div></div>`;
-          }
-
-          const el = document.createElement('div');
-          el.className = 'cal-year';
-          el.innerHTML = `<h4>${year}</h4>
-            <div class="cal-scroll">
-              <div class="cal-months" style="width:${weeks * 13}px">${monthsHtml}</div>
-              ${rowsHtml}
-            </div>`;
-          host.appendChild(el);
-        }
-
-        host.addEventListener('mousemove', (e) => {
-          const cell = e.target.closest('.cal-day[data-day]');
-          if (!cell) { BMF.tooltip.hide(); return; }
-          const dayRows = byDay.get(cell.dataset.day) || [];
-          const lines = dayRows.map(r =>
-            `<div><b>${RESULT_LABEL[r.result] || r.result}</b> — ${esc(cleanTitle(r.title))}</div>`).join('');
-          BMF.tooltip.show(e, `<div class="muted">${fmtDate(cell.dataset.day)}</div>${lines}`);
-        });
-        host.addEventListener('mouseleave', () => BMF.tooltip.hide());
-        host.addEventListener('click', (e) => {
-          const cell = e.target.closest('.cal-day[data-day]');
-          if (!cell) return;
-          const dayRows = byDay.get(cell.dataset.day) || [];
-          if (dayRows.length) window.open(yt(dayRows[0].video_id), '_blank', 'noopener');
-        });
-      }
-
-      /* ---- For the record (hero already carries record/rate/streak — no duplicates) ---- */
+      /* ---- For the record (hero already carries record/rate/streak — no duplicates;
+              specials are excluded from every record) ---- */
       const link = r => `<a href="${yt(r.video_id)}" target="_blank" rel="noopener">${esc(cleanTitle(r.title))}</a>`;
-      const day = r => (r.date_attempted || '').slice(0, 10);
 
       function card(num, label, detail) {
         return `<div class="tile rec"><div class="num">${num}</div><div class="label">${label}</div>
                 <div class="detail">${detail}</div></div>`;
       }
 
-      function worstStreak(decided) {
-        let worst = { len: 0 }, lossRun = [];
-        for (const r of decided) {
-          if (r.result === 'failure') { lossRun.push(r); } else { lossRun = []; }
-          if (lossRun.length > worst.len) worst = { len: lossRun.length, from: day(lossRun[0]), to: day(lossRun[lossRun.length - 1]) };
-        }
-        return worst;
-      }
-
-      function renderRecords(rows, stats) {
+      function renderRecords(allRows, stats) {
+        const rows = allRows.filter(isChallenge);
         const cards = [];
 
         const mostViewed = maxBy(rows, r => r.view_count);
@@ -307,7 +190,6 @@
       BMF.nav('index');
       BMF.loadData().then(({ rows, stats }) => {
         renderTape(rows, stats);
-        renderCalendar(rows);
         renderRecords(rows, stats);
       }).catch(() => {
         document.getElementById('tapeRows').innerHTML =

@@ -84,6 +84,8 @@ jobs:
             sqlite3 data/app.db < db/sqlite_fix_restaurants_unique.sql 2>/dev/null || echo "Restaurants UNIQUE constraint already fixed"
             echo "Applying video stats migration..."
             sqlite3 data/app.db < db/sqlite_add_video_stats.sql 2>/dev/null || echo "Video stats migration already applied"
+            echo "Applying challenge kind migration..."
+            sqlite3 data/app.db < db/sqlite_add_challenge_kind.sql 2>/dev/null || echo "Challenge kind migration already applied"
           fi
 
       - name: Check environment variables

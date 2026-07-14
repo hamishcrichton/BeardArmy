@@ -6,9 +6,13 @@
  *                                       worst pair ΔE 24.8 deutan; see app.css notes)
  *   await BMF.loadData()            -> { rows, features, stats }  (cached after first call)
  *   BMF.stats(rows)                 -> { wins, losses, decided, longest, current, countries, total }
+ *                                      (computed over TRUE CHALLENGES only — kind==='special'
+ *                                       rows are excluded before counting)
+ *   BMF.isChallenge(r)              -> false for kind==='special' rows (music videos, Q&As, tours…)
  *   BMF.esc(s) BMF.yt(id) BMF.cleanTitle(t) BMF.fmt(n)
  *   BMF.fmtDate(iso)                -> "13 July 2026" (site-wide date format)
  *   BMF.countryName(cc)             -> display name for an alpha-2 code (falls back to the code)
+ *   BMF.cuisineLabel(key)           -> humorous display label for a cuisine bucket (falls back to key)
  *   BMF.nav('map')                  -> injects the top nav, marking the given page active
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
@@ -16,11 +20,17 @@ window.BMF = (() => {
   const COLORS = { success: '#00d084', failure: '#ff4d4f', unknown: '#9ca3af' };
   const PAGES = [
     ['index', 'Overview', 'index.html'],
-    ['map', 'Map & Tours', 'map.html'],
+    ['map', 'Map', 'map.html'],
+    ['tours', 'Tours & Series', 'tours.html'],
     ['analytics', 'Analytics', 'analytics.html'],
     ['collabs', 'Collaborators', 'collaborators.html'],
+    ['calendar', 'Calendar', 'calendar.html'],
     ['shame', 'Wall of Shame', 'shame.html'],
   ];
+
+  // Specials (music videos, Q&As, cheat days, food tours, milestones) are not
+  // competitive bouts: they never carry a verdict and stay out of the stats.
+  const isChallenge = r => (r && r.kind) !== 'special';
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const yt = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
@@ -47,7 +57,28 @@ window.BMF = (() => {
   };
   const countryName = cc => COUNTRY_NAMES[cc] || cc || '–';
 
-  function stats(rows) {
+  // Display labels for cuisine buckets, in the channel's voice (data keys unchanged).
+  const CUISINE_LABEL = {
+    'burger': 'Burger Off!',
+    'breakfast': 'The Full English',
+    'pizza': 'Pizza the Action',
+    'dessert & sweet': 'Do You Have Any Desserts?',
+    'wings & chicken': 'Winging It',
+    'sandwich & sub': 'Sub-mission',
+    'mexican': "Mexican or Mexican't?",
+    'steak & grill': 'Raising the Steaks',
+    'curry & asian': 'Keep Calm and Curry On',
+    'bbq & ribs': 'Rib Ticklers',
+    'hot dog': 'Hot Dawg!',
+    'fish & chips': 'The Codfather',
+    'pasta & italian': 'Pasta La Vista',
+    'roast dinner': 'Sunday Service',
+    'other': 'Mixed Bag',
+  };
+  const cuisineLabel = k => CUISINE_LABEL[k] || k || '–';
+
+  function stats(allRows) {
+    const rows = allRows.filter(isChallenge);
     const dated = rows.filter(r => r.date_attempted).sort((a, b) => a.date_attempted.localeCompare(b.date_attempted));
     const wins = rows.filter(r => r.result === 'success').length;
     const losses = rows.filter(r => r.result === 'failure').length;
@@ -106,5 +137,5 @@ window.BMF = (() => {
     };
   })();
 
-  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, stats, loadData, nav, tooltip };
+  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, isChallenge, stats, loadData, nav, tooltip };
 })();

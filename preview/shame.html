@@ -32,12 +32,12 @@
 
     <script src="assets/app.js"></script>
     <script>
-      const { esc, yt, cleanTitle, fmtDate } = BMF;
+      const { esc, yt, cleanTitle, fmtDate, isChallenge } = BMF;
 
       BMF.loadData().then(({ rows }) => {
         BMF.nav('shame');
 
-        const losses = rows.filter(r => r.result === 'failure' && r.thumbnail_url)
+        const losses = rows.filter(r => isChallenge(r) && r.result === 'failure' && r.thumbnail_url)
           .sort((a, b) => String(b.date_attempted).localeCompare(String(a.date_attempted)));
 
         document.getElementById('shameSub').textContent =

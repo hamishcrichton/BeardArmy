@@ -13,6 +13,16 @@
       .bar-hit { cursor: default; }
       .views-row-label { font-size: 12px; opacity: .85; }
       .card svg { display: block; width: 100%; }
+
+      /* Cuisine win-rate tiles (OpenMoji colour SVGs, hotlinked from jsDelivr) */
+      .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--bmf-space-3); }
+      .ctile { text-align: center; padding: var(--bmf-space-4) var(--bmf-space-2); }
+      .ctile .ct-icon { width: 52px; height: 52px; display: block; margin: 0 auto 6px; }
+      .ctile .num { font-size: 2rem; }
+      .ctile .ct-label { font-weight: 700; font-size: .82rem; line-height: 1.25; margin-top: 2px; }
+      .ctile .label { margin-top: 4px; }
+      .ctile .label .w { color: var(--win-text); font-weight: 700; }
+      .ctile .label .l { color: var(--loss-text); font-weight: 700; }
     </style>
   </head>
   <body>
@@ -54,32 +64,24 @@
         <div class="chart-note">Each dot is one video (square-root view scale). White line = median; shaded band = middle 50%.</div>
       </div>
 
+      <footer class="chart-note">Food icons by <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji – openmoji.org</a> (CC BY-SA 4.0).</footer>
     </div>
 
     <script src="assets/app.js"></script>
     <script>
-      const { COLORS, esc, yt, cleanTitle, fmt, countryName, tooltip } = BMF;
+      const { COLORS, esc, yt, cleanTitle, fmt, countryName, cuisineLabel, isChallenge, tooltip } = BMF;
       const SVGNS = 'http://www.w3.org/2000/svg';
 
-      // Display labels for cuisine buckets, in the channel's voice (data keys unchanged).
-      const CUISINE_LABEL = {
-        'burger': 'Burger Off!',
-        'breakfast': 'The Full English',
-        'pizza': 'Pizza the Action',
-        'dessert & sweet': 'Do You Have Any Desserts?',
-        'wings & chicken': 'Winging It',
-        'sandwich & sub': 'Sub-mission',
-        'mexican': "Mexican or Mexican't?",
-        'steak & grill': 'Raising the Steaks',
-        'curry & asian': 'Curry On',
-        'bbq & ribs': 'Rib Ticklers',
-        'hot dog': 'Hot Dawg!',
-        'fish & chips': 'The Codfather',
-        'pasta & italian': 'Pasta La Vista',
-        'roast dinner': 'Sunday Service',
-        'other': 'Mixed Bag',
+      // OpenMoji colour SVGs (CC BY-SA 4.0), hotlinked from jsDelivr — no binaries
+      // in the repo. All codepoints verified to resolve at openmoji@15.1.0.
+      const CUISINE_ICON = {
+        'burger': '1F354', 'breakfast': '1F373', 'pizza': '1F355', 'dessert & sweet': '1F370',
+        'wings & chicken': '1F357', 'sandwich & sub': '1F96A', 'mexican': '1F32E',
+        'steak & grill': '1F969', 'curry & asian': '1F35B', 'bbq & ribs': '1F356',
+        'hot dog': '1F32D', 'fish & chips': '1F41F', 'pasta & italian': '1F35D',
+        'roast dinner': '1F372', 'other': '1F37D',
       };
-      const cuisineLabel = k => CUISINE_LABEL[k] || k;
+      const openmoji = cp => `https://cdn.jsdelivr.net/npm/openmoji@15.1.0/color/svg/${cp}.svg`;
 
       // Responsive chart width: draw 1:1 at the container's current width.
       const chartW = c => Math.max(320, Math.round(c.clientWidth || 900));
@@ -148,8 +150,25 @@
         }
         return Object.entries(groups)
           .filter(([, g]) => g.n >= minN)
-          .map(([label, g]) => ({ label, pct: 100 * g.w / g.n, n: g.n }))
+          .map(([label, g]) => ({ label, pct: 100 * g.w / g.n, n: g.n, w: g.w }))
           .sort((a, b) => b.pct - a.pct || b.n - a.n);
+      }
+
+      // Cuisine tiles: icon, humorous label, win rate as the hero number,
+      // "n bouts · W–L" detail (letters keep the verdict readable without colour).
+      function cuisineTiles(container, data) {
+        container.innerHTML = `<div class="cgrid">${data.map(d => {
+          const icon = CUISINE_ICON[d.label];
+          const img = icon
+            ? `<img class="ct-icon" src="${openmoji(icon)}" alt="${esc(cuisineLabel(d.label))}" width="52" height="52" loading="lazy" />`
+            : '';
+          return `<div class="tile ctile">
+            ${img}
+            <div class="num">${d.pct.toFixed(0)}%</div>
+            <div class="ct-label">${esc(cuisineLabel(d.label))}</div>
+            <div class="label">${d.n} bouts · <span class="w">${d.w}W</span>–<span class="l">${d.n - d.w}L</span></div>
+          </div>`;
+        }).join('')}</div>`;
       }
 
       const RES_LABEL = { success: 'wins', failure: 'losses', unknown: 'verdict pending' };
@@ -252,22 +271,21 @@
 
       BMF.loadData().then(({ rows }) => {
         BMF.nav('analytics');
+        const ch = rows.filter(isChallenge); // specials never carry a verdict — analytics is challenges-only
 
         const renderAll = () => {
-          if (hasField(rows, 'cuisine')) {
-            hBars(document.getElementById('cuisineChart'),
-              winRateBy(rows, r => r.cuisine, 5).map(d => ({ ...d, label: cuisineLabel(d.label) })));
-          } else pending('cuisineCard');
+          if (hasField(ch, 'cuisine')) cuisineTiles(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5));
+          else pending('cuisineCard');
 
           hBars(document.getElementById('countryChart'),
-            winRateBy(rows, r => r.country_code, 5).map(d => ({ ...d, label: countryName(d.label) })));
+            winRateBy(ch, r => r.country_code, 5).map(d => ({ ...d, label: countryName(d.label) })));
 
-          yearChart(document.getElementById('yearChart'), rows);
+          yearChart(document.getElementById('yearChart'), ch);
 
-          if (hasField(rows, 'weight_lb')) weightChart(document.getElementById('weightChart'), rows);
+          if (hasField(ch, 'weight_lb')) weightChart(document.getElementById('weightChart'), ch);
           else pending('weightCard');
 
-          if (hasField(rows, 'view_count')) viewsChart(document.getElementById('viewsChart'), rows);
+          if (hasField(ch, 'view_count')) viewsChart(document.getElementById('viewsChart'), ch);
           else pending('viewsCard');
         };
 

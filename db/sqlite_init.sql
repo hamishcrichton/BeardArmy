@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS challenges (
   source           TEXT,
   confidence       REAL,
   weight_lb        REAL,                  -- total challenge food weight (extraction v2.1)
+  kind             TEXT DEFAULT 'challenge', -- challenge | special (non-challenge content)
   -- Challenge difficulty scores (0-10 scale)
   food_volume_score    INTEGER DEFAULT 0,
   time_limit_score     INTEGER DEFAULT 0,
