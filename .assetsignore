@@ -1,16 +1,19 @@
-# Not part of the served site (Workers static assets upload filter)
-.github/
-data/
-db/
-docs/
-eval/
-ingestion/
-reports/
-scratch/
+# Not part of the served site (Workers static assets upload filter).
+# Leading slash anchors to the repo root so `/data/` does NOT also match
+# `public/data/` (gitignore semantics: an unanchored `data/` matches at any depth).
+/.github/
+/data/
+/db/
+/docs/
+/eval/
+/ingestion/
+/reports/
+/scratch/
+/frontend/components/
 *.md
 *.txt
 *.py
-Procfile
-requirements.txt
-runtime.txt
-wrangler.jsonc
+/Procfile
+/requirements.txt
+/runtime.txt
+/wrangler.jsonc
