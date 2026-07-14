@@ -22,12 +22,12 @@ window.BMF = (() => {
   const COLORS = { success: '#00d084', failure: '#ff4d4f', unknown: '#9ca3af' };
   const PAGES = [
     ['index', 'Overview', 'index.html'],
-    ['map', 'Map', 'map.html'],
-    ['tours', 'Tours & Series', 'tours.html'],
     ['challenges', 'All Challenges', 'challenges.html'],
     ['analytics', 'Analytics', 'analytics.html'],
     ['collabs', 'Collaborators', 'collaborators.html'],
     ['calendar', 'Calendar', 'calendar.html'],
+    ['map', 'Map', 'map.html'],
+    ['tours', 'Tours & Series', 'tours.html'],
     ['shame', 'Wall of Shame', 'shame.html'],
   ];
 

@@ -33,6 +33,15 @@
       td a { text-decoration: none; }
       td a:hover { text-decoration: underline; text-decoration-color: var(--bmf-color-brand); }
       #sentinel { height: 1px; }
+
+      /* in-table column filters */
+      .filter-row th { padding-top: 0; }
+      .colfilter { width: 100%; max-width: 180px; padding: .25rem .4rem; font-size: .72rem;
+                   font-family: var(--bmf-font-sans); color: var(--bmf-color-text);
+                   background: var(--bmf-color-frost, rgba(255,255,255,.1));
+                   border: 1px solid var(--bmf-color-border); border-radius: 6px; }
+      .colfilter option { background: var(--surface); color: var(--bmf-color-text); }
+      .colfilter.on { border-color: var(--bmf-color-brand); color: var(--bmf-color-brand); }
     </style>
   </head>
   <body>
@@ -64,6 +73,17 @@
                 <th data-key="cuisine"><button class="th-btn" data-key="cuisine">Cuisine <span class="dir"></span></button></th>
                 <th data-key="result"><button class="th-btn" data-key="result">Success? <span class="dir"></span></button></th>
                 <th class="c-views" data-key="views"><button class="th-btn" data-key="views">Views <span class="dir"></span></button></th>
+              </tr>
+              <tr class="filter-row">
+                <th></th>
+                <th></th>
+                <th><select id="fCountry" class="colfilter" aria-label="Filter by country"><option value="">All countries</option></select></th>
+                <th><select id="fCuisine" class="colfilter" aria-label="Filter by cuisine"><option value="">All cuisines</option></select></th>
+                <th><select id="fResult" class="colfilter" aria-label="Filter by result">
+                  <option value="all">All</option><option value="success">Win</option>
+                  <option value="failure">Loss</option><option value="unknown">Pending</option>
+                  <option value="special">Special</option></select></th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
@@ -225,7 +245,56 @@
         if (!btn) return;
         document.querySelectorAll('#chips .fbtn[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
         state.filter = btn.dataset.filter;
+        syncColumnFilters();
         rebuild();
+      });
+
+      /* ---- in-table column filters ---- */
+      const fCountry = document.getElementById('fCountry');
+      const fCuisine = document.getElementById('fCuisine');
+      const fResult = document.getElementById('fResult');
+
+      function populateColumnFilters() {
+        const countries = [...new Set(state.rows.map(r => r.country_code).filter(Boolean))]
+          .map(cc => [cc, countryName(cc)]).sort((a, b) => a[1].localeCompare(b[1]));
+        fCountry.insertAdjacentHTML('beforeend',
+          countries.map(([cc, n]) => `<option value="${cc}">${esc(n)}</option>`).join(''));
+        const cuisines = [...new Set(state.rows.map(r => r.cuisine).filter(Boolean))]
+          .map(k => [k, cuisineLabel(k)]).sort((a, b) => a[1].localeCompare(b[1]));
+        fCuisine.insertAdjacentHTML('beforeend',
+          cuisines.map(([k, l]) => `<option value="${esc(k)}">${esc(l)}</option>`).join(''));
+        syncColumnFilters();
+      }
+
+      function syncColumnFilters() {
+        fCountry.value = state.country || '';
+        fCuisine.value = state.cuisine || '';
+        fResult.value = state.filter;
+        for (const el of [fCountry, fCuisine]) el.classList.toggle('on', !!el.value);
+        fResult.classList.toggle('on', fResult.value !== 'all');
+      }
+
+      function setUrlParam(name, value) {
+        const p = new URLSearchParams(location.search);
+        if (value) p.set(name, value); else p.delete(name);
+        history.replaceState(null, '', location.pathname + (p.toString() ? `?${p}` : ''));
+      }
+
+      fCountry.addEventListener('change', () => {
+        state.country = fCountry.value || null;
+        setUrlParam('country', state.country);
+        syncColumnFilters(); renderActiveFilters(); rebuild();
+      });
+      fCuisine.addEventListener('change', () => {
+        state.cuisine = fCuisine.value || null;
+        setUrlParam('cuisine', state.cuisine);
+        syncColumnFilters(); renderActiveFilters(); rebuild();
+      });
+      fResult.addEventListener('change', () => {
+        state.filter = fResult.value;
+        document.querySelectorAll('#chips .fbtn[data-filter]').forEach(b =>
+          b.classList.toggle('active', b.dataset.filter === state.filter));
+        syncColumnFilters(); rebuild();
       });
 
       let searchT;
@@ -238,9 +307,8 @@
         const btn = e.target.closest('[data-clear]');
         if (!btn) return;
         state[btn.dataset.clear] = null;
-        const p = new URLSearchParams(location.search);
-        p.delete(btn.dataset.clear);
-        history.replaceState(null, '', location.pathname + (p.toString() ? `?${p}` : ''));
+        setUrlParam(btn.dataset.clear, null);
+        syncColumnFilters();
         renderActiveFilters();
         rebuild();
       });
@@ -258,6 +326,7 @@
 
       BMF.loadData().then(({ rows }) => {
         state.rows = rows;
+        populateColumnFilters();
         renderActiveFilters();
         rebuild();
       });
