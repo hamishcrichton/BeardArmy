@@ -177,6 +177,20 @@ window.BMF = (() => {
         `<a href="${href}" class="${key === active ? 'active' : ''}">${label}</a>`).join('')}</nav>`;
     const wrap = document.querySelector('.wrap') || document.body;
     wrap.insertAdjacentElement('afterbegin', el);
+
+    // Site-wide footer (fan-site disclaimer + attribution), injected here so
+    // every page gets it without per-page markup.
+    const foot = document.createElement('footer');
+    foot.className = 'sitefoot';
+    foot.innerHTML = `
+      <p>Unofficial fan site — not affiliated with or endorsed by BeardMeatsFood.
+         Stats are extracted from public
+         <a href="https://www.youtube.com/@BeardMeatsFood" rel="noopener" target="_blank">YouTube videos</a>;
+         video thumbnails remain © their owners.</p>
+      <p>Food &amp; flag icons by <a href="https://openmoji.org" rel="noopener" target="_blank">OpenMoji</a>
+         (CC BY-SA 4.0) · Maps © <a href="https://www.maptiler.com/copyright/" rel="noopener" target="_blank">MapTiler</a>
+         © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap</a> contributors.</p>`;
+    wrap.insertAdjacentElement('beforeend', foot);
   }
 
   const tooltip = (() => {

@@ -162,3 +162,11 @@ svg text { fill: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
   .nav { gap: var(--bmf-space-4); }
   .roundel { width: 54px; height: 54px; }
 }
+
+/* Site-wide footer (injected by BMF.nav) */
+.sitefoot { margin-top: var(--bmf-space-8); padding: var(--bmf-space-4) 0 var(--bmf-space-6);
+            border-top: 1px solid var(--bmf-color-border); font-size: .72rem;
+            color: var(--bmf-color-text-muted); }
+.sitefoot p { margin: .2rem 0; }
+.sitefoot a { color: inherit; text-decoration: underline; }
+.sitefoot a:hover { color: var(--bmf-color-brand); }

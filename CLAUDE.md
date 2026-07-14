@@ -93,7 +93,8 @@ Tables (see `db/sqlite_init.sql`): `videos`, `restaurants`, `challenge_types` (s
 - `frontend/components/` (Map.tsx, DataTable.tsx, Dashboard.tsx) is an **unused Next.js-ready scaffold** — no package.json, nothing imports it.
 
 ### Deployment
-Flask app in `application.py` (serves `preview/` at `/` and `public/data/` at `/public/data/`); production runs gunicorn per `Procfile`. Root `requirements.txt` (Flask + gunicorn) is the deploy manifest; `runtime.txt` pins **Python 3.11**.
+**Cloudflare Pages, static, publish directory = repo root** — the same layout the local dev server uses (`python -m http.server 8123`). Root `_redirects` + fallback `index.html` send `/` to `preview/index.html`; every push to `main` (including the nightly CI data commit) auto-redeploys. The footer/meta/favicon are injected via `preview/assets/app.js` + per-page head tags.
+Legacy: `application.py` (Flask) + `Procfile` + root `requirements.txt` + `runtime.txt` are from an earlier Elastic-Beanstalk-style plan; dormant, not used by Pages.
 
 ## CI / Automation
 
