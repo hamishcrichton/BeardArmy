@@ -110,6 +110,20 @@ def main() -> None:
                 )
         updated += 1
 
+    # Owner-adjudicated overrides outrank extraction and classification.
+    overrides_path = Path("data/overrides.json")
+    if not args.dry_run and overrides_path.exists():
+        overrides = {k: v for k, v in json.loads(overrides_path.read_text(encoding="utf-8")).items()
+                     if k != "_comment"}  # NB: real video ids can start with "_"
+        applied = 0
+        for vid, o in overrides.items():
+            cur = conn.execute(
+                "UPDATE challenges SET result = COALESCE(?, result), kind = COALESCE(?, kind), source = 'owner' WHERE video_id = ?",
+                (o.get("result"), o.get("kind"), vid),
+            )
+            applied += cur.rowcount
+        print(f"owner overrides applied: {applied}")
+
     if args.dry_run:
         after = Counter(r["result"] for r in records)
         print(f"dry-run: would update {updated} rows; v2 result distribution: {dict(after)}")
