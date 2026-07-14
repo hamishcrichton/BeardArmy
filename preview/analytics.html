@@ -14,15 +14,21 @@
       .views-row-label { font-size: 12px; opacity: .85; }
       .card svg { display: block; width: 100%; }
 
-      /* Cuisine win-rate tiles (OpenMoji colour SVGs, hotlinked from jsDelivr) */
-      .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--bmf-space-3); }
-      .ctile { text-align: center; padding: var(--bmf-space-4) var(--bmf-space-2); }
-      .ctile .ct-icon { width: 52px; height: 52px; display: block; margin: 0 auto 6px; }
-      .ctile .num { font-size: 2rem; }
-      .ctile .ct-label { font-weight: 700; font-size: .82rem; line-height: 1.25; margin-top: 2px; }
-      .ctile .label { margin-top: 4px; }
+      /* Win-rate tiles — cuisine and country share the format (OpenMoji colour
+         SVGs, hotlinked from jsDelivr). Name reads first, rate second. */
+      .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--bmf-space-3); }
+      @media (max-width: 640px) { .cgrid { grid-template-columns: 1fr; } }
+      .ctile { display: flex; align-items: center; gap: var(--bmf-space-4); text-align: left;
+               padding: 14px 18px; }
+      .ctile .ct-icon { width: 56px; height: 56px; flex: none; }
+      .ctile .ct-body { flex: 1; min-width: 0; }
+      .ctile .ct-label { font-family: var(--bmf-font-display); font-weight: 700;
+                         font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1;
+                         text-transform: uppercase; letter-spacing: .02em; }
+      .ctile .label { margin-top: 5px; }
       .ctile .label .w { color: var(--win-text); font-weight: 700; }
       .ctile .label .l { color: var(--loss-text); font-weight: 700; }
+      .ctile .num { flex: none; margin-left: auto; font-size: 2.3rem; }
     </style>
   </head>
   <body>
@@ -64,7 +70,7 @@
         <div class="chart-note">Each dot is one video (square-root view scale). White line = median; shaded band = middle 50%.</div>
       </div>
 
-      <footer class="chart-note">Food icons by <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji – openmoji.org</a> (CC BY-SA 4.0).</footer>
+      <footer class="chart-note">Food and flag icons by <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji – openmoji.org</a> (CC BY-SA 4.0).</footer>
     </div>
 
     <script src="assets/app.js"></script>
@@ -82,6 +88,10 @@
         'roast dinner': '1F372', 'other': '1F37D',
       };
       const openmoji = cp => `https://cdn.jsdelivr.net/npm/openmoji@15.1.0/color/svg/${cp}.svg`;
+      // Flag SVGs from the same set: regional-indicator pair for an alpha-2 code
+      // (e.g. GB -> 1F1EC-1F1E7.svg). All codes in the data verified to resolve.
+      const flagSeq = cc => String(cc || '').toUpperCase().split('')
+        .map(c => (0x1F1E6 + c.charCodeAt(0) - 65).toString(16).toUpperCase()).join('-');
 
       // Responsive chart width: draw 1:1 at the container's current width.
       const chartW = c => Math.max(320, Math.round(c.clientWidth || 900));
@@ -116,28 +126,6 @@
         node.addEventListener('mouseleave', tooltip.hide);
       }
 
-      // Horizontal win-rate bars: data = [{label, pct, n}]
-      function hBars(container, data) {
-        const W = chartW(container), rowH = 26, valueW = 96;
-        const labelW = Math.max(140, Math.min(210, Math.round(W * 0.3)));
-        const H = data.length * rowH + 8;
-        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
-        const plotW = W - labelW - valueW;
-        data.forEach((d, i) => {
-          const y = i * rowH + 6;
-          svg.appendChild(el('text', { x: labelW - 8, y: y + 11, 'text-anchor': 'end', 'font-size': 12 }, d.label));
-          const w = Math.max(2, plotW * d.pct / 100);
-          const bar = roundedBar(labelW, y, w, 14, true);
-          bar.setAttribute('fill', COLORS.success);
-          attachTip(bar, `<b>${esc(d.label)}</b><br>${d.pct.toFixed(1)}% win rate · ${d.n} decided`);
-          svg.appendChild(bar);
-          const val = el('text', { x: labelW + w + 8, y: y + 11, 'font-size': 12 }, `${d.pct.toFixed(0)}%`);
-          svg.appendChild(val);
-          svg.appendChild(el('text', { x: labelW + w + 44, y: y + 11, 'font-size': 11, opacity: .55 }, `n=${d.n}`));
-        });
-        container.replaceChildren(svg);
-      }
-
       function winRateBy(rows, keyFn, minN) {
         const groups = {};
         for (const r of rows) {
@@ -154,19 +142,22 @@
           .sort((a, b) => b.pct - a.pct || b.n - a.n);
       }
 
-      // Cuisine tiles: icon, humorous label, win rate as the hero number,
-      // "n bouts · W–L" detail (letters keep the verdict readable without colour).
-      function cuisineTiles(container, data) {
+      // Win-rate tiles (cuisine + country): icon flanks left, the NAME is the
+      // tile's headline, win rate is the big number, "n bouts · W–L" detail
+      // (letters keep the verdict readable without colour).
+      function tileGrid(container, data, iconUrlFor, labelFor) {
         container.innerHTML = `<div class="cgrid">${data.map(d => {
-          const icon = CUISINE_ICON[d.label];
-          const img = icon
-            ? `<img class="ct-icon" src="${openmoji(icon)}" alt="${esc(cuisineLabel(d.label))}" width="52" height="52" loading="lazy" />`
+          const url = iconUrlFor(d.label);
+          const img = url
+            ? `<img class="ct-icon" src="${url}" alt="${esc(labelFor(d.label))}" width="56" height="56" loading="lazy" onerror="this.style.display='none'" />`
             : '';
           return `<div class="tile ctile">
             ${img}
+            <div class="ct-body">
+              <div class="ct-label">${esc(labelFor(d.label))}</div>
+              <div class="label">${d.n} bouts · <span class="w">${d.w}W</span>–<span class="l">${d.n - d.w}L</span></div>
+            </div>
             <div class="num">${d.pct.toFixed(0)}%</div>
-            <div class="ct-label">${esc(cuisineLabel(d.label))}</div>
-            <div class="label">${d.n} bouts · <span class="w">${d.w}W</span>–<span class="l">${d.n - d.w}L</span></div>
           </div>`;
         }).join('')}</div>`;
       }
@@ -274,11 +265,13 @@
         const ch = rows.filter(isChallenge); // specials never carry a verdict — analytics is challenges-only
 
         const renderAll = () => {
-          if (hasField(ch, 'cuisine')) cuisineTiles(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5));
-          else pending('cuisineCard');
+          if (hasField(ch, 'cuisine')) {
+            tileGrid(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5),
+              k => CUISINE_ICON[k] ? openmoji(CUISINE_ICON[k]) : '', cuisineLabel);
+          } else pending('cuisineCard');
 
-          hBars(document.getElementById('countryChart'),
-            winRateBy(ch, r => r.country_code, 5).map(d => ({ ...d, label: countryName(d.label) })));
+          tileGrid(document.getElementById('countryChart'), winRateBy(ch, r => r.country_code, 5),
+            cc => openmoji(flagSeq(cc)), countryName);
 
           yearChart(document.getElementById('yearChart'), ch);
 

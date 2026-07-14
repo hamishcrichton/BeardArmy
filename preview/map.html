@@ -4,19 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" />
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      #map { width: 100%; height: 540px; border-radius: var(--bmf-radius-md); }
+      #map { width: 100%; height: 560px; border-radius: var(--bmf-radius-md); }
       .map-card { position: relative; }
-      .map-legend { position: absolute; bottom: 26px; left: 26px; background: rgba(26,26,26,.85); color: var(--bmf-color-text); border: 1px solid #ffffff2e; border-radius: var(--bmf-radius-md); box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-2) var(--bmf-space-3); display: flex; gap: var(--bmf-space-3); font-size: .75rem; flex-wrap: wrap; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+      .map-legend { position: absolute; bottom: 26px; left: 26px; max-width: min(420px, 70%); background: rgba(26,26,26,.85); color: var(--bmf-color-text); border: 1px solid #ffffff2e; border-radius: var(--bmf-radius-md); box-shadow: var(--bmf-shadow-2); padding: var(--bmf-space-2) var(--bmf-space-3); display: flex; gap: var(--bmf-space-2) var(--bmf-space-3); font-size: .75rem; flex-wrap: wrap; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
       .controls { display: flex; gap: var(--bmf-space-3); align-items: center; flex-wrap: wrap; margin-bottom: var(--bmf-space-4); }
-      #world { width: 100%; height: auto; display: block; }
-      .world-legend { display: flex; gap: var(--bmf-space-4); font-size: .75rem; color: var(--bmf-color-text-muted); margin-top: var(--bmf-space-2); flex-wrap: wrap; }
       .maplibregl-popup-content { background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); border-radius: 6px; box-shadow: var(--bmf-shadow-3); }
       .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--surface); }
       .maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--surface); }
@@ -24,12 +22,21 @@
       .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--surface); }
       .maplibregl-popup-close-button { color: var(--bmf-color-text); font-size: 16px; }
       .popup-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; display: block; margin-bottom: 6px; }
+      /* list popup for bubbles that can't expand (repeat venues at one spot) */
+      .lp-head { font-weight: 700; margin-bottom: 4px; }
+      .lp-scroll { max-height: 240px; overflow-y: auto; }
+      .lp-item { display: flex; gap: 8px; align-items: center; padding: .35rem 0;
+                 border-bottom: 1px solid var(--border); text-decoration: none; font-size: .78rem; }
+      .lp-item:last-child { border-bottom: 0; }
+      .lp-title { flex: 1; min-width: 0; }
+      .lp-meta { color: var(--bmf-color-text-muted); white-space: nowrap; font-size: .7rem; }
+      .lp-item .badge { flex: none; }
     </style>
   </head>
   <body>
     <div class="wrap">
       <h1>Map</h1>
-      <div class="sub">Every venue he's eaten at (or against) — click a pin for the story.</div>
+      <div class="sub">Every venue pinned, every country shaded by bout count — click a pin for the story.</div>
 
       <div class="controls" id="controls">
         <button class="fbtn active" data-filter="all">All</button>
@@ -45,22 +52,14 @@
           <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
           <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Verdict pending</span>
           <span class="chip"><span class="swatch" style="background:#f8f8f8"></span>Special (not a challenge)</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Countries visited <span class="muted" id="worldCount" style="font-weight:400"></span></h3>
-        <svg id="world" viewBox="0 0 960 430" role="img" aria-label="World map shaded by number of challenges per country"></svg>
-        <div class="world-legend">
-          <span class="chip"><span class="swatch" style="background:#14654a"></span>1–4 challenges</span>
+          <span class="chip"><span class="swatch" style="background:#14654a"></span>1–4 bouts</span>
           <span class="chip"><span class="swatch" style="background:#00915d"></span>5–49</span>
           <span class="chip"><span class="swatch" style="background:#00d084"></span>50+</span>
-          <span class="chip"><span class="swatch" style="background:rgba(255,255,255,.05);border:1px solid #ffffff2e"></span>Not yet visited</span>
         </div>
       </div>
     </div>
 
-    <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
     <script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
     <script src="assets/config.js"></script>
     <script src="assets/app.js"></script>
@@ -85,6 +84,7 @@
         state.map.getSource('challenges').setData({ type: 'FeatureCollection', features: filteredFeatures() });
       }
 
+      /* ---- popups ---- */
       function popupHtml(p) {
         const special = p.kind === 'special';
         const label = special ? 'SPECIAL — not a challenge'
@@ -94,7 +94,7 @@
           : p.result === 'success' ? 'var(--win-text)'
           : p.result === 'failure' ? 'var(--loss-text)' : 'var(--unknown-text)';
         const thumb = p.thumbnail_url
-          ? `<img class="popup-thumb" src="${esc(p.thumbnail_url)}" alt="" loading="lazy" />` : '';
+          ? `<img class="popup-thumb" src="${esc(p.thumbnail_url)}" alt="" loading="lazy" onerror="this.style.display='none'" />` : '';
         return `
           <div style="min-width:220px;max-width:280px">
             ${thumb}
@@ -106,16 +106,156 @@
           </div>`;
       }
 
+      function countryHtml(p) {
+        if (!p.count) return `<b>${esc(p.name)}</b><br>Not yet visited`;
+        return `<b>${esc(p.name)}</b><br>${p.count} bout${p.count === 1 ? '' : 's'} ·
+          <span style="color:var(--win-text)">${p.wins}W</span>–<span style="color:var(--loss-text)">${p.losses}L</span>`;
+      }
+
+      function badgeHtml(p) {
+        if (p.kind === 'special') return '<span class="badge special">SPECIAL</span>';
+        if (p.result === 'success') return '<span class="badge win">WIN</span>';
+        if (p.result === 'failure') return '<span class="badge loss">LOSS</span>';
+        return '<span class="badge unknown">PENDING</span>';
+      }
+
+      // Scrollable list popup for clusters that can't expand by zooming
+      // (repeat venues: many challenges at one lat/lng).
+      function listPopupHtml(leaves) {
+        const items = leaves
+          .slice()
+          .sort((a, b) => String(a.properties.date_attempted || '').localeCompare(String(b.properties.date_attempted || '')))
+          .map(l => {
+            const p = l.properties;
+            return `<a class="lp-item" href="${yt(p.video_id)}" target="_blank" rel="noopener">
+              <span class="lp-title">${esc(cleanTitle(p.title))}</span>
+              <span class="lp-meta">${fmtDate(p.date_attempted)}</span>
+              ${badgeHtml(p)}
+            </a>`;
+          }).join('');
+        const first = leaves[0] && leaves[0].properties;
+        const venue = first && first.restaurant ? first.restaurant : 'This spot';
+        return `<div>
+          <div class="lp-head">${esc(venue)} — ${leaves.length} videos</div>
+          <div class="lp-scroll">${items}</div>
+        </div>`;
+      }
+
+      /* ---- runtime pin images (teardrop, canvas-drawn; no image assets) ---- */
+      function makePin(color) {
+        const s = 2, w = 26, h = 34; // logical px, drawn at 2x for crispness
+        const cv = document.createElement('canvas');
+        cv.width = w * s; cv.height = h * s;
+        const ctx = cv.getContext('2d');
+        ctx.scale(s, s);
+        ctx.beginPath();
+        ctx.moveTo(13, 32.5);                             // tip
+        ctx.bezierCurveTo(9.5, 25.5, 3.5, 20, 3.5, 12.5); // left flank up
+        ctx.arc(13, 12.5, 9.5, Math.PI, 2 * Math.PI, false); // head (top arc)
+        ctx.bezierCurveTo(22.5, 20, 16.5, 25.5, 13, 32.5); // right flank down
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.stroke();
+        ctx.beginPath();                                   // pin hole
+        ctx.arc(13, 12.5, 3.6, 0, 2 * Math.PI);
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fill();
+        return ctx.getImageData(0, 0, w * s, h * s);
+      }
+
+      /* ---- choropleth (fill layer under the data layers; true challenges only) ---- */
+      const A2_NAME = {
+        GB: 'United Kingdom', US: 'United States of America', IE: 'Ireland', DE: 'Germany',
+        NL: 'Netherlands', BE: 'Belgium', FR: 'France', ES: 'Spain', IT: 'Italy', AT: 'Austria',
+        CZ: 'Czechia', PL: 'Poland', SE: 'Sweden', CA: 'Canada', AU: 'Australia',
+        NZ: 'New Zealand', AE: 'United Arab Emirates', SG: 'Singapore', TH: 'Thailand',
+        CH: 'Switzerland', PT: 'Portugal', MX: 'Mexico', JP: 'Japan', DK: 'Denmark',
+        NO: 'Norway', FI: 'Finland', IS: 'Iceland', DO: 'Dominican Republic',
+      };
+      // Sequential one-hue ramp (dark -> bright = more challenges), validated on #242424
+      // (ordinal checks pass: monotone L, ΔL >= .06, dark end 2.2:1 vs surface).
+      function shade(count) {
+        if (count >= 50) return '#00d084';
+        if (count >= 5) return '#00915d';
+        if (count >= 1) return '#14654a';
+        return 'rgba(255,255,255,.05)'; // unvisited: near-invisible
+      }
+
+      async function addCountries(map) {
+        const resp = await fetch('assets/countries-110m.json');
+        if (!resp.ok) return;
+        const topo = await resp.json();
+        const fc = topojson.feature(topo, topo.objects.countries);
+
+        const byName = {};
+        for (const r of state.rows) {
+          if (!isChallenge(r)) continue;
+          const name = A2_NAME[r.country_code];
+          if (!name) continue;
+          const b = byName[name] || (byName[name] = { count: 0, wins: 0, losses: 0 });
+          b.count += 1;
+          if (r.result === 'success') b.wins += 1;
+          if (r.result === 'failure') b.losses += 1;
+        }
+
+        fc.features = fc.features.filter(f => f.properties.name !== 'Antarctica');
+        for (const f of fc.features) {
+          const stat = byName[f.properties.name] || { count: 0, wins: 0, losses: 0 };
+          f.properties.count = stat.count;
+          f.properties.wins = stat.wins;
+          f.properties.losses = stat.losses;
+          f.properties.fill = shade(stat.count);
+        }
+
+        map.addSource('countries', { type: 'geojson', data: fc });
+        // insert below the basemap's first symbol layer so place labels stay readable
+        const firstSymbol = (map.getStyle().layers.find(l => l.type === 'symbol') || {}).id;
+        map.addLayer({ id: 'country-fill', type: 'fill', source: 'countries', paint: {
+          'fill-color': ['get', 'fill'], 'fill-opacity': .5, 'fill-outline-color': '#ffffff1f',
+        }}, firstSymbol);
+
+        // hover tooltip (suppressed while over pins/clusters) + click popup for touch
+        map.on('mousemove', 'country-fill', (e) => {
+          const over = map.queryRenderedFeatures(e.point, { layers: ['clusters', 'points'] });
+          if (over.length) { BMF.tooltip.hide(); return; }
+          const f = e.features && e.features[0];
+          if (f) BMF.tooltip.show(e.originalEvent, countryHtml(f.properties));
+        });
+        map.on('mouseleave', 'country-fill', () => BMF.tooltip.hide());
+        map.on('click', 'country-fill', (e) => {
+          try {
+            const over = map.queryRenderedFeatures(e.point, { layers: ['clusters', 'points'] });
+            if (over.length) return; // a pin/cluster handles this click
+            const f = e.features && e.features[0];
+            if (!f) return;
+            BMF.tooltip.hide();
+            new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(countryHtml(f.properties)).addTo(map);
+          } catch (err) {
+            console.warn('country click failed:', err);
+          }
+        });
+      }
+
       function initMap(key) {
         const styleUrl = `https://api.maptiler.com/maps/streets-v2-dark/style.json?key=${encodeURIComponent(key)}`;
         const map = new maplibregl.Map({ container: 'map', style: styleUrl, center: [-20, 40], zoom: 1.8 });
         state.map = map;
         map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
-        map.on('load', () => {
+        map.on('load', async () => {
+          // status pins (teardrops), drawn at runtime
+          map.addImage('pin-win', makePin(COLORS.success), { pixelRatio: 2 });
+          map.addImage('pin-loss', makePin(COLORS.failure), { pixelRatio: 2 });
+          map.addImage('pin-pending', makePin(COLORS.unknown), { pixelRatio: 2 });
+          map.addImage('pin-special', makePin('#f8f8f8'), { pixelRatio: 2 });
+
+          const CLUSTER_MAX_ZOOM = 9;
           map.addSource('challenges', {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: filteredFeatures() },
-            cluster: true, clusterRadius: 42, clusterMaxZoom: 9
+            cluster: true, clusterRadius: 42, clusterMaxZoom: CLUSTER_MAX_ZOOM
           });
           map.addLayer({ id: 'clusters', type: 'circle', source: 'challenges', filter: ['has', 'point_count'], paint: {
             'circle-color': '#4b5563', 'circle-opacity': .85,
@@ -124,27 +264,54 @@
           }});
           map.addLayer({ id: 'cluster-count', type: 'symbol', source: 'challenges', filter: ['has', 'point_count'],
             layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12 }, paint: { 'text-color': '#ffffff' }});
-          map.addLayer({ id: 'points', type: 'circle', source: 'challenges', filter: ['!', ['has', 'point_count']], paint: {
-            'circle-radius': 6,
-            // specials get a distinct white pin (they carry no verdict); popup + legend name it
-            'circle-color': ['case', ['==', ['get', 'kind'], 'special'], '#f8f8f8',
-              ['match', ['get', 'result'], 'success', COLORS.success, 'failure', COLORS.failure, COLORS.unknown]],
-            'circle-stroke-width': 1.5, 'circle-stroke-color': '#1a1a1a'
-          }});
+          map.addLayer({ id: 'points', type: 'symbol', source: 'challenges', filter: ['!', ['has', 'point_count']],
+            layout: {
+              'icon-image': ['case', ['==', ['get', 'kind'], 'special'], 'pin-special',
+                ['match', ['get', 'result'], 'success', 'pin-win', 'failure', 'pin-loss', 'pin-pending']],
+              'icon-anchor': 'bottom',
+              'icon-allow-overlap': true,
+            }});
+          // Cluster click: zoom to expansion when the cluster genuinely splits;
+          // when it can't (expansion zoom beyond clustering range — coincident
+          // repeat-venue points), open a scrollable list popup instead.
+          // MapLibre 5.x: source cluster methods return Promises.
           map.on('click', 'clusters', async (e) => {
-            const f = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0];
-            const zoom = await map.getSource('challenges').getClusterExpansionZoom(f.properties.cluster_id);
-            map.easeTo({ center: f.geometry.coordinates, zoom });
+            try {
+              const f = (map.queryRenderedFeatures(e.point, { layers: ['clusters'] }) || [])[0];
+              if (!f || f.properties.cluster_id == null) return;
+              const src = map.getSource('challenges');
+              const clusterId = f.properties.cluster_id;
+              const count = f.properties.point_count || 2;
+              const zoom = await src.getClusterExpansionZoom(clusterId);
+              if (Number.isFinite(zoom) && zoom <= CLUSTER_MAX_ZOOM) {
+                const clamped = Math.min(Math.max(zoom, map.getMinZoom()), map.getMaxZoom());
+                map.easeTo({ center: f.geometry.coordinates, zoom: clamped });
+                return;
+              }
+              // can't expand by zooming — list everything under the bubble
+              const leaves = await src.getClusterLeaves(clusterId, Math.min(count, 100), 0);
+              if (!leaves || !leaves.length) return;
+              new maplibregl.Popup({ closeButton: true, maxWidth: '320px' })
+                .setLngLat(f.geometry.coordinates).setHTML(listPopupHtml(leaves)).addTo(map);
+            } catch (err) {
+              console.warn('cluster click failed:', err);
+            }
           });
           map.on('click', 'points', (e) => {
-            const f = e.features && e.features[0];
-            if (!f) return;
-            new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(popupHtml(f.properties)).addTo(map);
+            try {
+              const f = (e.features || [])[0];
+              if (!f) return;
+              new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(popupHtml(f.properties)).addTo(map);
+            } catch (err) {
+              console.warn('point click failed:', err);
+            }
           });
           ['clusters', 'points'].forEach(l => {
             map.on('mouseenter', l, () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', l, () => map.getCanvas().style.cursor = '');
           });
+
+          await addCountries(map);
         });
       }
 
@@ -156,89 +323,6 @@
         state.filter = btn.dataset.filter;
         applyFilters();
       });
-
-      /* ---- countries visited (SVG choropleth; true challenges only) ---- */
-      const A2_NAME = {
-        GB: 'United Kingdom', US: 'United States of America', IE: 'Ireland', DE: 'Germany',
-        NL: 'Netherlands', BE: 'Belgium', FR: 'France', ES: 'Spain', IT: 'Italy', AT: 'Austria',
-        CZ: 'Czechia', PL: 'Poland', SE: 'Sweden', CA: 'Canada', AU: 'Australia',
-        NZ: 'New Zealand', AE: 'United Arab Emirates', SG: 'Singapore', TH: 'Thailand',
-        CH: 'Switzerland', PT: 'Portugal', MX: 'Mexico', JP: 'Japan', DK: 'Denmark',
-        NO: 'Norway', FI: 'Finland', IS: 'Iceland', DO: 'Dominican Republic',
-      };
-      const W = 960, H = 430, LAT_MAX = 84, LAT_MIN = -56; // clip poles/Antarctica band
-      const px = ([lon, lat]) => [
-        (lon + 180) / 360 * W,
-        (LAT_MAX - lat) / (LAT_MAX - LAT_MIN) * H,
-      ];
-      function ringPath(ring) {
-        // Skip rings entirely outside the latitude window (far-north islands etc.)
-        if (ring.every(([, lat]) => lat > LAT_MAX) || ring.every(([, lat]) => lat < LAT_MIN)) return '';
-        // Start a new subpath on antimeridian jumps instead of drawing across the map
-        let d = '', prevX = null;
-        for (const c of ring) {
-          const [x, y] = px(c);
-          d += (prevX === null || Math.abs(x - prevX) > W / 2)
-            ? `M${x.toFixed(1)},${y.toFixed(1)}`
-            : `L${x.toFixed(1)},${y.toFixed(1)}`;
-          prevX = x;
-        }
-        return d + 'Z';
-      }
-      function geomPath(geom) {
-        const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
-        return polys.map(rings => rings.map(ringPath).join('')).join('');
-      }
-      // Sequential one-hue ramp (dark -> bright = more challenges), validated on #242424
-      // (ordinal checks pass: monotone L, ΔL >= .06, dark end 2.2:1 vs surface).
-      function shade(count) {
-        if (count >= 50) return '#00d084';
-        if (count >= 5) return '#00915d';
-        if (count >= 1) return '#14654a';
-        return 'rgba(255,255,255,.05)';
-      }
-
-      async function renderWorld(rows) {
-        const resp = await fetch('assets/countries-110m.json');
-        if (!resp.ok) return;
-        const topo = await resp.json();
-        const fc = topojson.feature(topo, topo.objects.countries);
-
-        const byName = {};
-        for (const r of rows) {
-          if (!isChallenge(r)) continue;
-          const name = A2_NAME[r.country_code];
-          if (!name) continue;
-          const b = byName[name] || (byName[name] = { count: 0, wins: 0, losses: 0 });
-          b.count += 1;
-          if (r.result === 'success') b.wins += 1;
-          if (r.result === 'failure') b.losses += 1;
-        }
-
-        const svg = document.getElementById('world');
-        svg.innerHTML = fc.features
-          .filter(f => f.properties.name !== 'Antarctica')
-          .map((f, i) => {
-            const stat = byName[f.properties.name];
-            return `<path d="${geomPath(f.geometry)}" fill="${shade(stat ? stat.count : 0)}"
-                      stroke="#ffffff1f" stroke-width="0.5" data-i="${i}"></path>`;
-          }).join('');
-
-        const feats = fc.features.filter(f => f.properties.name !== 'Antarctica');
-        svg.addEventListener('mousemove', (e) => {
-          const path = e.target.closest('path');
-          if (!path) { BMF.tooltip.hide(); return; }
-          const f = feats[Number(path.dataset.i)];
-          const stat = byName[f.properties.name];
-          BMF.tooltip.show(e, stat
-            ? `<b>${esc(f.properties.name)}</b><br>${stat.count} challenge${stat.count === 1 ? '' : 's'} · <span style="color:var(--win-text)">${stat.wins}W</span>–<span style="color:var(--loss-text)">${stat.losses}L</span>`
-            : `<b>${esc(f.properties.name)}</b><br>Not yet visited`);
-        });
-        svg.addEventListener('mouseleave', BMF.tooltip.hide);
-
-        document.getElementById('worldCount').textContent =
-          `— ${Object.keys(byName).length} countries conquered so far`;
-      }
 
       /* ---- boot ---- */
       // Map key comes from assets/config.js (window.BMF_CONFIG.maptilerKey) —
@@ -256,7 +340,6 @@
       BMF.loadData().then(({ rows, features }) => {
         state.rows = rows;
         state.features = features;
-        renderWorld(rows);
         bootMap();
       });
     </script>
