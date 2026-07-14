@@ -89,7 +89,7 @@ Tables (see `db/sqlite_init.sql`): `videos`, `restaurants`, `challenge_types` (s
 - SQLite (`data/app.db`) is the maintained path. The PostgreSQL schema (`db/001_init.sql`) lags SQLite — it lacks `food_type` and the six score columns, so publish would fail on Postgres.
 
 ### Frontend
-- `preview/index.html` is the real UI: single static file, no build step, MapLibre GL via CDN, MapTiler key pasted into the page, fetches `../public/data/challenges.geojson` and `table.json`. Styled by `frontend/styles/tokens.css` (BMF brand tokens).
+- `preview/` is the real UI: five static pages (index, map, analytics, collaborators, shame), no build step, shared contract in `preview/assets/app.js` + `app.css`, MapLibre GL via CDN. The MapTiler key lives in `preview/assets/config.js` (client-visible by design; abuse guarded by origin restriction in the MapTiler dashboard, not secrecy). Data via `../public/data/*.json`. Styled by `frontend/styles/tokens.css` ("Butcher's Paper" tokens).
 - `frontend/components/` (Map.tsx, DataTable.tsx, Dashboard.tsx) is an **unused Next.js-ready scaffold** — no package.json, nothing imports it.
 
 ### Deployment

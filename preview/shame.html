@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Wall of Shame</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* The wall: taped snapshots pinned straight onto the dark ground */
+      .shame-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+                    gap: var(--bmf-space-6) var(--bmf-space-4); margin-top: var(--bmf-space-6); }
+      .shame-grid .snap { transform: rotate(-1.4deg); transition: transform .15s ease; }
+      .shame-grid .snap:nth-child(2n) { transform: rotate(1.3deg); }
+      .shame-grid .snap:nth-child(3n) { transform: rotate(-.5deg); }
+      .shame-grid .snap:hover { transform: rotate(0) scale(1.04); z-index: 2; }
+      .shame-grid img { filter: saturate(.9); }
+      .shame-grid .snap:hover img { filter: none; }
+      .shame-grid .cap { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Wall of Shame</h1>
+      <div class="sub" id="shameSub">The ones that got away — every challenge that beat the Beard.</div>
+
+      <div class="shame-grid" id="shame"></div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmtDate, isChallenge } = BMF;
+
+      BMF.loadData().then(({ rows }) => {
+        BMF.nav('shame');
+
+        const losses = rows.filter(r => isChallenge(r) && r.result === 'failure' && r.thumbnail_url)
+          .sort((a, b) => String(b.date_attempted).localeCompare(String(a.date_attempted)));
+
+        document.getElementById('shameSub').textContent =
+          `The ones that got away — all ${losses.length} challenges that beat the Beard. Click to relive it.`;
+
+        document.getElementById('shame').innerHTML = losses.map(r => `
+          <a class="snap" href="${yt(r.video_id)}" target="_blank" rel="noopener"
+             title="${esc(cleanTitle(r.title))} — ${fmtDate(r.date_attempted)}">
+            <img loading="lazy" src="${esc(r.thumbnail_url)}" alt="${esc(cleanTitle(r.title))}" />
+            <span class="cap">${esc(cleanTitle(r.title))}</span>
+          </a>`).join('');
+      });
+    </script>
+  </body>
+</html>

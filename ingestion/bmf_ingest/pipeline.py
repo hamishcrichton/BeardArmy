@@ -286,6 +286,7 @@ class Pipeline:
                    ct.slug AS type,
                    c.food_type,
                    c.weight_lb,
+                   c.kind,
                    v.view_count,
                    (SELECT GROUP_CONCAT(col.name, '|')
                       FROM challenge_collaborators cc
@@ -337,6 +338,7 @@ class Pipeline:
                     "type": r["type"],
                     "food_type": r.get("food_type"),
                     "cuisine": cuisine_bucket(r.get("food_type")),
+                    "kind": r.get("kind") or "challenge",
                     "weight_lb": r.get("weight_lb"),
                     "view_count": r.get("view_count"),
                     "collaborators": (r.get("collaborators") or "").split("|") if r.get("collaborators") else [],

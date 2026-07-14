@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Tours &amp; Series</title>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* Trip rows (dense), grouped Continent -> Country -> (US state) */
+      .continent-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2rem; line-height: 1;
+                        text-transform: uppercase; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.16);
+                        padding-bottom: 6px; margin: var(--bmf-space-6) 0 var(--bmf-space-2); }
+      #trips .continent-head:first-child { margin-top: 0; }
+      .country-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.3rem; line-height: 1;
+                      text-transform: uppercase; letter-spacing: .04em; margin: var(--bmf-space-4) 0 var(--bmf-space-1); }
+      .state-head { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+                    color: var(--bmf-color-text-muted); margin: var(--bmf-space-2) 0 2px; }
+      .trip-rows { margin-bottom: var(--bmf-space-3); }
+      .trip-row { display: grid; grid-template-columns: minmax(150px, 1.5fr) minmax(210px, 1.7fr) 84px minmax(130px, 1fr);
+                  gap: var(--bmf-space-3); align-items: baseline; width: 100%;
+                  background: transparent; border: 0; border-left: 3px solid transparent;
+                  border-bottom: 1px solid var(--border); padding: .45rem .5rem;
+                  color: var(--bmf-color-text); font-family: var(--bmf-font-sans); font-size: .85rem;
+                  text-align: left; cursor: pointer; }
+      .trip-row:hover { background: rgba(255,255,255,.05); }
+      /* selected = neon left rule + neon underline on the name, never a fill */
+      .trip-row.active { border-left-color: var(--bmf-color-brand); }
+      .trip-row.active .tr-name { text-decoration: underline 2px; text-underline-offset: 3px;
+                                  text-decoration-color: var(--bmf-color-brand); }
+      .tr-name { font-weight: 600; }
+      .tr-dates, .tr-bouts { color: var(--bmf-color-text-muted); font-size: .78rem; white-space: nowrap; }
+      .tr-wl { white-space: nowrap; }
+      .tr-wl .w { color: var(--win-text); font-weight: 700; } .tr-wl .l { color: var(--loss-text); font-weight: 700; }
+      .tr-wl .sp { color: var(--bmf-color-text-muted); font-size: .78rem; }
+      @media (max-width: 640px) {
+        .trip-row { grid-template-columns: 1fr auto; }
+        .tr-dates, .tr-bouts { display: none; }
+      }
+
+      /* Detail: focused map + episodes */
+      .detail-title { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2.4rem; line-height: 1;
+                      text-transform: uppercase; letter-spacing: .02em; margin: 0 0 4px; }
+      .detail-sub { color: var(--bmf-color-text-muted); margin: 0 0 var(--bmf-space-4); }
+      #map { width: 100%; height: 380px; border-radius: var(--bmf-radius-md); }
+      .maplibregl-popup-content { background: var(--surface); color: var(--bmf-color-text); font-family: var(--bmf-font-sans); border-radius: 6px; box-shadow: var(--bmf-shadow-3); }
+      .maplibregl-popup-anchor-bottom .maplibregl-popup-tip { border-top-color: var(--surface); }
+      .maplibregl-popup-anchor-top .maplibregl-popup-tip { border-bottom-color: var(--surface); }
+      .maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--surface); }
+      .maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--surface); }
+      .maplibregl-popup-close-button { color: var(--bmf-color-text); font-size: 16px; }
+
+      /* Episode list */
+      .ep { display: flex; align-items: center; gap: var(--bmf-space-3); padding: .55rem 0;
+            border-bottom: 1px solid var(--border); text-decoration: none; }
+      .ep:last-child { border-bottom: 0; }
+      .ep-thumb { width: 120px; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; flex: none; }
+      .ep-body { min-width: 0; }
+      .ep-title { display: block; font-weight: 500; line-height: 1.3; }
+      .ep-date { display: block; font-size: .78rem; color: var(--bmf-color-text-muted); margin-top: 2px; }
+      .ep .badge { margin-left: auto; flex: none; }
+      @media (max-width: 480px) { .ep-thumb { width: 92px; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Tours &amp; Series</h1>
+      <div class="sub">Away days — every miniseries and international trip, mapped and itemised. Pick one.</div>
+
+      <div id="trips"></div>
+
+      <section id="detail" hidden>
+        <h2 class="detail-title" id="tripTitle"></h2>
+        <p class="detail-sub" id="tripSub"></p>
+        <div class="card"><div id="map"></div></div>
+        <div class="card">
+          <h3>Episodes</h3>
+          <div id="episodes"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+    <script src="assets/config.js"></script>
+    <script src="assets/app.js"></script>
+    <script>
+      const { COLORS, esc, yt, cleanTitle, fmtDate, countryName, isChallenge } = BMF;
+
+      const state = { trips: new Map(), features: [], map: null, mapReady: false, selected: null };
+
+      function badgeFor(r) {
+        if (!isChallenge(r)) return '<span class="badge special">SPECIAL</span>';
+        if (r.result === 'success') return '<span class="badge win">WIN</span>';
+        if (r.result === 'failure') return '<span class="badge loss">LOSS</span>';
+        return '<span class="badge unknown">PENDING</span>';
+      }
+
+      /* ---- trips index ---- */
+      function buildTrips(rows) {
+        for (const r of rows) {
+          if (!r.trip_name) continue;
+          const t = state.trips.get(r.trip_name) || { rows: [], first: '9999', last: '', countries: new Set() };
+          t.rows.push(r);
+          const d = (r.date_attempted || '').slice(0, 10);
+          if (d) { if (d < t.first) t.first = d; if (d > t.last) t.last = d; }
+          if (r.country_code) t.countries.add(r.country_code);
+          state.trips.set(r.trip_name, t);
+        }
+      }
+
+      /* ---- geography for grouping ---- */
+      const CONTINENT = {
+        GB: 'Europe', IE: 'Europe', DE: 'Europe', NL: 'Europe', BE: 'Europe', FR: 'Europe',
+        ES: 'Europe', IT: 'Europe', AT: 'Europe', CZ: 'Europe', PL: 'Europe', SE: 'Europe',
+        DK: 'Europe', NO: 'Europe', FI: 'Europe', IS: 'Europe', PT: 'Europe', CH: 'Europe',
+        US: 'North America', CA: 'North America', MX: 'North America', DO: 'North America',
+        SG: 'Asia & Oceania', TH: 'Asia & Oceania', JP: 'Asia & Oceania', AE: 'Asia & Oceania',
+        AU: 'Asia & Oceania', NZ: 'Asia & Oceania',
+      };
+      const CONTINENT_ORDER = ['Europe', 'North America', 'Asia & Oceania', 'Elsewhere'];
+
+      // City -> state for the US city values present in table.json. Genuinely
+      // ambiguous or unrecognised cities are omitted and fall under "Various".
+      const US_CITY_STATE = {
+        'Ann Arbor': 'Michigan', 'Atlanta': 'Georgia', 'Bay Town': 'Texas', 'Bennington': 'Vermont',
+        'Boise': 'Idaho', 'Boulder City': 'Nevada', 'Buffalo': 'New York', 'Carrollton': 'Texas',
+        'Celebration': 'Florida', 'Charlotte': 'North Carolina', 'Cherry Hill': 'New Jersey',
+        'Chicago': 'Illinois', 'Cleveland': 'Ohio', 'Colon': 'Michigan', 'Columbiaville': 'Michigan',
+        'Coney Island': 'New York', 'Connecticut': 'Connecticut', 'Copperas Cove': 'Texas',
+        'Dallas': 'Texas', 'Deltona': 'Florida', 'Dickson': 'Tennessee', 'Dyersburg': 'Tennessee',
+        'Easley': 'South Carolina', 'El Cajon': 'California', 'Florida': 'Florida',
+        'Fort Worth': 'Texas', 'Gainesville': 'Florida', 'Georgia': 'Georgia', 'Globe': 'Arizona',
+        'Greenville': 'South Carolina', 'Hampton Falls': 'New Hampshire', 'Harker Heights': 'Texas',
+        'Henderson': 'Nevada', 'Houston': 'Texas', 'Islip': 'New York', 'Kennesaw': 'Georgia',
+        'Killeen': 'Texas', 'Kingman': 'Arizona', 'Ladonia': 'Texas', 'Las Vegas': 'Nevada',
+        'Logan': 'Utah', 'Long Beach': 'California', 'Long Island': 'New York',
+        'Los Angeles': 'California', 'Manhattan': 'New York', 'Massapequa': 'New York',
+        'McAlester': 'Oklahoma', 'Mesa': 'Arizona', 'Miami': 'Florida', 'Milwaukee': 'Wisconsin',
+        'Murfreesboro': 'Tennessee', 'Nashville': 'Tennessee', 'New Jersey': 'New Jersey',
+        'New Orleans': 'Louisiana', 'New York': 'New York', 'Newfane': 'New York',
+        'Newington': 'Connecticut', 'Noble': 'Oklahoma', 'Norman': 'Oklahoma',
+        'North Carolina': 'North Carolina', 'Oklahoma City': 'Oklahoma', 'Ontario': 'California',
+        'Orlando': 'Florida', 'Philadelphia': 'Pennsylvania', 'Plantersville': 'Texas',
+        'Port Orange': 'Florida', 'Portland': 'Oregon', 'Pottstown': 'Pennsylvania',
+        'Prescott': 'Arizona', 'Provo': 'Utah', 'Punta Gorda': 'Florida', 'Raleigh': 'North Carolina',
+        'Rockford': 'Illinois', 'Rogersville': 'Tennessee', 'Saginaw': 'Michigan',
+        'San Antonio': 'Texas', 'San Diego': 'California', 'Schenectady': 'New York',
+        'Schuylerville': 'New York', 'Scottsdale': 'Arizona', 'Sebring': 'Florida',
+        'South Carolina': 'South Carolina', 'Spring': 'Texas', 'St Clair': 'Michigan',
+        'St. George': 'Utah', 'Syosset': 'New York', 'Syracuse': 'New York',
+        'Tallapoosa': 'Georgia', 'Tavares': 'Florida', 'Temecula': 'California',
+        'Titusville': 'Florida', 'Tompkinsville': 'Kentucky', 'Tucker': 'Georgia',
+        'Tucson': 'Arizona', 'Twin Falls': 'Idaho', 'Vineyard': 'Utah', 'Waco': 'Texas',
+        'West Chester': 'Pennsylvania', 'Willimantic': 'Connecticut', 'Winter Garden': 'Florida',
+      };
+
+      function mode(values) {
+        const counts = {};
+        let best = null;
+        for (const v of values) {
+          if (v == null || v === '') continue;
+          counts[v] = (counts[v] || 0) + 1;
+          if (best === null || counts[v] > counts[best]) best = v;
+        }
+        return best;
+      }
+
+      const dominantCountry = t => mode(t.rows.map(r => r.country_code));
+      const dominantState = t => mode(t.rows.filter(r => r.country_code === 'US')
+        .map(r => US_CITY_STATE[(r.city || '').trim()] || 'Various')) || 'Various';
+
+      function tripRowHtml(name) {
+        const t = state.trips.get(name);
+        const ch = t.rows.filter(isChallenge);
+        const w = ch.filter(r => r.result === 'success').length;
+        const l = ch.filter(r => r.result === 'failure').length;
+        const sp = t.rows.length - ch.length;
+        return `<button class="trip-row" data-trip="${esc(name)}">
+          <span class="tr-name">${esc(name)}</span>
+          <span class="tr-dates">${fmtDate(t.first)} → ${fmtDate(t.last)}</span>
+          <span class="tr-bouts">${ch.length} bout${ch.length === 1 ? '' : 's'}</span>
+          <span class="tr-wl"><span class="w">${w}W</span>–<span class="l">${l}L</span>${sp ? ` <span class="sp">· ${sp} special${sp === 1 ? '' : 's'}</span>` : ''}</span>
+        </button>`;
+      }
+
+      function renderTripGroups() {
+        const names = [...state.trips.keys()];
+        // continent -> country display name -> state ('' when not US) -> [trip names]
+        const tree = new Map();
+        for (const name of names) {
+          const t = state.trips.get(name);
+          const cc = dominantCountry(t);
+          const continent = CONTINENT[cc] || 'Elsewhere';
+          const country = countryName(cc);
+          const st = cc === 'US' ? dominantState(t) : '';
+          const byCountry = tree.get(continent) || new Map();
+          tree.set(continent, byCountry);
+          const byState = byCountry.get(country) || new Map();
+          byCountry.set(country, byState);
+          const arr = byState.get(st) || [];
+          byState.set(st, arr);
+          arr.push(name);
+        }
+        const byFirst = (a, b) => state.trips.get(a).first.localeCompare(state.trips.get(b).first);
+        let html = '';
+        for (const continent of CONTINENT_ORDER) {
+          const byCountry = tree.get(continent);
+          if (!byCountry) continue;
+          html += `<h2 class="continent-head">${esc(continent)}</h2>`;
+          for (const country of [...byCountry.keys()].sort()) {
+            html += `<h3 class="country-head">${esc(country)}</h3>`;
+            const byState = byCountry.get(country);
+            const states = [...byState.keys()]
+              .sort((a, b) => (a === 'Various') - (b === 'Various') || a.localeCompare(b)); // Various last
+            for (const st of states) {
+              if (st) html += `<h4 class="state-head">${esc(st)}</h4>`;
+              html += `<div class="trip-rows">${byState.get(st).sort(byFirst).map(tripRowHtml).join('')}</div>`;
+            }
+          }
+        }
+        document.getElementById('trips').innerHTML = html;
+        return names.sort(byFirst);
+      }
+
+      /* ---- selection ---- */
+      function select(name) {
+        state.selected = name;
+        document.querySelectorAll('.trip-row').forEach(b => b.classList.toggle('active', b.dataset.trip === name));
+        const t = state.trips.get(name);
+        if (!t) return;
+        document.getElementById('detail').hidden = false;
+        document.getElementById('tripTitle').textContent = name;
+        document.getElementById('tripSub').textContent =
+          `${fmtDate(t.first)} → ${fmtDate(t.last)} · ${[...t.countries].map(countryName).join(' · ')}`;
+        renderEpisodes(t);
+        updateMap(name);
+      }
+
+      function renderEpisodes(t) {
+        const eps = [...t.rows].sort((a, b) => String(a.date_attempted).localeCompare(String(b.date_attempted)));
+        document.getElementById('episodes').innerHTML = eps.map(r => `
+          <a class="ep" href="${yt(r.video_id)}" target="_blank" rel="noopener">
+            ${r.thumbnail_url ? `<img class="ep-thumb" loading="lazy" src="${esc(r.thumbnail_url)}" alt="" />` : ''}
+            <span class="ep-body">
+              <span class="ep-title">${esc(cleanTitle(r.title))}</span>
+              <span class="ep-date">${fmtDate(r.date_attempted)}${r.restaurant ? ' · ' + esc(r.restaurant) : ''}</span>
+            </span>
+            ${badgeFor(r)}
+          </a>`).join('');
+      }
+
+      /* ---- focused map ---- */
+      function tripFeatures(name) {
+        return state.features.filter(f => f.properties.trip_name === name);
+      }
+
+      function updateMap(name) {
+        if (!state.mapReady) return; // applied on map load
+        const feats = tripFeatures(name);
+        const mapCard = document.getElementById('map').closest('.card');
+        mapCard.style.display = feats.length ? '' : 'none';
+        if (!feats.length) return;
+        state.map.getSource('pins').setData({ type: 'FeatureCollection', features: feats });
+        const pts = feats
+          .filter(f => f.properties.date_attempted)
+          .sort((a, b) => a.properties.date_attempted.localeCompare(b.properties.date_attempted))
+          .map(f => f.geometry.coordinates);
+        state.map.getSource('route').setData({
+          type: 'FeatureCollection',
+          features: pts.length >= 2 ? [{ type: 'Feature', geometry: { type: 'LineString', coordinates: pts }, properties: {} }] : [],
+        });
+        const lngs = feats.map(f => f.geometry.coordinates[0]);
+        const lats = feats.map(f => f.geometry.coordinates[1]);
+        state.map.fitBounds(
+          [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+          { padding: 70, maxZoom: 9, duration: 700 }
+        );
+      }
+
+      function initMap(key) {
+        const styleUrl = `https://api.maptiler.com/maps/streets-v2-dark/style.json?key=${encodeURIComponent(key)}`;
+        const map = new maplibregl.Map({ container: 'map', style: styleUrl, center: [-20, 40], zoom: 1.8 });
+        state.map = map;
+        map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+        map.on('load', () => {
+          map.addSource('pins', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+          map.addSource('route', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+          map.addLayer({ id: 'route', type: 'line', source: 'route', paint: {
+            'line-color': '#e0ff00', 'line-width': 2, 'line-opacity': .7, 'line-dasharray': [2, 1.5]
+          }});
+          map.addLayer({ id: 'pins', type: 'circle', source: 'pins', paint: {
+            'circle-radius': 6,
+            'circle-color': ['case', ['==', ['get', 'kind'], 'special'], '#f8f8f8',
+              ['match', ['get', 'result'], 'success', COLORS.success, 'failure', COLORS.failure, COLORS.unknown]],
+            'circle-stroke-width': 1.5, 'circle-stroke-color': '#1a1a1a'
+          }});
+          map.on('click', 'pins', (e) => {
+            try {
+              const f = (e.features || [])[0];
+              if (!f) return;
+              const p = f.properties;
+              const label = p.kind === 'special' ? 'SPECIAL — not a challenge'
+                : p.result === 'success' ? 'WIN' : p.result === 'failure' ? 'LOSS' : 'VERDICT PENDING';
+              new maplibregl.Popup({ closeButton: true }).setLngLat(e.lngLat).setHTML(`
+                <div style="min-width:200px;max-width:260px">
+                  <div style="font-weight:700">${esc(p.restaurant || cleanTitle(p.title))}</div>
+                  <div style="opacity:.85;margin:.15rem 0">${label} · ${fmtDate(p.date_attempted)}</div>
+                  <a href="${yt(p.video_id)}" target="_blank" rel="noopener">Watch on YouTube →</a>
+                </div>`).addTo(map);
+            } catch (err) {
+              console.warn('pin click failed:', err);
+            }
+          });
+          map.on('mouseenter', 'pins', () => map.getCanvas().style.cursor = 'pointer');
+          map.on('mouseleave', 'pins', () => map.getCanvas().style.cursor = '');
+          state.mapReady = true;
+          if (state.selected) updateMap(state.selected);
+        });
+      }
+
+      function bootMap() {
+        const key = (((window.BMF_CONFIG || {}).maptilerKey) || '').trim();
+        if (key && !/YOUR_MAPTILER_KEY|placeholder/i.test(key)) { initMap(key); return; }
+        const el = document.getElementById('map');
+        el.style.height = 'auto';
+        el.innerHTML = '<div class="muted" style="padding:.25rem 0">Map tiles need a key in assets/config.js</div>';
+      }
+
+      /* ---- boot ---- */
+      BMF.loadData().then(({ rows, features }) => {
+        BMF.nav('tours');
+        state.features = features;
+        buildTrips(rows);
+        const names = renderTripGroups();
+        document.getElementById('trips').addEventListener('click', (e) => {
+          const btn = e.target.closest('.trip-row[data-trip]');
+          if (btn) select(btn.dataset.trip);
+        });
+        bootMap();
+        if (names.length) select(names[names.length - 1]); // most recent trip by default
+      });
+    </script>
+  </body>
+</html>

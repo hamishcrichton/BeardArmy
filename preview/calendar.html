@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* Challenge calendar — collapsed to the weekday rows that hold uploads */
+      .cal-year { margin-bottom: var(--bmf-space-4); }
+      .cal-year h4 { margin: 0 0 var(--bmf-space-1); font-size: var(--bmf-font-size-200); }
+      .cal-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: var(--bmf-space-1); }
+      .cal-months { position: relative; height: 14px; font-size: .62rem; color: var(--bmf-color-text-muted);
+                    margin-left: 40px; }
+      .cal-months span { position: absolute; top: 0; }
+      .cal-row { display: flex; align-items: center; width: max-content; margin-top: 2px; }
+      .cal-tag { width: 32px; margin-right: 8px; font-size: .6rem; font-weight: 700; letter-spacing: .08em;
+                 color: var(--bmf-color-text-muted); flex: none; }
+      .cal-cells { display: flex; gap: 2px; }
+      .cal-day { width: 11px; height: 11px; border-radius: 2px; background: rgba(255,255,255,.06);
+                 flex: none; box-sizing: border-box; }
+      .cal-day.win { background: var(--win); cursor: pointer; }
+      .cal-day.loss { background: var(--loss); cursor: pointer; }
+      /* verdict pending: pencil hatch, not a solid verdict colour */
+      .cal-day.unknown { background: repeating-linear-gradient(45deg, #9ca3af 0 2px, #3a3a3a 2px 5px); cursor: pointer; }
+      /* special: neutral ring — a different SHAPE, so it can't read as a verdict or as pending */
+      .cal-day.special { background: transparent; border: 1.5px solid rgba(255,255,255,.65);
+                         border-radius: 50%; cursor: pointer; }
+      .cal-day.win:hover, .cal-day.loss:hover, .cal-day.unknown:hover, .cal-day.special:hover { outline: 2px solid var(--bmf-color-text); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Calendar</h1>
+      <div class="sub">One square per upload day — the Sunday discipline, visualised (click to watch).</div>
+
+      <div class="card">
+        <div id="calendar"></div>
+        <div class="legend">
+          <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
+          <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
+          <span class="chip"><span class="swatch pending"></span>Verdict pending</span>
+          <span class="chip"><span class="swatch" style="background:transparent;border:1.5px solid rgba(255,255,255,.65);border-radius:50%;box-sizing:border-box"></span>Special (not a challenge)</span>
+          <span class="chip"><span class="swatch" style="background:rgba(255,255,255,.06)"></span>No upload</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmtDate, isChallenge } = BMF;
+
+      const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+      const WDAY = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+      const RESULT_LABEL = { success: 'WIN', failure: 'LOSS', unknown: 'verdict pending' };
+      const rowLabel = r => isChallenge(r) ? (RESULT_LABEL[r.result] || r.result) : 'SPECIAL — not a challenge';
+
+      function mondayIndex(d) { return (d.getUTCDay() + 6) % 7; } // Mon=0 .. Sun=6
+
+      function renderCalendar(rows) {
+        const byDay = new Map(); // 'YYYY-MM-DD' -> [rows]
+        for (const r of rows) {
+          const day = (r.date_attempted || '').slice(0, 10);
+          if (!day) continue;
+          if (!byDay.has(day)) byDay.set(day, []);
+          byDay.get(day).push(r);
+        }
+        const years = [...new Set([...byDay.keys()].map(d => +d.slice(0, 4)))].sort((a, b) => b - a);
+        const host = document.getElementById('calendar');
+
+        for (const year of years) {
+          const jan1 = new Date(Date.UTC(year, 0, 1));
+          const pad = mondayIndex(jan1);
+          const daysInYear = (Date.UTC(year + 1, 0, 1) - Date.UTC(year, 0, 1)) / 86400000;
+          const weeks = Math.ceil((pad + daysInYear) / 7);
+
+          // only the weekday rows that actually contain uploads this year
+          const dows = new Set();
+          for (const key of byDay.keys()) {
+            if (key.startsWith(`${year}-`)) dows.add(mondayIndex(new Date(`${key}T00:00:00Z`)));
+          }
+          const dowList = [...dows].sort((a, b) => a - b);
+          if (!dowList.length) continue;
+
+          // month initials positioned at the week-column of each month's 1st
+          let monthsHtml = '';
+          for (let m = 0; m < 12; m++) {
+            const first = new Date(Date.UTC(year, m, 1));
+            const doy = (first - jan1) / 86400000;
+            const col = Math.floor((pad + doy) / 7);
+            monthsHtml += `<span style="left:${col * 13}px">${MONTHS[m]}</span>`;
+          }
+
+          let rowsHtml = '';
+          for (const dow of dowList) {
+            let cells = '';
+            for (let w = 0; w < weeks; w++) {
+              const doy = w * 7 + dow - pad;
+              if (doy < 0 || doy >= daysInYear) { cells += '<span class="cal-day" style="visibility:hidden"></span>'; continue; }
+              const d = new Date(Date.UTC(year, 0, 1 + doy));
+              const key = d.toISOString().slice(0, 10);
+              const dayRows = byDay.get(key);
+              if (!dayRows) { cells += '<span class="cal-day"></span>'; continue; }
+              const wins = dayRows.filter(r => r.result === 'success').length;
+              const losses = dayRows.filter(r => r.result === 'failure').length;
+              const hasPending = dayRows.some(r => isChallenge(r) && r.result !== 'success' && r.result !== 'failure');
+              const cls = wins || losses ? (wins >= losses ? 'win' : 'loss') : (hasPending ? 'unknown' : 'special');
+              cells += `<span class="cal-day ${cls}" data-day="${key}"></span>`;
+            }
+            rowsHtml += `<div class="cal-row"><span class="cal-tag">${WDAY[dow]}</span><div class="cal-cells">${cells}</div></div>`;
+          }
+
+          const el = document.createElement('div');
+          el.className = 'cal-year';
+          el.innerHTML = `<h4>${year}</h4>
+            <div class="cal-scroll">
+              <div class="cal-months" style="width:${weeks * 13}px">${monthsHtml}</div>
+              ${rowsHtml}
+            </div>`;
+          host.appendChild(el);
+        }
+
+        host.addEventListener('mousemove', (e) => {
+          const cell = e.target.closest('.cal-day[data-day]');
+          if (!cell) { BMF.tooltip.hide(); return; }
+          const dayRows = byDay.get(cell.dataset.day) || [];
+          const lines = dayRows.map(r =>
+            `<div><b>${rowLabel(r)}</b> — ${esc(cleanTitle(r.title))}</div>`).join('');
+          BMF.tooltip.show(e, `<div class="muted">${fmtDate(cell.dataset.day)}</div>${lines}`);
+        });
+        host.addEventListener('mouseleave', () => BMF.tooltip.hide());
+        host.addEventListener('click', (e) => {
+          const cell = e.target.closest('.cal-day[data-day]');
+          if (!cell) return;
+          const dayRows = byDay.get(cell.dataset.day) || [];
+          if (dayRows.length) window.open(yt(dayRows[0].video_id), '_blank', 'noopener');
+        });
+      }
+
+      BMF.nav('calendar');
+      BMF.loadData().then(({ rows }) => renderCalendar(rows));
+    </script>
+  </body>
+</html>
