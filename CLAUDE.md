@@ -93,8 +93,14 @@ Tables (see `db/sqlite_init.sql`): `videos`, `restaurants`, `challenge_types` (s
 - `frontend/components/` (Map.tsx, DataTable.tsx, Dashboard.tsx) is an **unused Next.js-ready scaffold** — no package.json, nothing imports it.
 
 ### Deployment
-**Cloudflare Pages, static, publish directory = repo root** — the same layout the local dev server uses (`python -m http.server 8123`). Root `_redirects` + fallback `index.html` send `/` to `preview/index.html`; every push to `main` (including the nightly CI data commit) auto-redeploys. The footer/meta/favicon are injected via `preview/assets/app.js` + per-page head tags.
-Legacy: `application.py` (Flask) + `Procfile` + root `requirements.txt` + `runtime.txt` are from an earlier Elastic-Beanstalk-style plan; dormant, not used by Pages.
+**Cloudflare Workers static assets, git-connected, serving the repo root** — live at https://beardarmy.hamish-a20.workers.dev/ (the dashboard "Connect to Git" flow creates a *Worker*, not a classic Pages project). Config is `wrangler.jsonc` (`assets.directory: "./"`), deploy command `npx wrangler deploy`. Same layout the local dev server uses (`python -m http.server 8123`). Root `_redirects` sends `/` → `/preview/` (301); `index.html` is a meta-refresh fallback. Every push to `main` (including the nightly CI data commit) auto-redeploys. The footer/meta/favicon are injected via `preview/assets/app.js` + per-page head tags.
+
+Two deploy gotchas (each cost a failed build to learn):
+- **`_redirects` must target `/preview/`, not `/preview/index.html`** — the static-asset handler auto-strips `.html`/`/index`, so a target ending in `index.html` is rejected as an infinite loop (`code 100324`).
+- **`.assetsignore` uses gitignore semantics** — an unanchored `data/` matches at *any* depth and silently drops `public/data/` (the published JSON the site fetches), yielding a styled site with every stat at 0. Anchor root-only excludes with a leading slash (`/data/`).
+- Each build wastes ~3 min installing Flask/gunicorn because `runtime.txt`+`requirements.txt` make Cloudflare auto-detect a Python project; harmless but eats build minutes daily. The map's MapTiler key is currently unrestricted — origin-restrict it to the workers.dev host (+ localhost) in the MapTiler dashboard.
+
+Legacy: `application.py` (Flask) + `Procfile` + root `requirements.txt` + `runtime.txt` are from an earlier Elastic-Beanstalk-style plan; dormant, not used by the Worker.
 
 ## CI / Automation
 
