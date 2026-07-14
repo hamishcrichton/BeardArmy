@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers static-assets config: the git-connected "beardarmy"
+  // worker serves the repo root as a static site (same layout as local dev).
+  // _redirects sends / to preview/index.html; .assetsignore trims the upload.
+  "name": "beardarmy",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "none"
+  }
+}

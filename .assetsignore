@@ -1,0 +1,16 @@
+# Not part of the served site (Workers static assets upload filter)
+.github/
+data/
+db/
+docs/
+eval/
+ingestion/
+reports/
+scratch/
+*.md
+*.txt
+*.py
+Procfile
+requirements.txt
+runtime.txt
+wrangler.jsonc
