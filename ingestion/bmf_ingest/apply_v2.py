@@ -24,6 +24,24 @@ SCORE_FIELDS = [
 ]
 
 
+# Canonical collaborator names: the LLM extracts whatever the transcript says,
+# so recurring people appear under several names. Keys are lowercase.
+COLLABORATOR_ALIASES = {
+    "lindsay": "Mrs Beard",
+    "lindsey": "Mrs Beard",
+    "mrs beard": "Mrs Beard",
+    "jen": "Sister Beard",
+    "jenna": "Sister Beard",
+    "sister beard": "Sister Beard",
+    "notoriousbob": "Notorious B.O.B.",
+    "notorious b.o.b.": "Notorious B.O.B.",
+}
+
+
+def canonical_collaborator(name: str) -> str:
+    return COLLABORATOR_ALIASES.get(name.strip().lower(), name.strip())
+
+
 def sane_weight(weight, title: str):
     """Guard against oz-vs-lb slips: no single challenge is >25 lb of food."""
     if weight is None or weight <= 25:
@@ -79,7 +97,7 @@ def main() -> None:
             (cid,) = row
             conn.execute("DELETE FROM challenge_collaborators WHERE challenge_id = ?", (cid,))
             for name in rec.get("collaborators") or []:
-                name = name.strip()
+                name = canonical_collaborator(name)
                 if not name:
                     continue
                 cur = conn.execute("SELECT id FROM collaborators WHERE name = ?", (name,)).fetchone()
