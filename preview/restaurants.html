@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Restaurants</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* Venue rows (dense) inside collapsible continent -> country -> (state/city)
+         groups; group chrome (.grp/.g-*) is shared in app.css */
+      .venue-rows { margin-bottom: var(--bmf-space-2); }
+      .venue-row { display: grid; grid-template-columns: minmax(160px, 1.6fr) minmax(110px, 1fr) 72px minmax(120px, 1fr) minmax(140px, 1fr);
+                   gap: var(--bmf-space-3); align-items: baseline; width: 100%;
+                   border-left: 3px solid transparent; border-bottom: 1px solid var(--border);
+                   padding: .45rem .5rem; color: var(--bmf-color-text);
+                   font-size: .85rem; text-decoration: none; }
+      .venue-row:hover { background: rgba(255, 255, 255, .05); }
+      .venue-row:hover .vr-name { text-decoration: underline 2px; text-underline-offset: 3px;
+                                  text-decoration-color: var(--bmf-color-brand); }
+      .vr-name { font-weight: 600; }
+      .vr-city, .vr-visits, .vr-last { color: var(--bmf-color-text-muted); font-size: .78rem; white-space: nowrap; }
+      .vr-wl { white-space: nowrap; }
+      .vr-wl .w { color: var(--win-text); font-weight: 700; } .vr-wl .l { color: var(--loss-text); font-weight: 700; }
+      .vr-wl .sp { color: var(--bmf-color-text-muted); font-size: .78rem; }
+      @media (max-width: 640px) {
+        .venue-row { grid-template-columns: 1fr auto; }
+        .vr-city, .vr-visits, .vr-last { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Restaurants</h1>
+      <div class="sub">Every venue on the record — open a region, pick a kitchen, see what happened to it.</div>
+
+      <div id="venues"></div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, fmtDate, countryName, continentOf, CONTINENTS, usStateOf, isChallenge } = BMF;
+
+      function mode(values) {
+        const counts = {};
+        let best = null;
+        for (const v of values) {
+          if (v == null || v === '') continue;
+          counts[v] = (counts[v] || 0) + 1;
+          if (best === null || counts[v] > counts[best]) best = v;
+        }
+        return best;
+      }
+
+      function venueRowHtml(v) {
+        return `<a class="venue-row" href="challenges.html?q=${encodeURIComponent(v.name)}">
+          <span class="vr-name">${esc(v.name)}</span>
+          <span class="vr-city">${esc(v.city || '—')}</span>
+          <span class="vr-visits">${v.visits} visit${v.visits === 1 ? '' : 's'}</span>
+          <span class="vr-wl"><span class="w">${v.w}W</span>–<span class="l">${v.l}L</span>${v.sp ? ` <span class="sp">· ${v.sp} special${v.sp === 1 ? '' : 's'}</span>` : ''}</span>
+          <span class="vr-last">${fmtDate(v.last)}</span>
+        </a>`;
+      }
+
+      // Collapsed group still informs: "United States — 143 venues · 120W–9L"
+      function summaryHtml(title, venues) {
+        const w = venues.reduce((n, v) => n + v.w, 0);
+        const l = venues.reduce((n, v) => n + v.l, 0);
+        return `<summary><span class="chev" aria-hidden="true">▸</span><span class="g-title">${esc(title)}</span>
+          <span class="g-stats">${venues.length} venue${venues.length === 1 ? '' : 's'} ·
+          <span class="w">${w}W</span>–<span class="l">${l}L</span></span></summary>`;
+      }
+
+      BMF.loadData().then(({ rows }) => {
+        BMF.nav('restaurants');
+
+        /* aggregate rows into venues (unnamed restaurants are excluded) */
+        const byName = new Map();
+        for (const r of rows) {
+          const name = (r.restaurant || '').trim();
+          if (!name) continue;
+          const v = byName.get(name) || { name, rows: [] };
+          v.rows.push(r);
+          byName.set(name, v);
+        }
+        const venues = [...byName.values()].map(v => {
+          const ch = v.rows.filter(isChallenge);
+          return {
+            name: v.name,
+            visits: v.rows.length,
+            w: ch.filter(r => r.result === 'success').length,
+            l: ch.filter(r => r.result === 'failure').length,
+            sp: v.rows.length - ch.length,
+            last: v.rows.map(r => (r.date_attempted || '').slice(0, 10)).sort().pop() || '',
+            city: mode(v.rows.map(r => (r.city || '').trim())) || '',
+            cc: mode(v.rows.map(r => r.country_code)),
+          };
+        });
+
+        /* continent -> country display name -> (US state | city | 'Various') -> [venues] */
+        const tree = new Map();
+        for (const v of venues) {
+          const continent = continentOf(v.cc);
+          const country = countryName(v.cc);
+          const third = v.cc === 'US' ? usStateOf(v.city) : (v.city || 'Various');
+          const byCountry = tree.get(continent) || new Map();
+          tree.set(continent, byCountry);
+          const byThird = byCountry.get(country) || new Map();
+          byCountry.set(country, byThird);
+          const arr = byThird.get(third) || [];
+          byThird.set(third, arr);
+          arr.push(v);
+        }
+
+        const byVisits = (a, b) => b.visits - a.visits || a.name.localeCompare(b.name);
+        const thirdOrder = (a, b) => (a === 'Various') - (b === 'Various') || a.localeCompare(b);
+
+        let html = '';
+        for (const continent of CONTINENTS) {
+          const byCountry = tree.get(continent);
+          if (!byCountry) continue;
+          const contVenues = [...byCountry.values()].flatMap(bt => [...bt.values()].flat());
+          html += `<details class="grp g-continent">${summaryHtml(continent, contVenues)}<div class="g-body">`;
+          for (const country of [...byCountry.keys()].sort()) {
+            const byThird = byCountry.get(country);
+            const countryVenues = [...byThird.values()].flat();
+            html += `<details class="grp g-country">${summaryHtml(country, countryVenues)}<div class="g-body">`;
+            for (const third of [...byThird.keys()].sort(thirdOrder)) {
+              const list = byThird.get(third).sort(byVisits);
+              html += `<details class="grp g-state">${summaryHtml(third, list)}<div class="g-body">
+                <div class="venue-rows">${list.map(venueRowHtml).join('')}</div></div></details>`;
+            }
+            html += `</div></details>`;
+          }
+          html += `</div></details>`;
+        }
+        document.getElementById('venues').innerHTML = html;
+      });
+    </script>
+  </body>
+</html>

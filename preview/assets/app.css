@@ -129,6 +129,28 @@ svg text { fill: var(--bmf-color-text); font-family: var(--bmf-font-sans); }
 .ledger-row .lr-value.loss { color: var(--loss-text); }
 .ledger-row .lr-value.pending { color: var(--unknown-text); }
 
+/* Collapsible geography groups (Tours & Series, Restaurants):
+   native <details>/<summary>, all collapsed by default. Chevron rotates and
+   goes neon on open summaries; counts live in .g-stats so a collapsed group
+   still informs. */
+.grp > summary { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; cursor: pointer;
+                 list-style: none; padding: .45rem .4rem; border-bottom: 1px solid var(--border); }
+.grp > summary::-webkit-details-marker { display: none; }
+.grp > summary:hover { background: rgba(255, 255, 255, .05); }
+.grp > summary .chev { color: var(--bmf-color-text-muted); font-size: .72em;
+                       display: inline-block; transition: transform .12s ease; }
+.grp[open] > summary .chev { transform: rotate(90deg); color: var(--bmf-color-brand); }
+.grp > summary .g-stats { color: var(--bmf-color-text-muted); font-size: .78rem; }
+.grp > summary .g-stats .w { color: var(--win-text); font-weight: 700; }
+.grp > summary .g-stats .l { color: var(--loss-text); font-weight: 700; }
+.g-body { margin-left: 18px; }
+.g-continent > summary .g-title { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.7rem;
+                                  line-height: 1; text-transform: uppercase; letter-spacing: .02em; }
+.g-country > summary .g-title { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.15rem;
+                                line-height: 1; text-transform: uppercase; letter-spacing: .04em; }
+.g-state > summary .g-title { font-size: .74rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+@media (max-width: 480px) { .g-body { margin-left: 8px; } }
+
 /* Tooltip (shared) */
 .tip { position: fixed; pointer-events: none; background: #111; color: #fff;
        border: 1px solid #ffffff2e; box-shadow: var(--bmf-shadow-3);

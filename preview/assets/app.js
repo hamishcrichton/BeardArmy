@@ -15,6 +15,9 @@
  *   BMF.cuisineLabel(key)           -> humorous display label for a cuisine bucket (falls back to key)
  *   BMF.openmojiUrl(cp)             -> OpenMoji colour-SVG CDN URL for a codepoint sequence
  *   BMF.flagUrl(cc)                 -> OpenMoji flag SVG URL for an alpha-2 country code
+ *   BMF.continentOf(cc)             -> 'Europe' | 'North America' | 'Asia & Oceania' | 'Elsewhere'
+ *   BMF.CONTINENTS                  -> display order for continent groupings
+ *   BMF.usStateOf(city)             -> US state for a city value in the data ('Various' if unknown)
  *   BMF.nav('map')                  -> injects the top nav, marking the given page active
  *   BMF.tooltip(el, html)           -> shared fixed-position tooltip helpers: show(evt, html), hide()
  */
@@ -28,6 +31,7 @@ window.BMF = (() => {
     ['calendar', 'Calendar', 'calendar.html'],
     ['map', 'Map', 'map.html'],
     ['tours', 'Tours & Series', 'tours.html'],
+    ['restaurants', 'Restaurants', 'restaurants.html'],
     ['shame', 'Wall of Shame', 'shame.html'],
   ];
 
@@ -65,6 +69,54 @@ window.BMF = (() => {
   const openmojiUrl = cp => `https://cdn.jsdelivr.net/npm/openmoji@15.1.0/color/svg/${cp}.svg`;
   const flagUrl = cc => openmojiUrl(String(cc || '').toUpperCase().split('')
     .map(c => (0x1F1E6 + c.charCodeAt(0) - 65).toString(16).toUpperCase()).join('-'));
+
+  /* Geography for the collapsible groupings (Tours & Series, Restaurants). */
+  const CONTINENT = {
+    GB: 'Europe', IE: 'Europe', DE: 'Europe', NL: 'Europe', BE: 'Europe', FR: 'Europe',
+    ES: 'Europe', IT: 'Europe', AT: 'Europe', CZ: 'Europe', PL: 'Europe', SE: 'Europe',
+    DK: 'Europe', NO: 'Europe', FI: 'Europe', IS: 'Europe', PT: 'Europe', CH: 'Europe',
+    US: 'North America', CA: 'North America', MX: 'North America', DO: 'North America',
+    SG: 'Asia & Oceania', TH: 'Asia & Oceania', JP: 'Asia & Oceania', AE: 'Asia & Oceania',
+    AU: 'Asia & Oceania', NZ: 'Asia & Oceania',
+  };
+  const CONTINENTS = ['Europe', 'North America', 'Asia & Oceania', 'Elsewhere'];
+  const continentOf = cc => CONTINENT[cc] || 'Elsewhere';
+
+  // City -> state for the US city values present in table.json. Genuinely
+  // ambiguous or unrecognised cities fall under "Various".
+  const US_CITY_STATE = {
+    'Ann Arbor': 'Michigan', 'Atlanta': 'Georgia', 'Bay Town': 'Texas', 'Bennington': 'Vermont',
+    'Boise': 'Idaho', 'Boulder City': 'Nevada', 'Buffalo': 'New York', 'Carrollton': 'Texas',
+    'Celebration': 'Florida', 'Charlotte': 'North Carolina', 'Cherry Hill': 'New Jersey',
+    'Chicago': 'Illinois', 'Cleveland': 'Ohio', 'Colon': 'Michigan', 'Columbiaville': 'Michigan',
+    'Coney Island': 'New York', 'Connecticut': 'Connecticut', 'Copperas Cove': 'Texas',
+    'Dallas': 'Texas', 'Deltona': 'Florida', 'Dickson': 'Tennessee', 'Dyersburg': 'Tennessee',
+    'Easley': 'South Carolina', 'El Cajon': 'California', 'Florida': 'Florida',
+    'Fort Worth': 'Texas', 'Gainesville': 'Florida', 'Georgia': 'Georgia', 'Globe': 'Arizona',
+    'Greenville': 'South Carolina', 'Hampton Falls': 'New Hampshire', 'Harker Heights': 'Texas',
+    'Henderson': 'Nevada', 'Houston': 'Texas', 'Islip': 'New York', 'Kennesaw': 'Georgia',
+    'Killeen': 'Texas', 'Kingman': 'Arizona', 'Ladonia': 'Texas', 'Las Vegas': 'Nevada',
+    'Logan': 'Utah', 'Long Beach': 'California', 'Long Island': 'New York',
+    'Los Angeles': 'California', 'Manhattan': 'New York', 'Massapequa': 'New York',
+    'McAlester': 'Oklahoma', 'Mesa': 'Arizona', 'Miami': 'Florida', 'Milwaukee': 'Wisconsin',
+    'Murfreesboro': 'Tennessee', 'Nashville': 'Tennessee', 'New Jersey': 'New Jersey',
+    'New Orleans': 'Louisiana', 'New York': 'New York', 'Newfane': 'New York',
+    'Newington': 'Connecticut', 'Noble': 'Oklahoma', 'Norman': 'Oklahoma',
+    'North Carolina': 'North Carolina', 'Oklahoma City': 'Oklahoma', 'Ontario': 'California',
+    'Orlando': 'Florida', 'Philadelphia': 'Pennsylvania', 'Plantersville': 'Texas',
+    'Port Orange': 'Florida', 'Portland': 'Oregon', 'Pottstown': 'Pennsylvania',
+    'Prescott': 'Arizona', 'Provo': 'Utah', 'Punta Gorda': 'Florida', 'Raleigh': 'North Carolina',
+    'Rockford': 'Illinois', 'Rogersville': 'Tennessee', 'Saginaw': 'Michigan',
+    'San Antonio': 'Texas', 'San Diego': 'California', 'Schenectady': 'New York',
+    'Schuylerville': 'New York', 'Scottsdale': 'Arizona', 'Sebring': 'Florida',
+    'South Carolina': 'South Carolina', 'Spring': 'Texas', 'St Clair': 'Michigan',
+    'St. George': 'Utah', 'Syosset': 'New York', 'Syracuse': 'New York',
+    'Tallapoosa': 'Georgia', 'Tavares': 'Florida', 'Temecula': 'California',
+    'Titusville': 'Florida', 'Tompkinsville': 'Kentucky', 'Tucker': 'Georgia',
+    'Tucson': 'Arizona', 'Twin Falls': 'Idaho', 'Vineyard': 'Utah', 'Waco': 'Texas',
+    'West Chester': 'Pennsylvania', 'Willimantic': 'Connecticut', 'Winter Garden': 'Florida',
+  };
+  const usStateOf = city => US_CITY_STATE[String(city || '').trim()] || 'Various';
 
   // Display labels for cuisine buckets, in the channel's voice (data keys unchanged).
   const CUISINE_LABEL = {
@@ -146,5 +198,6 @@ window.BMF = (() => {
     };
   })();
 
-  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge, stats, loadData, nav, tooltip };
+  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl,
+           continentOf, CONTINENTS, usStateOf, isChallenge, stats, loadData, nav, tooltip };
 })();

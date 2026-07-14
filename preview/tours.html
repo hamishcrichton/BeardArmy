@@ -11,16 +11,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      /* Trip rows (dense), grouped Continent -> Country -> (US state) */
-      .continent-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2rem; line-height: 1;
-                        text-transform: uppercase; letter-spacing: .02em; border-bottom: 1px solid rgba(255,255,255,.16);
-                        padding-bottom: 6px; margin: var(--bmf-space-6) 0 var(--bmf-space-2); }
-      #trips .continent-head:first-child { margin-top: 0; }
-      .country-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1.3rem; line-height: 1;
-                      text-transform: uppercase; letter-spacing: .04em; margin: var(--bmf-space-4) 0 var(--bmf-space-1); }
-      .state-head { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-                    color: var(--bmf-color-text-muted); margin: var(--bmf-space-2) 0 2px; }
-      .trip-rows { margin-bottom: var(--bmf-space-3); }
+      /* Trip rows (dense) inside collapsible continent -> country -> (US state)
+         groups; group chrome (.grp/.g-*) is shared in app.css */
+      .trip-rows { margin-bottom: var(--bmf-space-2); }
       .trip-row { display: grid; grid-template-columns: minmax(150px, 1.5fr) minmax(210px, 1.7fr) 84px minmax(130px, 1fr);
                   gap: var(--bmf-space-3); align-items: baseline; width: 100%;
                   background: transparent; border: 0; border-left: 3px solid transparent;
@@ -88,7 +81,7 @@
     <script src="assets/config.js"></script>
     <script src="assets/app.js"></script>
     <script>
-      const { COLORS, esc, yt, cleanTitle, fmtDate, countryName, isChallenge } = BMF;
+      const { COLORS, esc, yt, cleanTitle, fmtDate, countryName, continentOf, CONTINENTS, usStateOf, isChallenge } = BMF;
 
       const state = { trips: new Map(), features: [], map: null, mapReady: false, selected: null };
 
@@ -112,52 +105,7 @@
         }
       }
 
-      /* ---- geography for grouping ---- */
-      const CONTINENT = {
-        GB: 'Europe', IE: 'Europe', DE: 'Europe', NL: 'Europe', BE: 'Europe', FR: 'Europe',
-        ES: 'Europe', IT: 'Europe', AT: 'Europe', CZ: 'Europe', PL: 'Europe', SE: 'Europe',
-        DK: 'Europe', NO: 'Europe', FI: 'Europe', IS: 'Europe', PT: 'Europe', CH: 'Europe',
-        US: 'North America', CA: 'North America', MX: 'North America', DO: 'North America',
-        SG: 'Asia & Oceania', TH: 'Asia & Oceania', JP: 'Asia & Oceania', AE: 'Asia & Oceania',
-        AU: 'Asia & Oceania', NZ: 'Asia & Oceania',
-      };
-      const CONTINENT_ORDER = ['Europe', 'North America', 'Asia & Oceania', 'Elsewhere'];
-
-      // City -> state for the US city values present in table.json. Genuinely
-      // ambiguous or unrecognised cities are omitted and fall under "Various".
-      const US_CITY_STATE = {
-        'Ann Arbor': 'Michigan', 'Atlanta': 'Georgia', 'Bay Town': 'Texas', 'Bennington': 'Vermont',
-        'Boise': 'Idaho', 'Boulder City': 'Nevada', 'Buffalo': 'New York', 'Carrollton': 'Texas',
-        'Celebration': 'Florida', 'Charlotte': 'North Carolina', 'Cherry Hill': 'New Jersey',
-        'Chicago': 'Illinois', 'Cleveland': 'Ohio', 'Colon': 'Michigan', 'Columbiaville': 'Michigan',
-        'Coney Island': 'New York', 'Connecticut': 'Connecticut', 'Copperas Cove': 'Texas',
-        'Dallas': 'Texas', 'Deltona': 'Florida', 'Dickson': 'Tennessee', 'Dyersburg': 'Tennessee',
-        'Easley': 'South Carolina', 'El Cajon': 'California', 'Florida': 'Florida',
-        'Fort Worth': 'Texas', 'Gainesville': 'Florida', 'Georgia': 'Georgia', 'Globe': 'Arizona',
-        'Greenville': 'South Carolina', 'Hampton Falls': 'New Hampshire', 'Harker Heights': 'Texas',
-        'Henderson': 'Nevada', 'Houston': 'Texas', 'Islip': 'New York', 'Kennesaw': 'Georgia',
-        'Killeen': 'Texas', 'Kingman': 'Arizona', 'Ladonia': 'Texas', 'Las Vegas': 'Nevada',
-        'Logan': 'Utah', 'Long Beach': 'California', 'Long Island': 'New York',
-        'Los Angeles': 'California', 'Manhattan': 'New York', 'Massapequa': 'New York',
-        'McAlester': 'Oklahoma', 'Mesa': 'Arizona', 'Miami': 'Florida', 'Milwaukee': 'Wisconsin',
-        'Murfreesboro': 'Tennessee', 'Nashville': 'Tennessee', 'New Jersey': 'New Jersey',
-        'New Orleans': 'Louisiana', 'New York': 'New York', 'Newfane': 'New York',
-        'Newington': 'Connecticut', 'Noble': 'Oklahoma', 'Norman': 'Oklahoma',
-        'North Carolina': 'North Carolina', 'Oklahoma City': 'Oklahoma', 'Ontario': 'California',
-        'Orlando': 'Florida', 'Philadelphia': 'Pennsylvania', 'Plantersville': 'Texas',
-        'Port Orange': 'Florida', 'Portland': 'Oregon', 'Pottstown': 'Pennsylvania',
-        'Prescott': 'Arizona', 'Provo': 'Utah', 'Punta Gorda': 'Florida', 'Raleigh': 'North Carolina',
-        'Rockford': 'Illinois', 'Rogersville': 'Tennessee', 'Saginaw': 'Michigan',
-        'San Antonio': 'Texas', 'San Diego': 'California', 'Schenectady': 'New York',
-        'Schuylerville': 'New York', 'Scottsdale': 'Arizona', 'Sebring': 'Florida',
-        'South Carolina': 'South Carolina', 'Spring': 'Texas', 'St Clair': 'Michigan',
-        'St. George': 'Utah', 'Syosset': 'New York', 'Syracuse': 'New York',
-        'Tallapoosa': 'Georgia', 'Tavares': 'Florida', 'Temecula': 'California',
-        'Titusville': 'Florida', 'Tompkinsville': 'Kentucky', 'Tucker': 'Georgia',
-        'Tucson': 'Arizona', 'Twin Falls': 'Idaho', 'Vineyard': 'Utah', 'Waco': 'Texas',
-        'West Chester': 'Pennsylvania', 'Willimantic': 'Connecticut', 'Winter Garden': 'Florida',
-      };
-
+      /* ---- geography for grouping (shared tables live in BMF) ---- */
       function mode(values) {
         const counts = {};
         let best = null;
@@ -171,7 +119,7 @@
 
       const dominantCountry = t => mode(t.rows.map(r => r.country_code));
       const dominantState = t => mode(t.rows.filter(r => r.country_code === 'US')
-        .map(r => US_CITY_STATE[(r.city || '').trim()] || 'Various')) || 'Various';
+        .map(r => usStateOf(r.city))) || 'Various';
 
       function tripRowHtml(name) {
         const t = state.trips.get(name);
@@ -187,6 +135,24 @@
         </button>`;
       }
 
+      function groupStats(names) {
+        let bouts = 0, w = 0, l = 0;
+        for (const n of names) {
+          const ch = state.trips.get(n).rows.filter(isChallenge);
+          bouts += ch.length;
+          w += ch.filter(r => r.result === 'success').length;
+          l += ch.filter(r => r.result === 'failure').length;
+        }
+        return { trips: names.length, bouts, w, l };
+      }
+
+      // Collapsed group still informs: "North America — 24 trips · 132 bouts · 124W–8L"
+      function summaryHtml(title, s) {
+        return `<summary><span class="chev" aria-hidden="true">▸</span><span class="g-title">${esc(title)}</span>
+          <span class="g-stats">${s.trips} trip${s.trips === 1 ? '' : 's'} · ${s.bouts} bout${s.bouts === 1 ? '' : 's'} ·
+          <span class="w">${s.w}W</span>–<span class="l">${s.l}L</span></span></summary>`;
+      }
+
       function renderTripGroups() {
         const names = [...state.trips.keys()];
         // continent -> country display name -> state ('' when not US) -> [trip names]
@@ -194,7 +160,7 @@
         for (const name of names) {
           const t = state.trips.get(name);
           const cc = dominantCountry(t);
-          const continent = CONTINENT[cc] || 'Elsewhere';
+          const continent = continentOf(cc);
           const country = countryName(cc);
           const st = cc === 'US' ? dominantState(t) : '';
           const byCountry = tree.get(continent) || new Map();
@@ -207,29 +173,45 @@
         }
         const byFirst = (a, b) => state.trips.get(a).first.localeCompare(state.trips.get(b).first);
         let html = '';
-        for (const continent of CONTINENT_ORDER) {
+        for (const continent of CONTINENTS) {
           const byCountry = tree.get(continent);
           if (!byCountry) continue;
-          html += `<h2 class="continent-head">${esc(continent)}</h2>`;
+          const contNames = [...byCountry.values()].flatMap(bs => [...bs.values()].flat());
+          html += `<details class="grp g-continent">${summaryHtml(continent, groupStats(contNames))}<div class="g-body">`;
           for (const country of [...byCountry.keys()].sort()) {
-            html += `<h3 class="country-head">${esc(country)}</h3>`;
             const byState = byCountry.get(country);
+            const countryNames = [...byState.values()].flat();
+            html += `<details class="grp g-country">${summaryHtml(country, groupStats(countryNames))}<div class="g-body">`;
             const states = [...byState.keys()]
               .sort((a, b) => (a === 'Various') - (b === 'Various') || a.localeCompare(b)); // Various last
             for (const st of states) {
-              if (st) html += `<h4 class="state-head">${esc(st)}</h4>`;
-              html += `<div class="trip-rows">${byState.get(st).sort(byFirst).map(tripRowHtml).join('')}</div>`;
+              const rowsHtml = `<div class="trip-rows">${byState.get(st).sort(byFirst).map(tripRowHtml).join('')}</div>`;
+              html += st
+                ? `<details class="grp g-state">${summaryHtml(st, groupStats(byState.get(st)))}<div class="g-body">${rowsHtml}</div></details>`
+                : rowsHtml;
             }
+            html += `</div></details>`;
           }
+          html += `</div></details>`;
         }
         document.getElementById('trips').innerHTML = html;
         return names.sort(byFirst);
+      }
+
+      // Open the ancestor <details> chain of a trip so the selection is visible.
+      // Only ever OPENS groups — selecting inside one group never collapses another.
+      function revealTrip(name) {
+        const btn = [...document.querySelectorAll('.trip-row')].find(b => b.dataset.trip === name);
+        for (let d = btn && btn.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+          d.open = true;
+        }
       }
 
       /* ---- selection ---- */
       function select(name) {
         state.selected = name;
         document.querySelectorAll('.trip-row').forEach(b => b.classList.toggle('active', b.dataset.trip === name));
+        revealTrip(name);
         const t = state.trips.get(name);
         if (!t) return;
         document.getElementById('detail').hidden = false;
