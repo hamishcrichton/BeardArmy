@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Analytics</title>
-    <meta name="description" content="Win rates by cuisine and country, challenge weights, collaborators, and whether failure sells." />
+    <meta name="description" content="Win rates by cuisine and country — where the Beard wins and where the hard challenges are." />
     <meta property="og:site_name" content="BeardMeatsFood Challenge Stats (fan site)" />
     <meta property="og:title" content="BeardMeatsFood – Analytics" />
-    <meta property="og:description" content="Win rates by cuisine and country, challenge weights, collaborators, and whether failure sells." />
+    <meta property="og:description" content="Win rates by cuisine and country — where the Beard wins and where the hard challenges are." />
     <meta property="og:image" content="https://i.ytimg.com/vi/EAksgSSbJh0/maxresdefault.jpg" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -18,10 +18,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      .bar-hit { cursor: default; }
-      .views-row-label { font-size: 12px; opacity: .85; }
-      .card svg { display: block; width: 100%; }
-
       /* Win-rate tiles — cuisine and country share the format (OpenMoji colour
          SVGs, hotlinked from jsDelivr). Name reads first, rate second. */
       .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--bmf-space-3); }
@@ -45,7 +41,7 @@
   <body>
     <div class="wrap">
       <h1>Analytics</h1>
-      <div class="sub">What he eats, where he wins, and what the numbers say.</div>
+      <div class="sub">Win rates by cuisine and country — where he wins, and where the hard challenges are. More charts on <a href="statsnerd.html">Stats Nerd</a>.</div>
 
       <div class="card" id="cuisineCard">
         <div class="chart-title">Win rate by cuisine</div>
@@ -59,35 +55,12 @@
         <div class="chart-note">Decided challenges only; countries with fewer than 5 decided challenges are hidden.</div>
       </div>
 
-      <div class="card" id="yearCard">
-        <div class="chart-title">Challenges per year</div>
-        <div id="yearChart"></div>
-        <div class="legend">
-          <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
-          <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
-          <span class="chip"><span class="swatch" style="background:var(--unknown)"></span>Verdict pending</span>
-        </div>
-      </div>
-
-      <div class="card" id="weightCard">
-        <div class="chart-title">Weight of the challenge</div>
-        <div id="weightChart"></div>
-        <div class="chart-note" id="weightNote"></div>
-      </div>
-
-      <div class="card" id="viewsCard">
-        <div class="chart-title">Does failure sell? — video views by result</div>
-        <div id="viewsChart"></div>
-        <div class="chart-note">Each dot is one video (square-root view scale). White line = median; shaded band = middle 50%.</div>
-      </div>
-
       <footer class="chart-note">Food and flag icons by <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji – openmoji.org</a> (CC BY-SA 4.0).</footer>
     </div>
 
     <script src="assets/app.js"></script>
     <script>
-      const { COLORS, esc, yt, cleanTitle, fmt, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge, tooltip } = BMF;
-      const SVGNS = 'http://www.w3.org/2000/svg';
+      const { esc, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge } = BMF;
 
       // OpenMoji colour SVGs (CC BY-SA 4.0) via BMF.openmojiUrl/BMF.flagUrl — all
       // codepoints below verified to resolve at openmoji@15.1.0.
@@ -99,38 +72,12 @@
         'roast dinner': '1F372', 'other': '1F37D',
       };
 
-      // Responsive chart width: draw 1:1 at the container's current width.
-      const chartW = c => Math.max(320, Math.round(c.clientWidth || 900));
-
       const pending = (cardId) => {
         document.querySelector(`#${cardId} div[id$="Chart"], #${cardId} div[id$="Table"]`)
           .innerHTML = '<div class="chart-note">(data pending next publish)</div>';
       };
       const hasField = (rows, f) =>
         rows.some(r => Array.isArray(r[f]) ? r[f].length > 0 : r[f] != null);
-
-      function el(name, attrs, text) {
-        const n = document.createElementNS(SVGNS, name);
-        for (const [k, v] of Object.entries(attrs || {})) n.setAttribute(k, v);
-        if (text != null) n.textContent = text;
-        return n;
-      }
-
-      // Bar with the DATA end rounded (r=4) and the baseline end square.
-      function roundedBar(x, y, w, h, horizontal) {
-        const r = Math.min(4, horizontal ? w : h);
-        if (w <= 0 || h <= 0) return el('path', { d: '' });
-        const d = horizontal
-          ? `M${x},${y} h${w - r} a${r},${r} 0 0 1 ${r},${r} v${h - 2 * r} a${r},${r} 0 0 1 ${-r},${r} h${-(w - r)} z`
-          : `M${x},${y + h} v${-(h - r)} a${r},${r} 0 0 1 ${r},${-r} h${w - 2 * r} a${r},${r} 0 0 1 ${r},${r} v${h - r} z`;
-        return el('path', { d });
-      }
-
-      function attachTip(node, html) {
-        node.classList.add('bar-hit');
-        node.addEventListener('mousemove', e => tooltip.show(e, html));
-        node.addEventListener('mouseleave', tooltip.hide);
-      }
 
       function winRateBy(rows, keyFn, minN) {
         const groups = {};
@@ -169,132 +116,19 @@
         }).join('')}</div>`;
       }
 
-      const RES_LABEL = { success: 'wins', failure: 'losses', unknown: 'verdict pending' };
-
-      function yearChart(container, rows) {
-        const byYear = {};
-        for (const r of rows) {
-          const y = (r.date_attempted || '').slice(0, 4);
-          if (!/^\d{4}$/.test(y)) continue;
-          (byYear[y] ||= { success: 0, failure: 0, unknown: 0 });
-          byYear[y][r.result || 'unknown']++;
-        }
-        const years = Object.keys(byYear).sort();
-        const W = chartW(container), H = 240, pad = 24, barW = Math.min(48, (W - 2 * pad) / years.length - 8);
-        const maxN = Math.max(...years.map(y => byYear[y].success + byYear[y].failure + byYear[y].unknown));
-        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
-        years.forEach((y, i) => {
-          const x = pad + i * ((W - 2 * pad) / years.length) + 4;
-          const total = byYear[y].success + byYear[y].failure + byYear[y].unknown;
-          let cy = H - 28;
-          ['success', 'failure', 'unknown'].forEach(res => {
-            const n = byYear[y][res];
-            if (!n) return;
-            const h = Math.max(2, (H - 70) * n / maxN);
-            cy -= h;
-            const seg = el('rect', { x, y: cy, width: barW, height: h, fill: COLORS[res] });
-            attachTip(seg, `<b>${y}</b><br>${RES_LABEL[res]}: ${n} of ${total}`);
-            svg.appendChild(seg);
-            cy -= 2; // surface gap between stacked segments
-          });
-          svg.appendChild(el('text', { x: x + barW / 2, y: cy - 6, 'text-anchor': 'middle', 'font-size': 11 }, total));
-          svg.appendChild(el('text', { x: x + barW / 2, y: H - 10, 'text-anchor': 'middle', 'font-size': 11, opacity: .7 }, y));
-        });
-        container.replaceChildren(svg);
-      }
-
-      function weightChart(container, rows) {
-        const weights = rows.map(r => r.weight_lb).filter(w => w != null && w > 0);
-        document.getElementById('weightNote').textContent =
-          `${weights.length} of ${rows.length} challenges state a total food weight.`;
-        const edges = [0, 2, 4, 6, 8, 10, 12, 14, 16];
-        const bins = edges.map((lo, i) => ({
-          label: i === edges.length - 1 ? '16+' : `${lo}–${edges[i + 1]}`,
-          n: weights.filter(w => i === edges.length - 1 ? w >= lo : w >= lo && w < edges[i + 1]).length,
-        }));
-        const W = chartW(container), H = 220, pad = 24, slot = (W - 2 * pad) / bins.length;
-        const maxN = Math.max(...bins.map(b => b.n), 1);
-        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
-        bins.forEach((b, i) => {
-          const h = Math.max(b.n ? 3 : 0, (H - 64) * b.n / maxN);
-          const x = pad + i * slot + 6, y = H - 30 - h;
-          if (b.n) {
-            const bar = roundedBar(x, y, slot - 12, h, false);
-            // neon SVG fill (authentic to the official kit's small-neon usage);
-            // a quantity, not a verdict — green/red stay reserved for results
-            bar.setAttribute('fill', '#e0ff00');
-            bar.setAttribute('opacity', '.85');
-            attachTip(bar, `<b>${b.label} lb</b><br>${b.n} challenges`);
-            svg.appendChild(bar);
-            svg.appendChild(el('text', { x: x + (slot - 12) / 2, y: y - 6, 'text-anchor': 'middle', 'font-size': 11 }, b.n));
-          }
-          svg.appendChild(el('text', { x: x + (slot - 12) / 2, y: H - 12, 'text-anchor': 'middle', 'font-size': 11, opacity: .7 }, b.label));
-        });
-        container.replaceChildren(svg);
-      }
-
-      function quantile(sorted, q) {
-        const pos = (sorted.length - 1) * q, lo = Math.floor(pos);
-        return sorted[lo] + (sorted[Math.min(lo + 1, sorted.length - 1)] - sorted[lo]) * (pos - lo);
-      }
-
-      function viewsChart(container, rows) {
-        const groups = [
-          { key: 'success', label: 'Wins', color: COLORS.success },
-          { key: 'failure', label: 'Losses', color: COLORS.failure },
-        ].map(g => ({ ...g, vals: rows.filter(r => r.result === g.key && r.view_count > 0) }));
-        const all = groups.flatMap(g => g.vals.map(r => r.view_count));
-        const maxV = Math.max(...all);
-        const W = chartW(container), rowH = 74, labelW = 90, H = groups.length * rowH + 10;
-        const x = v => labelW + (W - labelW - 30) * Math.sqrt(v / maxV);
-        const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%' });
-        groups.forEach((g, gi) => {
-          const cy = gi * rowH + rowH / 2;
-          svg.appendChild(el('text', { x: labelW - 12, y: cy + 4, 'text-anchor': 'end', class: 'views-row-label' }, `${g.label} (${g.vals.length})`));
-          const sorted = g.vals.map(r => r.view_count).sort((a, b) => a - b);
-          if (!sorted.length) return;
-          const q1 = quantile(sorted, .25), med = quantile(sorted, .5), q3 = quantile(sorted, .75);
-          svg.appendChild(el('rect', { x: x(q1), y: cy - 16, width: Math.max(1, x(q3) - x(q1)), height: 32, fill: g.color, opacity: .16 }));
-          g.vals.forEach((r, i) => {
-            const jitter = ((i * 37) % 24) - 12;
-            const dot = el('circle', { cx: x(r.view_count), cy: cy + jitter, r: 3, fill: g.color, opacity: .55 });
-            attachTip(dot, `<b>${esc(cleanTitle(r.title))}</b><br>${fmt(r.view_count)} views · ${g.label.slice(0, -1)}`);
-            svg.appendChild(dot);
-          });
-          svg.appendChild(el('line', { x1: x(med), x2: x(med), y1: cy - 20, y2: cy + 20, stroke: '#f8f8f8', 'stroke-width': 2 }));
-          svg.appendChild(el('text', { x: x(med) + 6, y: cy - 24, 'font-size': 11 }, `median ${fmt(Math.round(med))}`));
-        });
-        container.replaceChildren(svg);
-      }
-
       BMF.loadData().then(({ rows }) => {
         BMF.nav('analytics');
         const ch = rows.filter(isChallenge); // specials never carry a verdict — analytics is challenges-only
 
-        const renderAll = () => {
-          if (hasField(ch, 'cuisine')) {
-            tileGrid(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5),
-              k => CUISINE_ICON[k] ? openmojiUrl(CUISINE_ICON[k]) : '', cuisineLabel,
-              k => `challenges.html?cuisine=${encodeURIComponent(k)}`);
-          } else pending('cuisineCard');
+        if (hasField(ch, 'cuisine')) {
+          tileGrid(document.getElementById('cuisineChart'), winRateBy(ch, r => r.cuisine, 5),
+            k => CUISINE_ICON[k] ? openmojiUrl(CUISINE_ICON[k]) : '', cuisineLabel,
+            k => `challenges.html?cuisine=${encodeURIComponent(k)}`);
+        } else pending('cuisineCard');
 
-          tileGrid(document.getElementById('countryChart'), winRateBy(ch, r => r.country_code, 5),
-            flagUrl, countryName,
-            cc => `challenges.html?country=${encodeURIComponent(cc)}`);
-
-          yearChart(document.getElementById('yearChart'), ch);
-
-          if (hasField(ch, 'weight_lb')) weightChart(document.getElementById('weightChart'), ch);
-          else pending('weightCard');
-
-          if (hasField(ch, 'view_count')) viewsChart(document.getElementById('viewsChart'), ch);
-          else pending('viewsCard');
-        };
-
-        renderAll();
-        // re-render at the new container width (charts draw 1:1 at render time)
-        let t;
-        window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(renderAll, 200); });
+        tileGrid(document.getElementById('countryChart'), winRateBy(ch, r => r.country_code, 5),
+          flagUrl, countryName,
+          cc => `challenges.html?country=${encodeURIComponent(cc)}`);
       });
     </script>
   </body>

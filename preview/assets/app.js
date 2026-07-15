@@ -10,6 +10,7 @@
  *                                       rows are excluded before counting)
  *   BMF.isChallenge(r)              -> false for kind==='special' rows (music videos, Q&As, tours…)
  *   BMF.esc(s) BMF.yt(id) BMF.cleanTitle(t) BMF.fmt(n)
+ *   BMF.maxBy(rows, f)              -> the row maximising f() (nulls ignored; null if none)
  *   BMF.fmtDate(iso)                -> "13 July 2026" (site-wide date format)
  *   BMF.countryName(cc)             -> display name for an alpha-2 code (falls back to the code)
  *   BMF.cuisineLabel(key)           -> humorous display label for a cuisine bucket (falls back to key)
@@ -26,7 +27,9 @@ window.BMF = (() => {
   const PAGES = [
     ['index', 'Overview', 'index.html'],
     ['challenges', 'All Challenges', 'challenges.html'],
+    ['records', 'Records', 'records.html'],
     ['analytics', 'Analytics', 'analytics.html'],
+    ['statsnerd', 'Stats Nerd', 'statsnerd.html'],
     ['collabs', 'Collaborators', 'collaborators.html'],
     ['calendar', 'Calendar', 'calendar.html'],
     ['map', 'Map', 'map.html'],
@@ -38,6 +41,14 @@ window.BMF = (() => {
   // Specials (music videos, Q&As, cheat days, food tours, milestones) are not
   // competitive bouts: they never carry a verdict and stay out of the stats.
   const isChallenge = r => (r && r.kind) !== 'special';
+
+  // Row that maximises f() over rows (nulls ignored). Shared by the pages that
+  // pick a "most" video — most-viewed, heaviest, spiciest, etc.
+  const maxBy = (rows, f) => {
+    let top = null;
+    for (const r of rows) { const v = f(r); if (v != null && (top == null || v > f(top))) top = r; }
+    return top;
+  };
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const yt = id => `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
@@ -212,6 +223,6 @@ window.BMF = (() => {
     };
   })();
 
-  return { COLORS, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl,
+  return { COLORS, maxBy, esc, yt, cleanTitle, fmt, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl,
            continentOf, CONTINENTS, usStateOf, isChallenge, stats, loadData, nav, tooltip };
 })();

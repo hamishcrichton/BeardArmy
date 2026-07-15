@@ -18,186 +18,96 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      /* ---- Tale of the tape (hero) — flat on the dark ground, huge Thunder title ---- */
+      /* ---- Hero — big stacked wordmark, then photo + scorecard ("Tale of the Tape") ---- */
       .tape { padding: var(--bmf-space-4) 0 var(--bmf-space-8); margin-bottom: var(--bmf-space-6);
               border-bottom: 1px solid rgba(255,255,255,.16); }
-      .tape-eyebrow { text-align: center; font-size: .72rem; font-weight: 700; letter-spacing: .3em;
-                      text-transform: uppercase; color: var(--bmf-color-brand); }
       .tape-title { text-align: center; font-family: var(--bmf-font-display); font-weight: 700;
-                    font-size: clamp(4.5rem, 19vw, 16.5rem); line-height: .85; margin: .1em 0 .12em;
+                    font-size: clamp(4rem, 14vw, 11rem); line-height: .78; margin: 0 0 .14em;
                     text-transform: uppercase; letter-spacing: .01em; }
-      .tape-title .vs { font-family: var(--bmf-font-sans); font-style: italic; font-weight: 400;
-                        font-size: .28em; color: var(--bmf-color-brand); padding: 0 .2em;
-                        text-transform: none; vertical-align: .28em; }
+      .tape-title span { display: block; }
+      .tape-title .m { color: var(--bmf-color-brand); }
       .tape-sub { text-align: center; color: var(--bmf-color-text-muted);
-                  margin: 0 0 var(--bmf-space-8); }
-      .tape-grid { display: grid; grid-template-columns: minmax(170px, 5fr) minmax(250px, 8fr) minmax(170px, 5fr);
-                   gap: clamp(16px, 3vw, 44px); align-items: center; }
-      .tape-name { text-align: center; font-family: var(--bmf-font-display); font-weight: 700;
-                   font-size: 1.6rem; letter-spacing: .05em; margin-bottom: var(--bmf-space-3); }
-      .tape-photo { width: 100%; max-width: 250px; justify-self: center; }
+                  margin: 0 0 var(--bmf-space-8); font-size: var(--bmf-font-size-200);
+                  letter-spacing: .02em; }
+      .tape-grid { display: grid; grid-template-columns: minmax(260px, 6fr) minmax(300px, 7fr);
+                   gap: clamp(20px, 4vw, 56px); align-items: center; }
+      .tape-photo { width: 100%; max-width: 460px; justify-self: center; }
       .tape-photo .snap { transform: rotate(-2.2deg); }
-      .tape-photo.right .snap { transform: rotate(1.8deg); }
-      /* fixed crop windows into the 16:9 thumbnails (visually tuned; adjust here) */
+      /* fixed crop window into the 16:9 thumbnail (visually tuned; adjust here) */
       .tape-photo .crop { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 5; }
       .tape-photo .crop img { position: absolute; max-width: none; aspect-ratio: auto;
                               width: 270.3%; left: -85.1%; top: 0; }
-      .tape-photo.right .crop img { width: 460.8%; left: -135.9%; top: -107.8%; }
+      .tape-scorecard-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .3em;
+                                text-transform: uppercase; color: var(--bmf-color-brand);
+                                margin-bottom: var(--bmf-space-3); }
       .tape-rows .ledger-row { padding: .42rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
       .tape-rows .ledger-row:last-child { border-bottom: 0; }
-      .tape-rows .lr-value { font-size: 1.9rem; }
-      .stampv { display: inline-block; border: 3px double; border-radius: 5px; padding: 2px 10px 4px; }
-      .stampv.win { border-color: var(--win); transform: rotate(-2deg); }
-      .stampv.loss { border-color: var(--loss); transform: rotate(1.5deg); }
-      .stampv.pending { border: 2px dashed var(--unknown); transform: rotate(-1deg); }
+      .tape-rows .lr-value { font-size: clamp(1.4rem, 3.4vw, 1.9rem); }
+      .tape-rows .lr-value .w { color: var(--win-text); }
+      .tape-rows .lr-value .l { color: var(--loss-text); }
+      .tape-rows .note { font-size: .75rem; color: var(--bmf-color-text-muted); padding-top: .55rem; }
       @media (max-width: 760px) {
         .tape-grid { grid-template-columns: 1fr; }
-        .tape-photo { max-width: 220px; }
+        .tape-photo { max-width: 320px; }
       }
-
-      .tape-rows .note { font-size: .75rem; color: var(--bmf-color-text-muted); padding-top: .55rem; }
-
-      /* ---- For the record (folded in from the old Records page) ---- */
-      .section-head { font-family: var(--bmf-font-display); font-weight: 700; font-size: 2.4rem;
-                      line-height: 1; text-transform: uppercase; letter-spacing: .02em;
-                      margin: var(--bmf-space-6) 0 var(--bmf-space-3); }
-      .records { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
-      .rec .detail { font-size: var(--bmf-font-size-100); margin-top: var(--bmf-space-2); }
-      .rec .detail a { opacity: .9; }
-      .rec ul { margin: var(--bmf-space-2) 0 0; padding-left: 1.1rem; font-size: var(--bmf-font-size-100); }
-      .rec li { margin-bottom: .25rem; }
     </style>
   </head>
   <body>
     <div class="wrap">
       <section class="tape">
-        <div class="tape-eyebrow">Tale of the tape · est. 2015</div>
-        <h1 class="tape-title">Beard <span class="vs">vs</span> Food</h1>
-        <p class="tape-sub">Every restaurant challenge on the channel — weighed, located and logged.</p>
+        <h1 class="tape-title"><span>Beard</span><span class="m">Meats</span><span>Food</span></h1>
+        <p class="tape-sub">Every Challenge. Every Bite.</p>
         <div class="tape-grid">
           <div class="tape-photo">
-            <div class="tape-name">BEARD</div>
             <div class="snap"><span class="crop"><img src="https://i.ytimg.com/vi/EAksgSSbJh0/maxresdefault.jpg"
               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/EAksgSSbJh0/hqdefault.jpg'"
               alt="Adam Moran, hands behind head, sizing up a giant burger" /></span>
               <span class="cap">The UK's hairiest competitive eater.</span>
             </div>
           </div>
-          <div class="tape-rows" id="tapeRows"></div>
-          <div class="tape-photo right">
-            <div class="tape-name">FOOD</div>
-            <div class="snap"><span class="crop"><img src="https://i.ytimg.com/vi/TbhMjH6ZjXo/maxresdefault.jpg"
-              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/TbhMjH6ZjXo/hqdefault.jpg'"
-              alt="Portugal's biggest burger challenge" /></span>
-              <span class="cap">Appearing today as Portugal's biggest burger — 600 failures in ten years.</span>
-            </div>
+          <div class="tape-scorecard">
+            <div class="tape-scorecard-eyebrow">Tale of the tape · est. 2015</div>
+            <div class="tape-rows" id="tapeRows"></div>
           </div>
         </div>
       </section>
-
-      <h2 class="section-head">For the record</h2>
-      <div class="records" id="records"></div>
     </div>
 
     <script src="assets/app.js"></script>
     <script>
-      const { esc, yt, cleanTitle, fmt, fmtDate, countryName, isChallenge } = BMF;
+      const { isChallenge, maxBy } = BMF;
 
-      function maxBy(rows, f) {
-        let top = null;
-        for (const r of rows) { const v = f(r); if (v != null && (top == null || v > f(top))) top = r; }
-        return top;
-      }
-
-      /* ---- Tale of the tape (true challenges only; stats already exclude specials) ---- */
+      /* ---- Tale of the tape / scorecard (true challenges only; stats already exclude specials).
+              The six data rows compute live from table.json and refresh with the nightly data
+              commit; Age / Provenance / Catchphrase are static bio facts with no data field. ---- */
       function renderTape(rows, s) {
         const ch = rows.filter(isChallenge);
         const specialsN = rows.length - ch.length;
-        const pendingN = s.total - s.wins - s.losses;
         const rate = s.wins + s.losses ? (100 * s.wins / (s.wins + s.losses)).toFixed(1) : '–';
         const heaviest = maxBy(ch, r => r.weight_lb);
         const items = [
-          ['Bouts', s.total],
-          ['Won', s.wins, 'win stampv'],
-          ['Lost', s.losses, 'loss stampv'],
-          ['Verdict pending', pendingN, 'pending stampv'],
-          ['Win rate', `${rate}%`],
-          ['Countries', s.countries],
-          ['Heaviest', heaviest ? `${heaviest.weight_lb} LB` : '–'],
-          ['Longest streak', s.longest],
+          ['Challenges', s.total],
+          ['Record', `<span class="w">${s.wins}</span>–<span class="l">${s.losses}</span>`],
+          ['Win Rate', `${rate}%`],
+          ['Countries Visited', s.countries],
+          ['Heaviest', heaviest ? `${heaviest.weight_lb} lb` : '–'],
+          ['Longest Streak', `${s.longest} wins`],
+          ['Age', '40'],
+          ['Provenance', 'Yorkshire'],
+          ['Catchphrase', 'Let’s Get It'],
         ];
-        document.getElementById('tapeRows').innerHTML = items.map(([label, value, cls]) => `
+        document.getElementById('tapeRows').innerHTML = items.map(([label, value]) => `
           <div class="ledger-row">
             <span class="lr-label">${label}</span><span class="lr-dots"></span>
-            <span class="lr-value ${cls || ''}">${value}</span>
+            <span class="lr-value">${value}</span>
           </div>`).join('') + (specialsN ? `
           <div class="note">+ ${specialsN} specials — cheat days, Q&amp;As, tours &amp; music videos, not counted above.</div>` : '');
-      }
-
-      /* ---- For the record (hero already carries record/rate/streak — no duplicates;
-              specials are excluded from every record) ---- */
-      const link = r => `<a href="${yt(r.video_id)}" target="_blank" rel="noopener">${esc(cleanTitle(r.title))}</a>`;
-
-      function card(num, label, detail) {
-        return `<div class="tile rec"><div class="num">${num}</div><div class="label">${label}</div>
-                <div class="detail">${detail}</div></div>`;
-      }
-
-      function renderRecords(allRows, stats) {
-        const rows = allRows.filter(isChallenge);
-        const cards = [];
-
-        const mostViewed = maxBy(rows, r => r.view_count);
-        cards.push(mostViewed
-          ? card(fmt(mostViewed.view_count), 'Most-viewed challenge', link(mostViewed))
-          : card('–', 'Most-viewed challenge', '(pending next publish)'));
-
-        const byMonth = {};
-        for (const r of rows) {
-          if (r.result !== 'success') continue;
-          const m = (r.date_attempted || '').slice(0, 7);
-          if (m) byMonth[m] = (byMonth[m] || 0) + 1;
-        }
-        const topMonth = Object.entries(byMonth).sort((a, b) => b[1] - a[1])[0];
-        if (topMonth) {
-          const [ym, n] = topMonth;
-          const label = new Date(`${ym}-01T00:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-          cards.push(card(n, 'Most wins in a month', label));
-        }
-
-        const venues = {};
-        for (const r of rows) {
-          const name = (r.restaurant || '').trim();
-          if (!name) continue;
-          const v = (venues[name] ||= { n: 0, w: 0, l: 0 });
-          v.n++;
-          if (r.result === 'success') v.w++;
-          if (r.result === 'failure') v.l++;
-        }
-        const topVenues = Object.entries(venues).sort((a, b) => b[1].n - a[1].n).slice(0, 5);
-        cards.push(`<div class="tile rec"><div class="num">${topVenues[0] ? topVenues[0][1].n : '–'}</div>
-          <div class="label">Most-visited venues</div>
-          <ul>${topVenues.map(([n, v]) => `<li>${esc(n)} — ${v.n} visits (${v.w}W–${v.l}L)</li>`).join('')}</ul></div>`);
-
-        const ccGroups = {};
-        for (const r of rows) {
-          if (!r.country_code || (r.result !== 'success' && r.result !== 'failure')) continue;
-          const g = (ccGroups[r.country_code] ||= { n: 0, l: 0 });
-          g.n++;
-          if (r.result === 'failure') g.l++;
-        }
-        const conquered = Object.entries(ccGroups).filter(([, g]) => g.n >= 2 && g.l === 0).map(([cc]) => cc).sort();
-        cards.push(card(conquered.length, 'Countries conquered (undefeated, 2+ challenges)',
-          conquered.map(countryName).join(' · ') || '—'));
-
-        document.getElementById('records').innerHTML = cards.join('');
       }
 
       /* ---- boot ---- */
       BMF.nav('index');
       BMF.loadData().then(({ rows, stats }) => {
         renderTape(rows, stats);
-        renderRecords(rows, stats);
       }).catch(() => {
         document.getElementById('tapeRows').innerHTML =
           '<div class="muted" style="padding:1rem 0">Could not load published data — run the publish step and serve the repo root.</div>';

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeardMeatsFood – Records</title>
+    <meta name="description" content="The channel's all-time bests: most-viewed challenge, longest streaks, spiciest plate, top collaborator and more." />
+    <meta property="og:site_name" content="BeardMeatsFood Challenge Stats (fan site)" />
+    <meta property="og:title" content="BeardMeatsFood – Records" />
+    <meta property="og:description" content="The channel's all-time bests: most-viewed challenge, longest streaks, spiciest plate, top collaborator and more." />
+    <meta property="og:image" content="https://i.ytimg.com/vi/EAksgSSbJh0/maxresdefault.jpg" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+      /* Record tiles (folded out of the old homepage "For the record" block). */
+      .records { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--bmf-space-4); margin-bottom: var(--bmf-space-4); }
+      .rec .detail { font-size: var(--bmf-font-size-100); margin-top: var(--bmf-space-2); }
+      .rec .detail a { opacity: .9; }
+      .rec ul { margin: var(--bmf-space-2) 0 0; padding-left: 1.1rem; font-size: var(--bmf-font-size-100); }
+      .rec li { margin-bottom: .25rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Records</h1>
+      <div class="sub">The channel's all-time bests, worsts and one-offs — specials excluded.</div>
+
+      <div class="records" id="records"></div>
+    </div>
+
+    <script src="assets/app.js"></script>
+    <script>
+      const { esc, yt, cleanTitle, fmt, countryName, isChallenge, maxBy } = BMF;
+
+      const link = r => `<a href="${yt(r.video_id)}" target="_blank" rel="noopener">${esc(cleanTitle(r.title))}</a>`;
+
+      function card(num, label, detail) {
+        return `<div class="tile rec"><div class="num">${num}</div><div class="label">${label}</div>
+                <div class="detail">${detail}</div></div>`;
+      }
+
+      function renderRecords(allRows) {
+        const rows = allRows.filter(isChallenge);
+        const cards = [];
+
+        // Most-viewed challenge
+        const mostViewed = maxBy(rows, r => r.view_count);
+        cards.push(mostViewed
+          ? card(fmt(mostViewed.view_count), 'Most-viewed challenge', link(mostViewed))
+          : card('–', 'Most-viewed challenge', '(pending next publish)'));
+
+        // Most wins in a single month
+        const byMonth = {};
+        for (const r of rows) {
+          if (r.result !== 'success') continue;
+          const m = (r.date_attempted || '').slice(0, 7);
+          if (m) byMonth[m] = (byMonth[m] || 0) + 1;
+        }
+        const topMonth = Object.entries(byMonth).sort((a, b) => b[1] - a[1])[0];
+        if (topMonth) {
+          const [ym, n] = topMonth;
+          const label = new Date(`${ym}-01T00:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+          cards.push(card(n, 'Most wins in a month', label));
+        }
+
+        // Busiest year (most challenges attempted in a single calendar year)
+        const byYear = {};
+        for (const r of rows) {
+          const y = (r.date_attempted || '').slice(0, 4);
+          if (/^\d{4}$/.test(y)) byYear[y] = (byYear[y] || 0) + 1;
+        }
+        const topYear = Object.entries(byYear).sort((a, b) => b[1] - a[1])[0];
+        if (topYear) cards.push(card(topYear[1], 'Busiest year', topYear[0]));
+
+        // Top collaborator (most appearances alongside Beard, over true challenges)
+        const collCount = {}, collVids = {};
+        for (const r of rows) {
+          for (const name of r.collaborators || []) {
+            collCount[name] = (collCount[name] || 0) + 1;
+            (collVids[name] ||= []).push(r);
+          }
+        }
+        const topColl = Object.entries(collCount).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+        if (topColl) {
+          const [name, n] = topColl;
+          const topVid = maxBy(collVids[name].filter(r => r.video_id), r => r.view_count);
+          cards.push(card(n, 'Top collaborator',
+            `<b>${esc(name)}</b>${topVid ? ` — most-watched together: ${link(topVid)}` : ''}`));
+        }
+
+        // Spiciest challenge (highest spiciness score; most-viewed among ties)
+        const spicy = rows.filter(r => r.spiciness_score != null);
+        if (spicy.length) {
+          const maxS = Math.max(...spicy.map(r => r.spiciness_score));
+          const spiciest = maxBy(spicy.filter(r => r.spiciness_score === maxS), r => r.view_count);
+          cards.push(card(`${maxS}/10`, 'Spiciest challenge', link(spiciest)));
+        }
+
+        // Most-visited city
+        const cityGroups = {};
+        for (const r of rows) {
+          const c = (r.city || '').trim();
+          if (!c) continue;
+          const g = (cityGroups[c] ||= { n: 0, cc: r.country_code });
+          g.n++;
+        }
+        const topCity = Object.entries(cityGroups).sort((a, b) => b[1].n - a[1].n)[0];
+        if (topCity) {
+          const [city, g] = topCity;
+          cards.push(card(g.n, 'Most-visited city', `${esc(city)}${g.cc ? `, ${esc(countryName(g.cc))}` : ''}`));
+        }
+
+        // Most-visited venues (top 5, with his W–L there)
+        const venues = {};
+        for (const r of rows) {
+          const name = (r.restaurant || '').trim();
+          if (!name) continue;
+          const v = (venues[name] ||= { n: 0, w: 0, l: 0 });
+          v.n++;
+          if (r.result === 'success') v.w++;
+          if (r.result === 'failure') v.l++;
+        }
+        const topVenues = Object.entries(venues).sort((a, b) => b[1].n - a[1].n).slice(0, 5);
+        cards.push(`<div class="tile rec"><div class="num">${topVenues[0] ? topVenues[0][1].n : '–'}</div>
+          <div class="label">Most-visited venues</div>
+          <ul>${topVenues.map(([n, v]) => `<li>${esc(n)} — ${v.n} visits (${v.w}W–${v.l}L)</li>`).join('')}</ul></div>`);
+
+        // Countries conquered (undefeated across 2+ challenges)
+        const ccGroups = {};
+        for (const r of rows) {
+          if (!r.country_code || (r.result !== 'success' && r.result !== 'failure')) continue;
+          const g = (ccGroups[r.country_code] ||= { n: 0, l: 0 });
+          g.n++;
+          if (r.result === 'failure') g.l++;
+        }
+        const conquered = Object.entries(ccGroups).filter(([, g]) => g.n >= 2 && g.l === 0).map(([cc]) => cc).sort();
+        cards.push(card(conquered.length, 'Countries conquered (undefeated, 2+ challenges)',
+          conquered.map(countryName).join(' · ') || '—'));
+
+        document.getElementById('records').innerHTML = cards.join('');
+      }
+
+      BMF.nav('records');
+      BMF.loadData().then(({ rows }) => {
+        renderRecords(rows);
+      }).catch(() => {
+        document.getElementById('records').innerHTML =
+          '<div class="muted" style="padding:1rem 0">Could not load published data — run the publish step and serve the repo root.</div>';
+      });
+    </script>
+  </body>
+</html>
