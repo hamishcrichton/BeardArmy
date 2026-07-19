@@ -1,6 +1,33 @@
 {
   "rows": [
     {
+      "id": 748,
+      "video_id": "LDWtr2ZDyRE",
+      "title": "THAT VIRAL WHEELBARROW OF TIRAMISU CHALLENGE THAT HAS NEVER BEEN BEATEN! | BeardMeatsFood",
+      "restaurant": null,
+      "address": null,
+      "city": null,
+      "country_code": null,
+      "date_attempted": "2026-07-18",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": null,
+      "cuisine": "other",
+      "kind": "challenge",
+      "weight_lb": null,
+      "view_count": 1649829,
+      "collaborators": [],
+      "thumbnail_url": "https://i.ytimg.com/vi/LDWtr2ZDyRE/hqdefault.jpg",
+      "place_source": null,
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
+      "spiciness_score": 0,
+      "food_diversity_score": 0,
+      "risk_level_score": 0,
+      "trip_name": null
+    },
+    {
       "id": 747,
       "video_id": "I3rvTLFy7_U",
       "title": "NOBODY HAS EVER BEATEN 'THE EIGHTH WONDER OF THE WORLD' CHALLENGE! | BeardMeatsFood",
@@ -15,7 +42,7 @@
       "cuisine": "burger",
       "kind": "challenge",
       "weight_lb": 10.0,
-      "view_count": 4809903,
+      "view_count": 5035818,
       "collaborators": [],
       "thumbnail_url": "https://i.ytimg.com/vi/I3rvTLFy7_U/hqdefault.jpg",
       "place_source": "llm_v2",
@@ -731,7 +758,7 @@
       "spiciness_score": 4,
       "food_diversity_score": 7,
       "risk_level_score": 7,
-      "trip_name": "France trip, Jan 2026"
+      "trip_name": "USA trip, Jan 2026"
     },
     {
       "id": 720,
@@ -758,7 +785,7 @@
       "spiciness_score": 1,
       "food_diversity_score": 6,
       "risk_level_score": 8,
-      "trip_name": "France trip, Jan 2026"
+      "trip_name": "USA trip, Jan 2026"
     },
     {
       "id": 719,
