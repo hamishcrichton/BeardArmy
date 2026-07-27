@@ -1,6 +1,33 @@
 {
   "rows": [
     {
+      "id": 749,
+      "video_id": "Y4Ll32FLMA8",
+      "title": "WIN A SWORD IF YOU CAN BEAT SLOVENIA'S 'FAT JOE' BURGER CHALLENGE RECORD! | BeardMeatsFood",
+      "restaurant": "Stari Pisker",
+      "address": null,
+      "city": "BeardMeatsFood",
+      "country_code": null,
+      "date_attempted": "2026-07-26",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": null,
+      "cuisine": "other",
+      "kind": "challenge",
+      "weight_lb": null,
+      "view_count": 1584185,
+      "collaborators": [],
+      "thumbnail_url": "https://i.ytimg.com/vi/Y4Ll32FLMA8/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
+      "spiciness_score": 0,
+      "food_diversity_score": 0,
+      "risk_level_score": 0,
+      "trip_name": null
+    },
+    {
       "id": 748,
       "video_id": "LDWtr2ZDyRE",
       "title": "MANCHESTER’S INFAMOUS WHEELBARROW OF TIRAMISU CHALLENGE HAS NEVER BEEN BEATEN! | BeardMeatsFood",
@@ -893,7 +920,7 @@
       "spiciness_score": 2,
       "food_diversity_score": 5,
       "risk_level_score": 6,
-      "trip_name": "Singapore trip, Nov 2025"
+      "trip_name": "Czechia trip, Nov 2025"
     },
     {
       "id": 715,
@@ -920,7 +947,7 @@
       "spiciness_score": 7,
       "food_diversity_score": 7,
       "risk_level_score": 7,
-      "trip_name": "Singapore trip, Nov 2025"
+      "trip_name": "Czechia trip, Nov 2025"
     },
     {
       "id": 714,
