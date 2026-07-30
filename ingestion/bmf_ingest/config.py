@@ -26,7 +26,7 @@ class Settings:
         return Settings(
             youtube_api_key=os.getenv("YOUTUBE_API_KEY", ""),
             youtube_channel_id=os.getenv("YOUTUBE_CHANNEL_ID"),
-            database_url=os.getenv("DATABASE_URL"),
+            database_url=os.getenv("DATABASE_URL", "sqlite:///./data/app.db"),
             geocoder_provider=os.getenv("GEOCODER_PROVIDER"),
             geocoder_api_key=os.getenv("GEOCODER_API_KEY"),
             data_dir=os.getenv("DATA_DIR", os.path.abspath(os.path.join(os.getcwd(), "data"))),

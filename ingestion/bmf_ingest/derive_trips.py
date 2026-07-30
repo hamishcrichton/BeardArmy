@@ -89,7 +89,9 @@ def derive_trip_names(rows: list[dict]) -> dict[str, str]:
         if len(run) < MIN_TRIP_SIZE:
             return
         ccs = [r.get("country_code") for r in run if r.get("country_code")]
-        main_cc = max(set(ccs), key=ccs.count) if ccs else None
+        # max over the list, not a set: ties then resolve to the earliest country
+        # in the run (set iteration order varies per process — hash randomization)
+        main_cc = max(ccs, key=ccs.count) if ccs else None
         where = COUNTRY_NAMES.get(main_cc, main_cc or "Away")
         d0 = _parse_date(run[0]["date_attempted"])
         name = f"{where} trip, {_MONTHS[d0.month - 1]} {d0.year}"

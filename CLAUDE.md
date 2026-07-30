@@ -114,7 +114,7 @@ Legacy: `application.py` (Flask) + `Procfile` + root `requirements.txt` + `runti
 
 Loaded by `ingestion/bmf_ingest/config.py`; `.env` is auto-loaded via python-dotenv (see `.env.example`):
 - `YOUTUBE_API_KEY`, `YOUTUBE_CHANNEL_ID` (BeardMeatsFood: `UCc9CjaAjsMMvaSghZB7-Kog`)
-- `DATABASE_URL` (`sqlite:///./data/app.db` or a PostgreSQL URL)
+- `DATABASE_URL` (defaults to `sqlite:///./data/app.db`; set only to point at a different DB, e.g. PostgreSQL)
 - `GEOCODER_PROVIDER` (only `opencage` is implemented), `GEOCODER_API_KEY`
 - `DATA_DIR` (default `./data`; captions land in `<DATA_DIR>/captions/`)
 - `USE_LLM_EXTRACTION` (default false), `LLM_PROVIDER` (`anthropic`|`openai`), `ANTHROPIC_API_KEY`/`OPENAI_API_KEY`, `LLM_MODEL` (optional override)
