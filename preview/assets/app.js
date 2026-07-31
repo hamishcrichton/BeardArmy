@@ -32,7 +32,6 @@ window.BMF = (() => {
     ['analytics', 'Analytics', 'analytics.html'],
     ['statsnerd', 'Stats Nerd', 'statsnerd.html'],
     ['collabs', 'Collaborators', 'collaborators.html'],
-    ['calendar', 'Calendar', 'calendar.html'],
     ['map', 'Map', 'map.html'],
     ['restaurants', 'Restaurants', 'restaurants.html'],
     ['shame', 'Wall of Shame', 'shame.html'],
@@ -134,7 +133,7 @@ window.BMF = (() => {
     'burger': 'Burger Off!',
     'breakfast': 'The Full English',
     'pizza': 'Pizza the Action',
-    'dessert & sweet': 'Do You Have Any Desserts?',
+    'dessert & sweet': 'Do You Have A Dessert Menu?',
     'wings & chicken': 'Winging It',
     'sandwich & sub': 'Sub-mission',
     'mexican': "Mexican or Mexican't?",
@@ -178,8 +177,8 @@ window.BMF = (() => {
 
   function nav(active) {
     // Masthead: CSS roundel homage to the channel's butcher-stamp logo + top nav.
-    // The homepage hero carries the roundel inside its title lockup, so the
-    // masthead there is nav-only.
+    // The homepage hero carries the roundel itself, so the masthead there is
+    // nav-only.
     const el = document.createElement('header');
     el.className = 'masthead';
     const roundel = active === 'index' ? '' : `

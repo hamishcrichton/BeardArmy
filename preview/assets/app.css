@@ -48,7 +48,7 @@ a:hover { text-decoration-color: var(--bmf-color-brand); }
            transform: rotate(-4deg); }
 .roundel .r-x { font-size: .7em; }
 .roundel .r-w { font-family: var(--bmf-font-display); font-weight: 700; font-size: 1em; }
-/* Gap and tracking shrink before anything wraps: nine items fit one line at 1200px. */
+/* Gap and tracking shrink before anything wraps: eight items fit one line at 1200px. */
 .nav { display: flex; gap: clamp(.7rem, 1.6vw, var(--bmf-space-6)); flex-wrap: wrap; margin: 0; }
 .nav a { padding: .35rem 0; border-bottom: 2px solid transparent; text-decoration: none;
          text-transform: uppercase; letter-spacing: .1em; font-weight: 500;

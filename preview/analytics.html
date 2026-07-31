@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Analytics</title>
-    <meta name="description" content="Win rates by cuisine and country — where the Beard wins and where the hard challenges are." />
+    <meta name="description" content="Win rates by cuisine and country, plus the upload calendar — where the Beard wins and where the hard challenges are." />
     <meta property="og:site_name" content="BeardMeatsFood Challenge Stats (fan site)" />
     <meta property="og:title" content="BeardMeatsFood – Analytics" />
-    <meta property="og:description" content="Win rates by cuisine and country — where the Beard wins and where the hard challenges are." />
+    <meta property="og:description" content="Win rates by cuisine and country, plus the upload calendar — where the Beard wins and where the hard challenges are." />
     <meta property="og:image" content="https://i.ytimg.com/vi/EAksgSSbJh0/maxresdefault.jpg" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -36,12 +36,40 @@
       /* tiles link to the matching filtered view on All Challenges */
       a.ctile { text-decoration: none; color: inherit; }
       a.ctile:hover { border-color: rgba(224, 255, 0, .5); }
+      /* Country card: best three left, worst three right, single-column stacks */
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--bmf-space-3); }
+      @media (max-width: 640px) { .split { grid-template-columns: 1fr; } }
+      .split .cgrid { grid-template-columns: 1fr; }
+      .split-head { font-size: .72rem; font-weight: 700; letter-spacing: .2em;
+                    text-transform: uppercase; color: var(--bmf-color-text-muted);
+                    margin-bottom: var(--bmf-space-2); }
+      /* Challenge calendar — collapsed to the weekday rows that hold uploads */
+      .cal-year { margin-bottom: var(--bmf-space-4); }
+      .cal-year h4 { margin: 0 0 var(--bmf-space-1); font-size: var(--bmf-font-size-200); }
+      .cal-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: var(--bmf-space-1); }
+      .cal-months { position: relative; height: 14px; font-size: .62rem; color: var(--bmf-color-text-muted);
+                    margin-left: 40px; }
+      .cal-months span { position: absolute; top: 0; }
+      .cal-row { display: flex; align-items: center; width: max-content; margin-top: 2px; }
+      .cal-tag { width: 32px; margin-right: 8px; font-size: .6rem; font-weight: 700; letter-spacing: .08em;
+                 color: var(--bmf-color-text-muted); flex: none; }
+      .cal-cells { display: flex; gap: 2px; }
+      .cal-day { width: 11px; height: 11px; border-radius: 2px; background: rgba(255,255,255,.06);
+                 flex: none; box-sizing: border-box; }
+      .cal-day.win { background: var(--win); cursor: pointer; }
+      .cal-day.loss { background: var(--loss); cursor: pointer; }
+      /* verdict pending: pencil hatch, not a solid verdict colour */
+      .cal-day.unknown { background: repeating-linear-gradient(45deg, #9ca3af 0 2px, #3a3a3a 2px 5px); cursor: pointer; }
+      /* special: neutral ring — a different SHAPE, so it can't read as a verdict or as pending */
+      .cal-day.special { background: transparent; border: 1.5px solid rgba(255,255,255,.65);
+                         border-radius: 50%; cursor: pointer; }
+      .cal-day.win:hover, .cal-day.loss:hover, .cal-day.unknown:hover, .cal-day.special:hover { outline: 2px solid var(--bmf-color-text); }
     </style>
   </head>
   <body>
     <div class="wrap">
       <h1>Analytics</h1>
-      <div class="sub">Win rates by cuisine and country — where he wins, and where the hard challenges are. More charts on <a href="statsnerd.html">Stats Nerd</a>.</div>
+      <div class="sub">Win rates by cuisine and country, plus the upload calendar — where he wins, and where the hard challenges are. More charts on <a href="statsnerd.html">Stats Nerd</a>.</div>
 
       <div class="card" id="cuisineCard">
         <div class="chart-title">Win rate by cuisine</div>
@@ -51,8 +79,23 @@
 
       <div class="card" id="countryCard">
         <div class="chart-title">Where the hard challenges are — win rate by country</div>
-        <div id="countryChart"></div>
-        <div class="chart-note">Decided challenges only; countries with fewer than 5 decided challenges are hidden.</div>
+        <div class="split">
+          <div><div class="split-head">Top 3</div><div id="countryTop"></div></div>
+          <div><div class="split-head">Bottom 3</div><div id="countryBottom"></div></div>
+        </div>
+        <div class="chart-note">Decided challenges only; countries with fewer than 3 decided challenges are hidden. Best three on the left, worst three on the right.</div>
+      </div>
+
+      <div class="card" id="calendarCard">
+        <div class="chart-title">The Sunday discipline — one square per upload day (click to watch)</div>
+        <div id="calendar"></div>
+        <div class="legend">
+          <span class="chip"><span class="swatch" style="background:var(--win)"></span>Win</span>
+          <span class="chip"><span class="swatch" style="background:var(--loss)"></span>Loss</span>
+          <span class="chip"><span class="swatch pending"></span>Verdict pending</span>
+          <span class="chip"><span class="swatch" style="background:transparent;border:1.5px solid rgba(255,255,255,.65);border-radius:50%;box-sizing:border-box"></span>Special (not a challenge)</span>
+          <span class="chip"><span class="swatch" style="background:rgba(255,255,255,.06)"></span>No upload</span>
+        </div>
       </div>
 
       <footer class="chart-note">Food and flag icons by <a href="https://openmoji.org" target="_blank" rel="noopener">OpenMoji – openmoji.org</a> (CC BY-SA 4.0).</footer>
@@ -60,7 +103,7 @@
 
     <script src="assets/app.js"></script>
     <script>
-      const { esc, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge } = BMF;
+      const { esc, yt, cleanTitle, fmtDate, countryName, cuisineLabel, openmojiUrl, flagUrl, isChallenge } = BMF;
 
       // OpenMoji colour SVGs (CC BY-SA 4.0) via BMF.openmojiUrl/BMF.flagUrl — all
       // codepoints below verified to resolve at openmoji@15.1.0.
@@ -116,6 +159,95 @@
         }).join('')}</div>`;
       }
 
+      const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+      const WDAY = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+      const RESULT_LABEL = { success: 'WIN', failure: 'LOSS', unknown: 'verdict pending' };
+      const rowLabel = r => isChallenge(r) ? (RESULT_LABEL[r.result] || r.result) : 'SPECIAL — not a challenge';
+
+      function mondayIndex(d) { return (d.getUTCDay() + 6) % 7; } // Mon=0 .. Sun=6
+
+      // Takes RAW rows, not the challenges-only filter: specials deliberately
+      // render as ring cells so the upload rhythm stays complete.
+      function renderCalendar(rows) {
+        const byDay = new Map(); // 'YYYY-MM-DD' -> [rows]
+        for (const r of rows) {
+          const day = (r.date_attempted || '').slice(0, 10);
+          if (!day) continue;
+          if (!byDay.has(day)) byDay.set(day, []);
+          byDay.get(day).push(r);
+        }
+        const years = [...new Set([...byDay.keys()].map(d => +d.slice(0, 4)))].sort((a, b) => b - a);
+        const host = document.getElementById('calendar');
+
+        for (const year of years) {
+          const jan1 = new Date(Date.UTC(year, 0, 1));
+          const pad = mondayIndex(jan1);
+          const daysInYear = (Date.UTC(year + 1, 0, 1) - Date.UTC(year, 0, 1)) / 86400000;
+          const weeks = Math.ceil((pad + daysInYear) / 7);
+
+          // only the weekday rows that actually contain uploads this year
+          const dows = new Set();
+          for (const key of byDay.keys()) {
+            if (key.startsWith(`${year}-`)) dows.add(mondayIndex(new Date(`${key}T00:00:00Z`)));
+          }
+          const dowList = [...dows].sort((a, b) => a - b);
+          if (!dowList.length) continue;
+
+          // month initials positioned at the week-column of each month's 1st
+          let monthsHtml = '';
+          for (let m = 0; m < 12; m++) {
+            const first = new Date(Date.UTC(year, m, 1));
+            const doy = (first - jan1) / 86400000;
+            const col = Math.floor((pad + doy) / 7);
+            monthsHtml += `<span style="left:${col * 13}px">${MONTHS[m]}</span>`;
+          }
+
+          let rowsHtml = '';
+          for (const dow of dowList) {
+            let cells = '';
+            for (let w = 0; w < weeks; w++) {
+              const doy = w * 7 + dow - pad;
+              if (doy < 0 || doy >= daysInYear) { cells += '<span class="cal-day" style="visibility:hidden"></span>'; continue; }
+              const d = new Date(Date.UTC(year, 0, 1 + doy));
+              const key = d.toISOString().slice(0, 10);
+              const dayRows = byDay.get(key);
+              if (!dayRows) { cells += '<span class="cal-day"></span>'; continue; }
+              const wins = dayRows.filter(r => r.result === 'success').length;
+              const losses = dayRows.filter(r => r.result === 'failure').length;
+              const hasPending = dayRows.some(r => isChallenge(r) && r.result !== 'success' && r.result !== 'failure');
+              const cls = wins || losses ? (wins >= losses ? 'win' : 'loss') : (hasPending ? 'unknown' : 'special');
+              cells += `<span class="cal-day ${cls}" data-day="${key}"></span>`;
+            }
+            rowsHtml += `<div class="cal-row"><span class="cal-tag">${WDAY[dow]}</span><div class="cal-cells">${cells}</div></div>`;
+          }
+
+          const el = document.createElement('div');
+          el.className = 'cal-year';
+          el.innerHTML = `<h4>${year}</h4>
+            <div class="cal-scroll">
+              <div class="cal-months" style="width:${weeks * 13}px">${monthsHtml}</div>
+              ${rowsHtml}
+            </div>`;
+          host.appendChild(el);
+        }
+
+        host.addEventListener('mousemove', (e) => {
+          const cell = e.target.closest('.cal-day[data-day]');
+          if (!cell) { BMF.tooltip.hide(); return; }
+          const dayRows = byDay.get(cell.dataset.day) || [];
+          const lines = dayRows.map(r =>
+            `<div><b>${rowLabel(r)}</b> — ${esc(cleanTitle(r.title))}</div>`).join('');
+          BMF.tooltip.show(e, `<div class="muted">${fmtDate(cell.dataset.day)}</div>${lines}`);
+        });
+        host.addEventListener('mouseleave', () => BMF.tooltip.hide());
+        host.addEventListener('click', (e) => {
+          const cell = e.target.closest('.cal-day[data-day]');
+          if (!cell) return;
+          const dayRows = byDay.get(cell.dataset.day) || [];
+          if (dayRows.length) window.open(yt(dayRows[0].video_id), '_blank', 'noopener');
+        });
+      }
+
       BMF.loadData().then(({ rows }) => {
         BMF.nav('analytics');
         const ch = rows.filter(isChallenge); // specials never carry a verdict — analytics is challenges-only
@@ -126,9 +258,17 @@
             k => `challenges.html?cuisine=${encodeURIComponent(k)}`);
         } else pending('cuisineCard');
 
-        tileGrid(document.getElementById('countryChart'), winRateBy(ch, r => r.country_code, 5),
-          flagUrl, countryName,
-          cc => `challenges.html?country=${encodeURIComponent(cc)}`);
+        // Countries use a lower bar than cuisine (3 vs 5) — few countries have
+        // 5+ decided challenges, and a top/bottom split needs six distinct rows.
+        const country = winRateBy(ch, r => r.country_code, 3);
+        const countryHref = cc => `challenges.html?country=${encodeURIComponent(cc)}`;
+        tileGrid(document.getElementById('countryTop'), country.slice(0, 3),
+          flagUrl, countryName, countryHref);
+        // worst first; slicing from the remainder can never overlap the top 3
+        tileGrid(document.getElementById('countryBottom'), country.slice(3).slice(-3).reverse(),
+          flagUrl, countryName, countryHref);
+
+        renderCalendar(rows);
       });
     </script>
   </body>
