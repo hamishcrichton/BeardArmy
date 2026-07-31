@@ -24,8 +24,9 @@
  */
 window.BMF = (() => {
   const COLORS = { success: '#00d084', failure: '#ff4d4f', unknown: '#9ca3af' };
+  // The homepage has no nav entry — the masthead roundel (and the hero mark on
+  // index itself) is the way home.
   const PAGES = [
-    ['index', 'Overview', 'index.html'],
     ['challenges', 'All Challenges', 'challenges.html'],
     ['records', 'Records', 'records.html'],
     ['analytics', 'Analytics', 'analytics.html'],
@@ -33,7 +34,6 @@ window.BMF = (() => {
     ['collabs', 'Collaborators', 'collaborators.html'],
     ['calendar', 'Calendar', 'calendar.html'],
     ['map', 'Map', 'map.html'],
-    ['tours', 'Tours & Series', 'tours.html'],
     ['restaurants', 'Restaurants', 'restaurants.html'],
     ['shame', 'Wall of Shame', 'shame.html'],
   ];
@@ -81,7 +81,7 @@ window.BMF = (() => {
   const flagUrl = cc => openmojiUrl(String(cc || '').toUpperCase().split('')
     .map(c => (0x1F1E6 + c.charCodeAt(0) - 65).toString(16).toUpperCase()).join('-'));
 
-  /* Geography for the collapsible groupings (Tours & Series, Restaurants). */
+  /* Geography for the collapsible groupings (Restaurants). */
   const CONTINENT = {
     GB: 'Europe', IE: 'Europe', DE: 'Europe', NL: 'Europe', BE: 'Europe', FR: 'Europe',
     ES: 'Europe', IT: 'Europe', AT: 'Europe', CZ: 'Europe', PL: 'Europe', SE: 'Europe',
@@ -178,12 +178,15 @@ window.BMF = (() => {
 
   function nav(active) {
     // Masthead: CSS roundel homage to the channel's butcher-stamp logo + top nav.
+    // The homepage hero carries the roundel inside its title lockup, so the
+    // masthead there is nav-only.
     const el = document.createElement('header');
     el.className = 'masthead';
-    el.innerHTML = `
-      <a class="roundel" href="index.html" aria-label="BeardMeatsFood — overview">
+    const roundel = active === 'index' ? '' : `
+      <a class="roundel" href="index.html" aria-label="BeardMeatsFood — home">
         <span class="r-x">&#10005;</span><span class="r-w">BEARD</span><span class="r-w">MEATS</span><span class="r-w">FOOD</span><span class="r-x">&#9733;</span>
-      </a>
+      </a>`;
+    el.innerHTML = `${roundel}
       <nav class="nav">${PAGES.map(([key, label, href]) =>
         `<a href="${href}" class="${key === active ? 'active' : ''}">${label}</a>`).join('')}</nav>`;
     const wrap = document.querySelector('.wrap') || document.body;

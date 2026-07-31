@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BeardMeatsFood – Overview</title>
-    <meta name="description" content="Every BeardMeatsFood restaurant challenge, weighed, located and logged - the tale of the tape: 644 wins, 65 losses across 18 countries." />
+    <meta name="description" content="Every BeardMeatsFood restaurant challenge, weighed, located and logged - the tale of the tape: 646 W – 38 D – 65 L across 18 countries." />
     <meta property="og:site_name" content="BeardMeatsFood Challenge Stats (fan site)" />
     <meta property="og:title" content="BeardMeatsFood – Overview" />
-    <meta property="og:description" content="Every BeardMeatsFood restaurant challenge, weighed, located and logged - the tale of the tape: 644 wins, 65 losses across 18 countries." />
+    <meta property="og:description" content="Every BeardMeatsFood restaurant challenge, weighed, located and logged - the tale of the tape: 646 W – 38 D – 65 L across 18 countries." />
     <meta property="og:image" content="https://i.ytimg.com/vi/EAksgSSbJh0/maxresdefault.jpg" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -18,11 +18,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="assets/app.css" />
     <style>
-      /* ---- Hero — big stacked wordmark, then photo + scorecard ("Tale of the Tape") ---- */
+      /* ---- Hero — roundel + stacked wordmark lockup, then photo + scorecard ("Tale of the Tape") ---- */
       .tape { padding: var(--bmf-space-4) 0 var(--bmf-space-8); margin-bottom: var(--bmf-space-6);
               border-bottom: 1px solid rgba(255,255,255,.16); }
-      .tape-title { text-align: center; font-family: var(--bmf-font-display); font-weight: 700;
-                    font-size: clamp(4rem, 14vw, 11rem); line-height: .78; margin: 0 0 .14em;
+      .tape-mark { display: flex; align-items: center; justify-content: center;
+                   gap: clamp(16px, 3.5vw, 44px); margin: 0 0 .5rem; }
+      /* diameter = 6.4em of this font-size: ~118px on a phone up to ~325px on desktop */
+      .tape-mark .roundel { font-size: clamp(1.15rem, 4.2vw, 3.17rem); }
+      .tape-title { text-align: left; font-family: var(--bmf-font-display); font-weight: 700;
+                    font-size: clamp(3.4rem, 12vw, 9.5rem); line-height: .78; margin: 0;
                     text-transform: uppercase; letter-spacing: .01em; }
       .tape-title span { display: block; }
       .tape-title .m { color: var(--bmf-color-brand); }
@@ -43,8 +47,6 @@
       .tape-rows .ledger-row { padding: .42rem 0; border-bottom: 1px solid rgba(255,255,255,.08); }
       .tape-rows .ledger-row:last-child { border-bottom: 0; }
       .tape-rows .lr-value { font-size: clamp(1.4rem, 3.4vw, 1.9rem); }
-      .tape-rows .lr-value .w { color: var(--win-text); }
-      .tape-rows .lr-value .l { color: var(--loss-text); }
       .tape-rows .note { font-size: .75rem; color: var(--bmf-color-text-muted); padding-top: .55rem; }
       @media (max-width: 760px) {
         .tape-grid { grid-template-columns: 1fr; }
@@ -55,7 +57,12 @@
   <body>
     <div class="wrap">
       <section class="tape">
-        <h1 class="tape-title"><span>Beard</span><span class="m">Meats</span><span>Food</span></h1>
+        <div class="tape-mark">
+          <span class="roundel" aria-hidden="true">
+            <span class="r-x">&#10005;</span><span class="r-w">BEARD</span><span class="r-w">MEATS</span><span class="r-w">FOOD</span><span class="r-x">&#9733;</span>
+          </span>
+          <h1 class="tape-title"><span>Beard</span><span class="m">Meats</span><span>Food</span></h1>
+        </div>
         <p class="tape-sub">Every Challenge. Every Bite.</p>
         <div class="tape-grid">
           <div class="tape-photo">
@@ -87,7 +94,7 @@
         const heaviest = maxBy(ch, r => r.weight_lb);
         const items = [
           ['Challenges', s.total],
-          ['Record', `<span class="w">${s.wins}</span>–<span class="l">${s.losses}</span>`],
+          ['Record', `${s.wins} W – ${specialsN} D – ${s.losses} L`],
           ['Win Rate', `${rate}%`],
           ['Countries Visited', s.countries],
           ['Heaviest', heaviest ? `${heaviest.weight_lb} lb` : '–'],
@@ -101,7 +108,7 @@
             <span class="lr-label">${label}</span><span class="lr-dots"></span>
             <span class="lr-value">${value}</span>
           </div>`).join('') + (specialsN ? `
-          <div class="note">+ ${specialsN} specials — cheat days, Q&amp;As, tours &amp; music videos, not counted above.</div>` : '');
+          <div class="note">The D: ${specialsN} specials — cheat days, Q&amp;As, tours &amp; music videos. No verdict, no defeat.</div>` : '');
       }
 
       /* ---- boot ---- */
