@@ -38,3 +38,6 @@ data/
 *.log
 eval/label_batches/
 ~$*
+
+# personal assistant config (committed CLAUDE.md holds shared facts)
+CLAUDE.local.md

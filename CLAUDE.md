@@ -67,6 +67,18 @@ python test_extraction.py
 python test_llm_extraction.py   # etc.: test_caption_download, test_enhanced_extraction, test_extractor_standalone, test_improved_extraction
 ```
 
+## Working with Claude
+
+Task routing follows the global dev cycle (global CLAUDE.md): trivial → do + verify; small → plan mode,
+then `/code-review` before commit; feature/multi-session → superpowers brainstorming → writing-plans →
+executing-plans (+ test-driven-development); non-obvious bugs → systematic-debugging.
+
+Repo specifics:
+- **Test:** `python test_extraction.py`, `python test_llm_extraction.py`, etc. (standalone root scripts — no pytest harness); extraction accuracy via `python eval/run_eval.py data/derived/extractions_v2.jsonl`
+- **Lint/typecheck:** none configured
+- **Done means:** relevant test scripts pass (no lint configured)
+- **Plans/specs live in:** `docs/plans/`
+
 ## Architecture
 
 ### Pipeline flow (`ingestion/bmf_ingest/`)
