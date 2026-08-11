@@ -114,7 +114,7 @@ class LLMExtractor:
         self.api_key = api_key or self._get_api_key()
 
         if self.provider == "anthropic":
-            self.model = model or "claude-3-haiku-20240307"
+            self.model = model or "claude-haiku-4-5"
             self._init_anthropic()
         elif self.provider == "openai":
             self.model = model or "gpt-4o-mini"
