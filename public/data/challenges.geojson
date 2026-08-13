@@ -6,6 +6,80 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -63.5994425,
+          44.6852045
+        ]
+      },
+      "properties": {
+        "id": 751,
+        "video_id": "ma9ex8_Pvhw",
+        "title": "ONLY ONE PERSON HAS EVER BEATEN THIS GIANT DONER KEBAB CHALLENGE! | BeardMeatsFood",
+        "restaurant": "King of Donair",
+        "address": "King of Donair, 451 Windmill Road, Dartmouth, NS B3A 1J9, Canada",
+        "city": "Halifax",
+        "country_code": "CA",
+        "date_attempted": "2026-08-09",
+        "result": "success",
+        "type": "mixed",
+        "food_type": "Doner kebab pizza",
+        "cuisine": "pizza",
+        "kind": "challenge",
+        "weight_lb": 6.0,
+        "view_count": 3031053,
+        "collaborators": [],
+        "thumbnail_url": "https://i.ytimg.com/vi/ma9ex8_Pvhw/hqdefault.jpg",
+        "place_source": "llm_v2",
+        "food_volume_score": 8,
+        "time_limit_score": 9,
+        "success_rate_score": 9,
+        "spiciness_score": 2,
+        "food_diversity_score": 7,
+        "risk_level_score": 8,
+        "trip_name": "SI trip, Jul 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.9358442,
+          45.2704159
+        ]
+      },
+      "properties": {
+        "id": 750,
+        "video_id": "2swQywZylCE",
+        "title": "ITALY’S 'KILLER SANDWICH CHALLENGE’ HAS ONLY BEEN BEATEN ONCE IN OVER 10 YEARS! | BeardMeatsFood",
+        "restaurant": "Academy Evergreen Burger",
+        "address": "Academy evergreen burger, Piazza Accademia 24, 35024 Bovolenta Padua, Italy",
+        "city": "Bovolenta",
+        "country_code": "IT",
+        "date_attempted": "2026-08-02",
+        "result": "success",
+        "type": "quantity",
+        "food_type": "sandwich",
+        "cuisine": "sandwich & sub",
+        "kind": "challenge",
+        "weight_lb": null,
+        "view_count": 3998309,
+        "collaborators": [],
+        "thumbnail_url": "https://i.ytimg.com/vi/2swQywZylCE/hqdefault.jpg",
+        "place_source": "llm_v2",
+        "food_volume_score": 9,
+        "time_limit_score": 8,
+        "success_rate_score": 9,
+        "spiciness_score": 1,
+        "food_diversity_score": 6,
+        "risk_level_score": 8,
+        "trip_name": "SI trip, Jul 2026"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           15.2640217,
           46.2290716
         ]
@@ -35,7 +109,7 @@
         "spiciness_score": 2,
         "food_diversity_score": 5,
         "risk_level_score": 6,
-        "trip_name": null
+        "trip_name": "SI trip, Jul 2026"
       }
     },
     {
