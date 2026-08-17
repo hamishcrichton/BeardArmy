@@ -1,5 +1,5 @@
 {
-  "_comment": "Owner-adjudicated verdicts (2026-07-14 review of the pending workbook). Applied LAST by apply_v2 - these outrank extraction and classification.",
+  "_comment": "Owner-adjudicated verdicts. Applied LAST by apply_v2 - these outrank extraction and classification. Keys: result/kind (apply_v2), venue:'none' = no physical venue, never geocoded (regeocode_v2). Batch 1: 2026-07-14 review of the pending workbook. Batch 2: 2026-08-13 community corrections from the r/BeardMeatsFood launch thread - seven 'feat. Sister Beard' videos where the extractor logged Sister Beard's defeat as Adam's (transcripts confirm Adam completed each: medal/certificate, '25 quid richer', 'winning plate', 'that's it for me', full cheerleader mode after finishing, 'got it down in time... 25 quid prize'; the Big Mexican is the least explicit but Adam narrates finishing the last nachos and never concedes), and four Taco Bell / Papa John's bundle videos eaten at home / in the car / as takeaway that the geocoder had pinned to Dartford branches.",
   "vAQMa6y4mXM": {"result": "success", "kind": "challenge"},
   "Adhi_zR2TOM": {"result": "success", "kind": "challenge"},
   "l7gpM6-fNv4": {"result": "failure", "kind": "challenge"},
@@ -21,5 +21,16 @@
   "d1BtmeVQ-sw": {"result": "success", "kind": "challenge"},
   "Oep9v_eLVPU": {"result": "success", "kind": "challenge"},
   "r46stlz-bZg": {"result": "success", "kind": "challenge"},
-  "cCRrsekZ210": {"result": "success", "kind": "challenge"}
+  "cCRrsekZ210": {"result": "success", "kind": "challenge"},
+  "1SdlDfMfGyM": {"result": "success", "kind": "challenge"},
+  "76JFmHhhqmc": {"result": "success", "kind": "challenge"},
+  "3cIa43yHxVA": {"result": "success", "kind": "challenge"},
+  "ugCgLSK62JA": {"result": "success", "kind": "challenge"},
+  "S_Y2euCqh80": {"result": "success", "kind": "challenge"},
+  "vmbfBEXIoLQ": {"result": "success", "kind": "challenge"},
+  "OqxRTy7tpO8": {"result": "success", "kind": "challenge"},
+  "qE2qCUgd8m8": {"venue": "none"},
+  "hHjwX4WdWiU": {"venue": "none"},
+  "GFCTEUPkfgY": {"venue": "none"},
+  "GZnv-obQNeI": {"venue": "none"}
 }

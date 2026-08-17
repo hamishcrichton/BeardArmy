@@ -117,6 +117,8 @@ def main() -> None:
                      if k != "_comment"}  # NB: real video ids can start with "_"
         applied = 0
         for vid, o in overrides.items():
+            if o.get("result") is None and o.get("kind") is None:
+                continue  # venue-only override (see regeocode_v2) — leave result/source alone
             cur = conn.execute(
                 "UPDATE challenges SET result = COALESCE(?, result), kind = COALESCE(?, kind), source = 'owner' WHERE video_id = ?",
                 (o.get("result"), o.get("kind"), vid),

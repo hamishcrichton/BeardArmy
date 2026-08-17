@@ -7,6 +7,8 @@ UNIQUE venue once via OpenCage (results cached in a geocode_cache table, so
 re-runs cost zero API calls), and repoints challenges at the new rows.
 
 Venue resolution ladder per video:
+  0. data/overrides.json entry with "venue": "none" -> restaurant_id NULL,
+     never geocoded (owner-adjudicated: eaten at home / takeaway / in the car)
   1. restaurant_name + city  -> geocode "name, city" restricted to country
   2. low confidence / miss   -> geocode "city" alone, place_source llm_v2_approx
   3. no restaurant_name      -> challenge keeps its v1 restaurant link
@@ -29,8 +31,20 @@ from pathlib import Path
 import requests
 
 V2_PATH = Path("data/derived/extractions_v2.jsonl")
+OVERRIDES_PATH = Path("data/overrides.json")
 OPENCAGE_URL = "https://api.opencagedata.com/geocode/v1/json"
 MIN_CONFIDENCE = 5  # OpenCage confidence 1-10; below this we fall back to city level
+
+
+def load_no_venue_overrides() -> set[str]:
+    """Video ids the owner has marked as having no physical venue ("venue": "none")."""
+    if not OVERRIDES_PATH.exists():
+        return set()
+    overrides = json.loads(OVERRIDES_PATH.read_text(encoding="utf-8"))
+    return {
+        vid for vid, o in overrides.items()
+        if vid != "_comment" and isinstance(o, dict) and o.get("venue") == "none"
+    }
 
 
 def slugify(*parts: str | None) -> str:
@@ -108,11 +122,14 @@ def main() -> None:
         raise SystemExit("GEOCODER_API_KEY missing from environment/.env")
 
     records = [json.loads(l) for l in V2_PATH.open(encoding="utf-8") if l.strip()]
+    no_venue = load_no_venue_overrides()
 
     # unique venues: slug -> representative fields + member video_ids
     venues: dict[str, dict] = {}
     skipped = 0
     for rec in records:
+        if rec["video_id"] in no_venue:
+            continue  # owner says: no physical venue — never geocode or link
         name, city, cc = rec.get("restaurant_name"), rec.get("city"), rec.get("country_code")
         if not name:
             skipped += 1
@@ -121,7 +138,8 @@ def main() -> None:
         v = venues.setdefault(slug, {"name": name, "city": city, "cc": cc, "videos": []})
         v["videos"].append(rec["video_id"])
 
-    print(f"{len(records)} extractions -> {len(venues)} unique venues; {skipped} videos have no restaurant name (unlink)")
+    print(f"{len(records)} extractions -> {len(venues)} unique venues; {skipped} videos have no restaurant name (unlink); "
+          f"{len(no_venue)} owner-marked venue:none")
     if args.dry_run:
         sample = list(venues.values())[:8]
         for v in sample:
@@ -208,6 +226,14 @@ def main() -> None:
                 nameless,
             )
             stats["unlinked_nameless"] = cur.rowcount
+        # Owner-adjudicated "no venue" videos outrank every extraction/venue link.
+        if no_venue:
+            marks = ",".join("?" * len(no_venue))
+            cur = conn.execute(
+                f"UPDATE challenges SET restaurant_id = NULL WHERE video_id IN ({marks}) AND restaurant_id IS NOT NULL",
+                sorted(no_venue),
+            )
+            stats["unlinked_owner_no_venue"] = cur.rowcount
     finally:
         conn.commit()
         print(f"done: {stats} | api_calls={geo.api_calls}")
