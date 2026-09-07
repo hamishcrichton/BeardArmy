@@ -1,6 +1,33 @@
 {
   "rows": [
     {
+      "id": 755,
+      "video_id": "DKM9mcohMtY",
+      "title": "I ORDERED THE BIGGEST SANDWICH IN NOVA SCOTIA...'DAN'S MONSTER SUB CHALLENGE!' | BeardMeatsFood",
+      "restaurant": "Welcome back folks",
+      "address": null,
+      "city": "BeardMeatsFood",
+      "country_code": null,
+      "date_attempted": "2026-09-06",
+      "result": "unknown",
+      "type": "quantity",
+      "food_type": null,
+      "cuisine": "other",
+      "kind": "challenge",
+      "weight_lb": null,
+      "view_count": 2302699,
+      "collaborators": [],
+      "thumbnail_url": "https://i.ytimg.com/vi/DKM9mcohMtY/hqdefault.jpg",
+      "place_source": "opencage",
+      "food_volume_score": 0,
+      "time_limit_score": 0,
+      "success_rate_score": 0,
+      "spiciness_score": 0,
+      "food_diversity_score": 0,
+      "risk_level_score": 0,
+      "trip_name": null
+    },
+    {
       "id": 754,
       "video_id": "sZfTAD2wEBM",
       "title": "I WENT TO MILAN TO TRY BREAK A 10 YEAR RIB EATING RECORD! | BeardMeatsFood",
